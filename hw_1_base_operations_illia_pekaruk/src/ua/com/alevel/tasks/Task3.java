@@ -1,10 +1,10 @@
-package ua.com.alevel;
+package ua.com.alevel.tasks;
 
 
 import java.util.Scanner;
 
 public class Task3 {
-    public static void main(String[] args) {
+    public void run() {
         int startTime = 540, oddBreak = 5, evenBreak = 15, lessonTime = 45;
         Scanner scanner = new Scanner(System.in);
         int numberOfLesson;
