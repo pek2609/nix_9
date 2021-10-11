@@ -1,17 +1,17 @@
 package ua.com.alevel.tasks;
 
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Task3 {
     public void run() {
-        int startTime = 540, oddBreak = 5, evenBreak = 15, lessonTime = 45;
-        Scanner scanner = new Scanner(System.in);
-        int numberOfLesson;
+        int startTime = 540, oddBreak = 5, evenBreak = 15, lessonTime = 45, numberOfLesson;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.println("Enter number from(1-10): ");
             try {
-                numberOfLesson = Integer.parseInt(scanner.nextLine());
+                numberOfLesson = Integer.parseInt(bufferedReader.readLine());
                 if (numberOfLesson <= 10 && numberOfLesson >= 1) {
                     break;
                 } else {
