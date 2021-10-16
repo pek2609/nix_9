@@ -4,7 +4,7 @@ package ua.com.alevel.tasks;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Task3 {
+public class EndOfLesson {
     public void run() {
         int startTime = 540, oddBreak = 5, evenBreak = 15, lessonTime = 45, numberOfLesson;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -19,7 +19,7 @@ public class Task3 {
                 }
 
             } catch (Exception e) {
-                System.out.println(e.toString() + "\nTry again...");
+                System.out.println(e + "\nTry again...");
             }
         }
         int endTime = startTime + numberOfLesson * lessonTime + numberOfLesson / 2 * oddBreak + (numberOfLesson - 1) / 2 * evenBreak;

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-public class Task1 {
+public class SumOfDigitsInString {
     public void run() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the string:");
@@ -16,9 +16,9 @@ public class Task1 {
             e.printStackTrace();
         }
         int sumOfDigits = 0;
-        for (int i = 0; i < enterString.length; i++) {
-            if (Character.isDigit(enterString[i])) {
-                sumOfDigits += Character.getNumericValue(enterString[i]);
+        for (char c : enterString) {
+            if (Character.isDigit(c)) {
+                sumOfDigits += Character.getNumericValue(c);
             }
         }
         System.out.println("Sum of digits in the string = " + sumOfDigits);

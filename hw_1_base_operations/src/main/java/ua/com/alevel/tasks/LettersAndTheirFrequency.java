@@ -4,11 +4,10 @@ package ua.com.alevel.tasks;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Task2 {
+public class LettersAndTheirFrequency {
     public void run() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the string:");
@@ -27,6 +26,6 @@ public class Task2 {
                 characterIntegerMap.put(symbol, lenDiff);
             }
         }
-        System.out.println(characterIntegerMap.toString());
+        System.out.println(characterIntegerMap);
     }
 }
