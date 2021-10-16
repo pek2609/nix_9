@@ -1,11 +1,14 @@
 package ua.com.alevel.tasks;
 
+import ua.com.alevel.TaskRunner;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-public class SumOfDigitsInString {
+public class SumOfDigitsInString implements TaskRunner {
+
     public void run() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the string:");
