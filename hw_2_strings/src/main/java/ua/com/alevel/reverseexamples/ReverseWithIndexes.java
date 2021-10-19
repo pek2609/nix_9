@@ -16,7 +16,7 @@ public class ReverseWithIndexes implements TaskRunner {
         while (true) {
             try {
                 System.out.println("Enter the string: ");
-                src =bufferedReader.readLine();
+                src = bufferedReader.readLine();
                 System.out.println("Enter the first index: ");
                 firstIndex = Integer.parseInt(bufferedReader.readLine());
                 System.out.println("Enter the last index: ");
