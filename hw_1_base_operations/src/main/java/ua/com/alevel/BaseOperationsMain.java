@@ -5,7 +5,6 @@ import ua.com.alevel.tasks.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BaseOperationsMain {
 
     public static void main(String[] args) {

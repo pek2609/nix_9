@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ReverseByWord implements TaskRunner {
+
     @Override
     public void run() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
