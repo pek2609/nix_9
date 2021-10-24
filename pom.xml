@@ -26,6 +26,8 @@
         <module>console_helper</module>
         <module>hw_2_strings</module>
         <module>string_helper</module>
+        <module>module_1</module>
+        <module>hw_3_start_oop</module>
     </modules>
 
     <properties>
