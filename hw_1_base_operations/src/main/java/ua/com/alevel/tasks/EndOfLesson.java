@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class EndOfLesson implements TaskRunner {
+
     public void run() {
         int startTime = 540, oddBreak = 5, evenBreak = 15, lessonTime = 45, numberOfLesson;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
