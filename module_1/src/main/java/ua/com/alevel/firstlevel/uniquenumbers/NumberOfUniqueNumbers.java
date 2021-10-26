@@ -1,11 +1,13 @@
-package ua.com.alevel.firstlevel;
+package ua.com.alevel.firstlevel.uniquenumbers;
+
+import ua.com.alevel.TaskRunner;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NumberOfUniqueSymbols {
+public class NumberOfUniqueNumbers implements TaskRunner {
 
     public void run() {
         while (true) {
