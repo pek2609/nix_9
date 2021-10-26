@@ -1,7 +1,6 @@
 package ua.com.alevel;
 
 import ua.com.alevel.reverseexamples.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -2,7 +2,6 @@ package ua.com.alevel.reverseexamples;
 
 import ua.com.alevel.StringReverseUtils;
 import ua.com.alevel.TaskRunner;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

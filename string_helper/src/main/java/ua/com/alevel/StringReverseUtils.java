@@ -6,7 +6,6 @@ public final class StringReverseUtils {
     private StringReverseUtils() {
     }
 
-
     public static String reverse(String src, String dest) {
         if (src.contains(dest)) {
             return src.replaceAll(dest, reverse(dest));
@@ -37,10 +36,6 @@ public final class StringReverseUtils {
         return String.copyValueOf(reverseChars);
     }
 
-    private static boolean isOutOfBounds(String src, int firstIndex, int lastIndex) {
-        return firstIndex * lastIndex < 0 || lastIndex >= src.length() || firstIndex >= src.length() || firstIndex >= lastIndex;
-    }
-
     public static String reverseByWord(String src) {
         String[] words = src.split(" ");
         for (int i = 0; i < words.length; i++) {
@@ -48,4 +43,9 @@ public final class StringReverseUtils {
         }
         return String.join(" ", words);
     }
+
+    private static boolean isOutOfBounds(String src, int firstIndex, int lastIndex) {
+        return firstIndex * lastIndex < 0 || lastIndex >= src.length() || firstIndex >= src.length() || firstIndex >= lastIndex;
+    }
+
 }
