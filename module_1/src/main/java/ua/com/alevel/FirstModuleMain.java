@@ -2,7 +2,6 @@ package ua.com.alevel;
 
 import ua.com.alevel.firstlevel.uniquenumbers.NumberOfUniqueNumbers;
 import ua.com.alevel.firstlevel.knightmove.KnightMove;
-
 import java.util.ArrayList;
 import java.util.List;
 

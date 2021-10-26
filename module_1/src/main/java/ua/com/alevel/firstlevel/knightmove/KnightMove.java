@@ -1,7 +1,6 @@
 package ua.com.alevel.firstlevel.knightmove;
 
 import ua.com.alevel.TaskRunner;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
