@@ -92,7 +92,7 @@ public class GameOfLife implements TaskRunner {
     }
 
     private void printGeneration(int[][] generation) {
-        System.out.println("Next Generation");
+        System.out.println("Generation:");
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (generation[i][j] == 0)
