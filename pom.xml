@@ -28,6 +28,8 @@
         <module>string_helper</module>
         <module>module_1</module>
         <module>hw_3_start_oop</module>
+        <module>hw_4_logs_and_test</module>
+        <module>my_list</module>
     </modules>
 
     <properties>
