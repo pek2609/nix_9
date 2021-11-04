@@ -1,12 +1,16 @@
 package ua.com.alevel.entity;
 
-import ua.com.alevel.MyList;
+import java.util.Objects;
 
 public class Author extends BaseEntity {
 
     private String firstName;
     private String lastName;
-    private MyList<Book> books;
+
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -24,11 +28,25 @@ public class Author extends BaseEntity {
         this.lastName = lastName;
     }
 
-    public MyList<Book> getBooks() {
-        return books;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(firstName, author.firstName) && Objects.equals(lastName, author.lastName);
     }
 
-    public void setBooks(MyList<Book> books) {
-        this.books = books;
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id='" + getId() + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '}';
     }
 }

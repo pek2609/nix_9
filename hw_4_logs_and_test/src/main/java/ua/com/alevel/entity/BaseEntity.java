@@ -11,4 +11,6 @@ public abstract class BaseEntity {
     public void setId(String id) {
         this.id = id;
     }
+
+
 }
