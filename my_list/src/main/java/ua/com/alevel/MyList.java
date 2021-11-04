@@ -1,8 +1,6 @@
 package ua.com.alevel;
 
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class MyList<E> {
 
@@ -53,7 +51,28 @@ public class MyList<E> {
         return value;
     }
 
-    public E get(int index){
+    public boolean remove(Object o) {
+        Object[] es = data;
+        if(o==null) {
+            for (int i = 0; i < size; i++) {
+                if(es[i] == null){
+                    remove(i);
+                    return true;
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < size; i++) {
+                if(o.equals(es[i])){
+                    remove(i);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public E get(int index) {
         checkIndex(index);
         return (E) data[index];
     }
