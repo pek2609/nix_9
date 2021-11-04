@@ -33,7 +33,7 @@ public class AuthorController implements TaskRunner {
                 System.out.println(menuString);
                 System.out.println("Enter your option");
                 op = Integer.parseInt(reader.readLine());
-                if(op==0){
+                if (op == 0) {
                     break;
                 }
                 callByOption(reader, op);
@@ -43,8 +43,8 @@ public class AuthorController implements TaskRunner {
         }
     }
 
-    private void callByOption(BufferedReader reader, int op){
-        switch (op){
+    private void callByOption(BufferedReader reader, int op) {
+        switch (op) {
             case 1 -> create(reader);
             case 2 -> update(reader);
             case 3 -> delete(reader);

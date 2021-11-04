@@ -16,7 +16,7 @@ public class BookServiceImpl implements BookService {
         if (!ServiceHelper.isExist(book, this)) {
             bookDao.create(book);
         } else {
-            throw new RuntimeException("Book " +book.getName()+" with Author " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName() + " is already exist!");
+            throw new RuntimeException("Book " + book.getName() + " with Author " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName() + " is already exist!");
         }
     }
 

@@ -126,7 +126,7 @@ public class BookController implements TaskRunner {
 
     private Author inputAuthor(BufferedReader reader) throws IOException {
         while (true) {
-            if(authorService.findAll().size()==0) {
+            if (authorService.findAll().size() == 0) {
                 return inputAuthorFromConsole(reader);
             }
             System.out.println("Do you want to choose author from existing authors?");
@@ -154,8 +154,7 @@ public class BookController implements TaskRunner {
         if (ServiceHelper.isExist(author, authorService)) {
             System.out.println("Your author exists. Choose him");
             author = chooseAuthorFromExistingAuthors(reader);
-        }
-        else {
+        } else {
             authorService.create(author);
         }
         return author;

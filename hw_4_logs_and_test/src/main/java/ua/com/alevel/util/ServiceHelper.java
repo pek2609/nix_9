@@ -4,8 +4,6 @@ import ua.com.alevel.MyList;
 import ua.com.alevel.entity.BaseEntity;
 import ua.com.alevel.service.BaseService;
 
-import java.lang.reflect.Method;
-
 public final class ServiceHelper {
 
     private ServiceHelper() {
@@ -21,6 +19,5 @@ public final class ServiceHelper {
         }
         return false;
     }
-
 
 }

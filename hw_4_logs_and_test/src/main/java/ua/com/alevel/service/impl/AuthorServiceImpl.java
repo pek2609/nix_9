@@ -47,7 +47,7 @@ public class AuthorServiceImpl implements AuthorService {
     private void deleteBooksForAuthor(String idAuthor) {
         MyList<Book> books = bookDao.findAll();
         for (int i = 0; i < books.size(); i++) {
-            if(books.get(i).getAuthor().getId().equals(idAuthor)){
+            if (books.get(i).getAuthor().getId().equals(idAuthor)) {
                 bookDao.delete(books.get(i).getId());
             }
         }
