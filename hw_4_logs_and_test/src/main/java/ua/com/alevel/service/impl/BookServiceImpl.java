@@ -5,7 +5,7 @@ import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.dao.impl.BookDaoImpl;
 import ua.com.alevel.entity.Book;
 import ua.com.alevel.service.BookService;
-import ua.com.alevel.util.ServiceHelper;
+import ua.com.alevel.util.CheckExistEntityUtil;
 
 public class BookServiceImpl implements BookService {
 
@@ -13,11 +13,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void create(Book book) {
-        if (!ServiceHelper.isExist(book, this)) {
-            bookDao.create(book);
-        } else {
+        if (CheckExistEntityUtil.isExist(book, this)) {
             throw new RuntimeException("Book " + book.getName() + " with Author " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName() + " is already exist!");
         }
+        bookDao.create(book);
     }
 
     @Override

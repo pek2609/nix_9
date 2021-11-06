@@ -8,7 +8,7 @@ import ua.com.alevel.dao.impl.BookDaoImpl;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
 import ua.com.alevel.service.AuthorService;
-import ua.com.alevel.util.ServiceHelper;
+import ua.com.alevel.util.CheckExistEntityUtil;
 
 public class AuthorServiceImpl implements AuthorService {
 
@@ -17,14 +17,20 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void create(Author author) {
-        if (ServiceHelper.isExist(author, this)) {
+        if (CheckExistEntityUtil.isExist(author, this)) {
             throw new RuntimeException("Author " + author.getFirstName() + " " + author.getLastName() + " is already exist!");
+        }
+        if (author.isBlank()) {
+            throw new RuntimeException("Author " + author.getFirstName() + " " + author.getLastName() + " has blank name or surname!");
         }
         authorDao.create(author);
     }
 
     @Override
     public void update(Author author) {
+        if (author.isBlank()) {
+            throw new RuntimeException("Author " + author.getFirstName() + " " + author.getLastName() + " has blank name or surname!");
+        }
         authorDao.update(author);
     }
 
@@ -53,3 +59,4 @@ public class AuthorServiceImpl implements AuthorService {
         }
     }
 }
+

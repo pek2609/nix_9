@@ -49,4 +49,8 @@ public class Author extends BaseEntity {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '}';
     }
+
+    public boolean isBlank() {
+        return this.firstName.isBlank() || this.lastName.isBlank();
+    }
 }

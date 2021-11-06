@@ -8,7 +8,7 @@ import ua.com.alevel.service.AuthorService;
 import ua.com.alevel.service.BookService;
 import ua.com.alevel.service.impl.AuthorServiceImpl;
 import ua.com.alevel.service.impl.BookServiceImpl;
-import ua.com.alevel.util.ServiceHelper;
+import ua.com.alevel.util.CheckExistEntityUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -102,6 +102,9 @@ public class BookController implements TaskRunner {
             Book book = new Book();
             book.setId(idBook);
             book.setName(name);
+            if (book.isBlank()) {
+                throw new RuntimeException("Book has blank name!");
+            }
             Author author = inputAuthor(reader);
             book.setAuthor(author);
             bookService.update(book);
@@ -116,6 +119,9 @@ public class BookController implements TaskRunner {
             String name = reader.readLine();
             Book book = new Book();
             book.setName(name);
+            if (book.isBlank()) {
+                throw new RuntimeException("Book has blank name!");
+            }
             Author author = inputAuthor(reader);
             book.setAuthor(author);
             bookService.create(book);
@@ -151,7 +157,7 @@ public class BookController implements TaskRunner {
         System.out.println("Please, enter lastName");
         String lastName = reader.readLine();
         Author author = new Author(firstName, lastName);
-        if (ServiceHelper.isExist(author, authorService)) {
+        if (CheckExistEntityUtil.isExist(author, authorService)) {
             System.out.println("Your author exists. Choose him");
             author = chooseAuthorFromExistingAuthors(reader);
         } else {

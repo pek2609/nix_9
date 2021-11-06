@@ -48,4 +48,8 @@ public class Book extends BaseEntity {
                 ", author=" + author +
                 '}';
     }
+
+    public boolean isBlank() {
+        return this.name.isBlank();
+    }
 }

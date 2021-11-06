@@ -4,9 +4,9 @@ import ua.com.alevel.MyList;
 import ua.com.alevel.entity.BaseEntity;
 import ua.com.alevel.service.BaseService;
 
-public final class ServiceHelper {
+public final class CheckExistEntityUtil {
 
-    private ServiceHelper() {
+    private CheckExistEntityUtil() {
 
     }
 
