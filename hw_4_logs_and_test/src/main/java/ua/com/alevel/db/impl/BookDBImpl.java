@@ -1,13 +1,13 @@
 package ua.com.alevel.db.impl;
 
-import ua.com.alevel.MyList;
+import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.db.BookDB;
 import ua.com.alevel.entity.Book;
 import ua.com.alevel.util.GenerateIdUtil;
 
 public final class BookDBImpl implements BookDB {
 
-    private final MyList<Book> books;
+    private final MyUniqueList<Book> books;
     private static BookDBImpl instance;
 
     public static BookDBImpl getInstance() {
@@ -18,7 +18,7 @@ public final class BookDBImpl implements BookDB {
     }
 
     private BookDBImpl() {
-        books = new MyList<>();
+        books = new MyUniqueList<>();
     }
 
     @Override
@@ -32,7 +32,7 @@ public final class BookDBImpl implements BookDB {
         Book cur = findById(book.getId());
         cur.setId(book.getId());
         cur.setName(book.getName());
-        cur.setAuthor(book.getAuthor());
+        cur.setAuthors(book.getAuthors());
     }
 
     @Override
@@ -42,17 +42,16 @@ public final class BookDBImpl implements BookDB {
 
     @Override
     public Book findById(String id) {
-        for (int i = 0; i < books.size(); i++) {
-            Book cur = books.get(i);
-            if (cur.getId().equals(id)) {
-                return cur;
+        for (Book book : books) {
+            if (book.getId().equals(id)) {
+                return book;
             }
         }
         throw new RuntimeException("Book with id = " + id + "is not found");
     }
 
     @Override
-    public MyList<Book> findAll() {
+    public MyUniqueList<Book> findAll() {
         return books;
     }
 }

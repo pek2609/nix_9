@@ -1,11 +1,14 @@
 package ua.com.alevel.entity;
 
+import ua.com.alevel.MyUniqueList;
+
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Book extends BaseEntity {
 
     private String name;
-    private Author author;
+    private MyUniqueList<Author> authors;
 
     public Book() {
         super();
@@ -19,12 +22,12 @@ public class Book extends BaseEntity {
         this.name = name;
     }
 
-    public Author getAuthor() {
-        return author;
+    public MyUniqueList<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthors(MyUniqueList<Author> authors) {
+        this.authors = authors;
     }
 
     @Override
@@ -32,12 +35,12 @@ public class Book extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(name, book.name) && Objects.equals(author, book.author);
+        return Objects.equals(name, book.name) && Objects.equals(authors, book.authors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, author);
+        return Objects.hash(name, authors);
     }
 
     @Override
@@ -45,11 +48,14 @@ public class Book extends BaseEntity {
         return "Book{" +
                 "id='" + getId() + '\'' +
                 ", name='" + name + '\'' +
-                ", author=" + author +
+                ", authors=" + Arrays.toString(authors.toArray()) +
                 '}';
     }
 
     public boolean isBlank() {
-        return this.name.isBlank();
+        if (name!=null) {
+            return name.isBlank();
+        }
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 package ua.com.alevel.dao.impl;
 
-import ua.com.alevel.MyList;
+import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.db.BookDB;
 import ua.com.alevel.db.impl.BookDBImpl;
@@ -31,7 +31,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public MyList<Book> findAll() {
+    public MyUniqueList<Book> findAll() {
         return bookDB.findAll();
     }
 }

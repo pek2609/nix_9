@@ -1,6 +1,7 @@
 package ua.com.alevel.controller;
 
-import ua.com.alevel.MyList;
+
+import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.TaskRunner;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.service.AuthorService;
@@ -55,13 +56,13 @@ public class AuthorController implements TaskRunner {
     }
 
     private void findAll() {
-        MyList<Author> books = authorService.findAll();
-        if (books != null && books.size() != 0) {
-            for (int i = 0; i < books.size(); i++) {
-                System.out.println(books.get(i).toString());
+        MyUniqueList<Author> authors = authorService.findAll();
+        if (authors != null && authors.size() != 0) {
+            for (Author author : authors) {
+                System.out.println(author);
             }
         } else {
-            System.out.println("There is no authors in the book list");
+            System.out.println("There is no authors in the authors list");
         }
     }
 

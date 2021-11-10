@@ -1,6 +1,6 @@
 package ua.com.alevel.dao.impl;
 
-import ua.com.alevel.MyList;
+import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.db.AuthorDB;
 import ua.com.alevel.db.impl.AuthorDBImpl;
@@ -31,7 +31,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public MyList<Author> findAll() {
+    public MyUniqueList<Author> findAll() {
         return authorDB.findAll();
     }
 }

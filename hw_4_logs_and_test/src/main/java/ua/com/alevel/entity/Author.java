@@ -1,5 +1,6 @@
 package ua.com.alevel.entity;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Author extends BaseEntity {
@@ -10,6 +11,10 @@ public class Author extends BaseEntity {
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Author() {
+
     }
 
     public String getFirstName() {
@@ -51,6 +56,9 @@ public class Author extends BaseEntity {
     }
 
     public boolean isBlank() {
-        return this.firstName.isBlank() || this.lastName.isBlank();
+        if(this.firstName!=null&&this.lastName!=null){
+            return this.firstName.isBlank() || this.lastName.isBlank();
+        }
+        return false;
     }
 }

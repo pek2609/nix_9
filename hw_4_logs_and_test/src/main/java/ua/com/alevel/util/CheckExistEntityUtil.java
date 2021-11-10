@@ -1,8 +1,7 @@
 package ua.com.alevel.util;
 
-import ua.com.alevel.MyList;
+import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.entity.BaseEntity;
-import ua.com.alevel.service.BaseService;
 
 public final class CheckExistEntityUtil {
 
@@ -10,10 +9,9 @@ public final class CheckExistEntityUtil {
 
     }
 
-    public static <E extends BaseEntity, S extends BaseService<E>> boolean isExist(E e, S s) {
-        MyList<E> all = s.findAll();
-        for (int i = 0; i < all.size(); i++) {
-            if (all.get(i).equals(e)) {
+    public static <E extends BaseEntity> boolean isExist(E e, MyUniqueList<E> set) {
+        for (E el : set) {
+            if (el.equals(e)) {
                 return true;
             }
         }

@@ -1,17 +1,14 @@
 package ua.com.alevel.controller;
 
-import ua.com.alevel.MyList;
+import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.TaskRunner;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
-import ua.com.alevel.service.AuthorService;
 import ua.com.alevel.service.BookService;
-import ua.com.alevel.service.impl.AuthorServiceImpl;
 import ua.com.alevel.service.impl.BookServiceImpl;
-import ua.com.alevel.util.CheckExistEntityUtil;
+import ua.com.alevel.util.AuthorReader;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BookController implements TaskRunner {
@@ -28,7 +25,6 @@ public class BookController implements TaskRunner {
             """;
 
     private final BookService bookService = new BookServiceImpl();
-    private final AuthorService authorService = new AuthorServiceImpl();
 
     @Override
     public void run() {
@@ -61,10 +57,10 @@ public class BookController implements TaskRunner {
     }
 
     private void findAll() {
-        MyList<Book> books = bookService.findAll();
+        MyUniqueList<Book> books = bookService.findAll();
         if (books != null && books.size() != 0) {
-            for (int i = 0; i < books.size(); i++) {
-                System.out.println(books.get(i).toString());
+            for (Book book : books) {
+                System.out.println(book);
             }
         } else {
             System.out.println("There is no books in the book list");
@@ -105,8 +101,8 @@ public class BookController implements TaskRunner {
             if (book.isBlank()) {
                 throw new RuntimeException("Book has blank name!");
             }
-            Author author = inputAuthor(reader);
-            book.setAuthor(author);
+            MyUniqueList<Author> authors = AuthorReader.inputAuthors(reader);
+            book.setAuthors(authors);
             bookService.update(book);
         } catch (Exception e) {
             System.out.println("problem: = " + e.getMessage());
@@ -122,58 +118,12 @@ public class BookController implements TaskRunner {
             if (book.isBlank()) {
                 throw new RuntimeException("Book has blank name!");
             }
-            Author author = inputAuthor(reader);
-            book.setAuthor(author);
+            System.out.println("Please, enter book's authors");
+            MyUniqueList<Author> authors = AuthorReader.inputAuthors(reader);
+            book.setAuthors(authors);
             bookService.create(book);
         } catch (Exception e) {
             System.out.println("problem: = " + e.getMessage());
         }
     }
-
-    private Author inputAuthor(BufferedReader reader) throws IOException {
-        while (true) {
-            if (authorService.findAll().size() == 0) {
-                return inputAuthorFromConsole(reader);
-            }
-            System.out.println("Do you want to choose author from existing authors?");
-            System.out.println("Please, enter (Y/N)");
-            String res = reader.readLine();
-            switch (res) {
-                case "Y" -> {
-                    return chooseAuthorFromExistingAuthors(reader);
-                }
-                case "N" -> {
-                    return inputAuthorFromConsole(reader);
-                }
-                default -> System.out.println("Unexpected option...");
-            }
-        }
-    }
-
-    private Author inputAuthorFromConsole(BufferedReader reader) throws IOException {
-        System.out.println("Please, enter author of the book");
-        System.out.println("Please, enter firstName");
-        String firstName = reader.readLine();
-        System.out.println("Please, enter lastName");
-        String lastName = reader.readLine();
-        Author author = new Author(firstName, lastName);
-        if (CheckExistEntityUtil.isExist(author, authorService)) {
-            System.out.println("Your author exists. Choose him");
-            author = chooseAuthorFromExistingAuthors(reader);
-        } else {
-            authorService.create(author);
-        }
-        return author;
-    }
-
-    private Author chooseAuthorFromExistingAuthors(BufferedReader reader) throws IOException {
-        MyList<Author> authors = authorService.findAll();
-        for (int i = 0; i < authors.size(); i++) {
-            System.out.println(authors.get(i).toString());
-        }
-        System.out.println("Please, enter author id ");
-        String idAuthor = reader.readLine();
-        return authorService.findById(idAuthor);
-    }
-
 }

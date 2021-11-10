@@ -1,13 +1,13 @@
 package ua.com.alevel.db.impl;
 
-import ua.com.alevel.MyList;
+import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.db.AuthorDB;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.util.GenerateIdUtil;
 
 public final class AuthorDBImpl implements AuthorDB {
 
-    private final MyList<Author> authors;
+    private final MyUniqueList<Author> authors;
     private static AuthorDBImpl instance;
 
     public static AuthorDBImpl getInstance() {
@@ -18,7 +18,7 @@ public final class AuthorDBImpl implements AuthorDB {
     }
 
     private AuthorDBImpl() {
-        authors = new MyList<>();
+        authors = new MyUniqueList<>();
     }
 
     @Override
@@ -41,17 +41,16 @@ public final class AuthorDBImpl implements AuthorDB {
 
     @Override
     public Author findById(String id) {
-        for (int i = 0; i < authors.size(); i++) {
-            Author cur = authors.get(i);
-            if (cur.getId().equals(id)) {
-                return cur;
+        for (Author author : authors) {
+            if (author.getId().equals(id)) {
+                return author;
             }
         }
-        throw new RuntimeException("Author with id = " + id + "is not found");
+        throw new RuntimeException("Author with id = " + id + " is not found");
     }
 
     @Override
-    public MyList<Author> findAll() {
+    public MyUniqueList<Author> findAll() {
         return authors;
     }
 }
