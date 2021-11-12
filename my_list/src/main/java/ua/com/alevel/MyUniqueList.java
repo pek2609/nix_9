@@ -7,11 +7,38 @@ import java.util.NoSuchElementException;
 public class MyUniqueList<E> implements Iterable<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
-    Object[] data;
+    private Object[] data;
     private int size;
+    private int maxCapacity;
+
+    protected void setSize(int size) {
+        this.size = size;
+    }
+
+    protected int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    protected void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
 
     public MyUniqueList() {
+        maxCapacity = -1;
         data = new Object[DEFAULT_CAPACITY];
+        size = 0;
+    }
+
+    public MyUniqueList(E[] es){
+        maxCapacity = -1;
+        size = es.length;
+        data = new Object[Math.max(size, DEFAULT_CAPACITY)];
+        System.arraycopy(es, 0, data, 0, size);
+    }
+
+    public MyUniqueList(int maxCapacity){
+        data = new Object[DEFAULT_CAPACITY];
+        this.maxCapacity = maxCapacity;
         size = 0;
     }
 
@@ -51,6 +78,9 @@ public class MyUniqueList<E> implements Iterable<E> {
 
     public void add(E e) {
         if (!contains(e)) {
+            if(maxCapacity == size){
+                throw new RuntimeException("Your set is full, maxCapacity = " + maxCapacity +" , actually size = " +size);
+            }
             if (size == data.length) {
                 data = grow();
             }
@@ -78,13 +108,18 @@ public class MyUniqueList<E> implements Iterable<E> {
         return size;
     }
 
-    public Object[] toArray() {
-        return Arrays.copyOf(data, size);
+    public E[] toArray() {
+        Object[] res = new Object[size];
+        System.arraycopy(data, 0, res, 0, size);
+        return (E[]) res;
     }
 
     private Object[] grow() {
         int oldCapacity = data.length;
-        return Arrays.copyOf(data, oldCapacity + (oldCapacity >> 1));
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        Object[] res = new Object[newCapacity];
+        System.arraycopy(data, 0, res, 0, size);
+        return res;
     }
 
     public Iterator<E> iterator() {
