@@ -165,7 +165,7 @@ public class MathSet extends MyUniqueList<Number> {
         } else {
             medianNumber = other.get(medianIndex);
         }
-        return medianIndex;
+        return medianNumber;
     }
 
     public Number[] toArray(int firstIndex, int lastIndex) {
