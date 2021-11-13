@@ -1,5 +1,7 @@
 package ua.com.alevel;
 
+import java.util.Iterator;
+
 public class MathSet extends MyUniqueList<Number> {
 
     public MathSet() {
@@ -74,6 +76,66 @@ public class MathSet extends MyUniqueList<Number> {
             intersection(ms);
         }
     }
+
+    private int getIndex(Number number) {
+        for (int i = 0; i < size(); i++) {
+            if(get(i).equals(number)){
+                return i;
+            }
+        }
+        throw new RuntimeException("Can't find number = " + number);
+    }
+
+    private void swap(Number[] src, int firstIndex, int secondIndex) {
+        Number tmp = src[firstIndex];
+        src[firstIndex] = src[secondIndex];
+        src[secondIndex] = src[firstIndex];
+    }
+
+    private void sort(boolean isAsc, int firstIndex, int lastIndex) {
+        Number[] numbers = toArray();
+        for (int i = lastIndex; i >= firstIndex + 1; i--) {
+            for (int j = firstIndex; j < i; j++) {
+                if (isAsc) {
+                    if (numbers[j].doubleValue() > numbers[j + 1].doubleValue()) {
+                        swap(numbers, j, j + 1);
+                    }
+                } else {
+                    if (numbers[j].doubleValue() < numbers[j + 1].doubleValue()) {
+                        swap(numbers, j, j + 1);
+                    }
+                }
+            }
+        }
+    }
+
+    public void sortDesc() {
+        sort(false, 0, size() - 1);
+    }
+
+    public void sortDesc(int firstIndex, int lastIndex) {
+        sort(false, firstIndex, lastIndex);
+    }
+
+    public void sortDesc(Number number) {
+        int firstIndex = getIndex(number);
+        sort(false, firstIndex, size()-1);
+    }
+
+    public void sortAsc() {
+        sort(true, 0, size() - 1);
+    }
+
+    public void sortAsc(int firstIndex, int lastIndex) {
+        sort(true, firstIndex, lastIndex);
+    }
+
+    public void sortAsc(Number number) {
+        int firstIndex = getIndex(number);
+        sort(true, firstIndex, size()-1);
+    }
+
+
 
 
 }
