@@ -1,7 +1,5 @@
 package ua.com.alevel;
 
-import java.util.Iterator;
-
 public class MathSet extends MyUniqueList<Number> {
 
     public MathSet() {
@@ -79,7 +77,7 @@ public class MathSet extends MyUniqueList<Number> {
 
     private int getIndex(Number number) {
         for (int i = 0; i < size(); i++) {
-            if(get(i).equals(number)){
+            if (get(i).equals(number)) {
                 return i;
             }
         }
@@ -114,12 +112,13 @@ public class MathSet extends MyUniqueList<Number> {
     }
 
     public void sortDesc(int firstIndex, int lastIndex) {
+        checkIndexes(firstIndex, lastIndex);
         sort(false, firstIndex, lastIndex);
     }
 
     public void sortDesc(Number number) {
         int firstIndex = getIndex(number);
-        sort(false, firstIndex, size()-1);
+        sort(false, firstIndex, size() - 1);
     }
 
     public void sortAsc() {
@@ -127,15 +126,69 @@ public class MathSet extends MyUniqueList<Number> {
     }
 
     public void sortAsc(int firstIndex, int lastIndex) {
+        checkIndexes(firstIndex, lastIndex);
         sort(true, firstIndex, lastIndex);
     }
 
     public void sortAsc(Number number) {
         int firstIndex = getIndex(number);
-        sort(true, firstIndex, size()-1);
+        sort(true, firstIndex, size() - 1);
     }
 
+    public Number getMax() {
+        MathSet other = new MathSet(this);
+        other.sortAsc();
+        return other.get(other.size() - 1);
+    }
 
+    public Number getMin() {
+        MathSet other = new MathSet(this);
+        other.sortAsc();
+        return other.get(0);
+    }
 
+    public Number getAverage() {
+        double sum = 0;
+        for (Number number : this) {
+            sum += number.doubleValue();
+        }
+        return sum / size();
+    }
 
+    public Number getMedian() {
+        MathSet other = new MathSet(this);
+        other.sortAsc();
+        int medianIndex = size() / 2;
+        Number medianNumber;
+        if (medianIndex % 2 == 0) {
+            medianNumber = (other.get(medianIndex).doubleValue() + other.get(medianIndex - 1).doubleValue()) / 2;
+        } else {
+            medianNumber = other.get(medianIndex);
+        }
+        return medianIndex;
+    }
+
+    public Number[] toArray(int firstIndex, int lastIndex) {
+        checkIndexes(firstIndex, lastIndex);
+        Number[] src = toArray();
+        int newSize = lastIndex - firstIndex + 1;
+        Number[] dest = new Number[newSize];
+        System.arraycopy(src, firstIndex, dest, 0, newSize);
+        return dest;
+    }
+
+    public MathSet cut(int firstIndex, int lastIndex) {
+        checkIndexes(firstIndex, lastIndex);
+        MathSet toReturn = new MathSet(toArray(firstIndex, lastIndex));
+        for (int i = firstIndex; i <= lastIndex; i++) {
+            remove(i);
+        }
+        return toReturn;
+    }
+
+    public void clear(Number[] numbers) {
+        for (Number number : numbers) {
+            remove(number);
+        }
+    }
 }

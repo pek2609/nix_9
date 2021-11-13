@@ -29,20 +29,28 @@ public class MyUniqueList<E> implements Iterable<E> {
         size = 0;
     }
 
-    public MyUniqueList(E[] es){
+    public MyUniqueList(E[] es) {
         maxCapacity = -1;
         size = es.length;
         data = new Object[Math.max(size, DEFAULT_CAPACITY)];
         System.arraycopy(es, 0, data, 0, size);
     }
 
-    public MyUniqueList(int maxCapacity){
+    public MyUniqueList(int maxCapacity) {
         data = new Object[DEFAULT_CAPACITY];
         this.maxCapacity = maxCapacity;
         size = 0;
     }
 
-    private void checkIndex(int index) {
+    protected void checkIndexes(int firstIndex, int lastIndex) {
+        checkIndex(firstIndex);
+        checkIndex(lastIndex);
+        if (lastIndex - firstIndex < 0) {
+            throw new RuntimeException("Unexpect firstIndex = " + firstIndex + ", lastIndex = " + lastIndex);
+        }
+    }
+
+    protected void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Unsuitable index: " + index);
         }
@@ -78,8 +86,8 @@ public class MyUniqueList<E> implements Iterable<E> {
 
     public void add(E e) {
         if (!contains(e)) {
-            if(maxCapacity == size){
-                throw new RuntimeException("Your set is full, maxCapacity = " + maxCapacity +" , actually size = " +size);
+            if (maxCapacity == size) {
+                throw new RuntimeException("Your set is full, maxCapacity = " + maxCapacity + " , actually size = " + size);
             }
             if (size == data.length) {
                 data = grow();
