@@ -1,4 +1,4 @@
-package ua.com.alevel.examples.constructors;
+package ua.com.alevel.examples.methods;
 
 import ua.com.alevel.MathSet;
 import ua.com.alevel.TaskRunner;
@@ -9,14 +9,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 
-public class NumberArrayConstructor implements TaskRunner {
+public class ToArrayMethod implements TaskRunner {
     @Override
     public void run() {
-        System.out.println("Input array of numbers");
+        System.out.println("Input your mathSet");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             MathSet mathSet = new MathSet(NumberReaderUtil.readNumbersFromConsole(reader));
-            System.out.println("Your mathSet: \n" + mathSet);
+            Number[] numbers = mathSet.toArray();
+            System.out.println("Array of numbers after calling toArray");
+            for (Number number : numbers) {
+                System.out.print(number + " ");
+            }
+            System.out.println();
         } catch (IOException | ParseException e) {
             System.out.println(e.getMessage());
         }

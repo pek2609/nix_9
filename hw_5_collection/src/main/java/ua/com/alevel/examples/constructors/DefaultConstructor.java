@@ -8,6 +8,6 @@ public class DefaultConstructor implements TaskRunner {
     @Override
     public void run() {
         MathSet mathSet = new MathSet();
-        System.out.println("mathSet = " + mathSet.toString());
+        System.out.println("mathSet = " + mathSet);
     }
 }

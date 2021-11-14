@@ -2,7 +2,8 @@ package ua.com.alevel.examples.constructors;
 
 import ua.com.alevel.MathSet;
 import ua.com.alevel.TaskRunner;
-import ua.com.alevel.util.MathSetUtil;
+import ua.com.alevel.util.NumberReaderUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,15 +15,11 @@ public class MathSetsConstructor implements TaskRunner {
         System.out.println("Input array of numbers");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
-            String numbersString = reader.readLine();
-            Number[] numbers = MathSetUtil.convertStringToArray(numbersString);
-            MathSet mathSetFirst = new MathSet(numbers);
+            MathSet mathSetFirst = new MathSet(NumberReaderUtil.readNumbersFromConsole(reader));
             System.out.println("Input another array of numbers");
-            numbersString = reader.readLine();
-            Number[] numbers1 = MathSetUtil.convertStringToArray(numbersString);
-            MathSet mathSetSecond = new MathSet(numbers1);
+            MathSet mathSetSecond = new MathSet(NumberReaderUtil.readNumbersFromConsole(reader));
             MathSet res = new MathSet(mathSetFirst, mathSetSecond);
-            System.out.println("Your result mathSet: \n" + res.toString());
+            System.out.println("Your result mathSet: \n" + res);
         } catch (IOException | ParseException e) {
             System.out.println(e.getMessage());
         }

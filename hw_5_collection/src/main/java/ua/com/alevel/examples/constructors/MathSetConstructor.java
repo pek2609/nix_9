@@ -2,7 +2,8 @@ package ua.com.alevel.examples.constructors;
 
 import ua.com.alevel.MathSet;
 import ua.com.alevel.TaskRunner;
-import ua.com.alevel.util.MathSetUtil;
+import ua.com.alevel.util.MathSetGeneratorUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +20,7 @@ public class MathSetConstructor implements TaskRunner {
             }
             MathSet mathSet = new MathSet();
             System.out.println("Generating mathSet with N numbers, where N = " + size);
-            MathSetUtil.generateMathSet(mathSet, size);
+            MathSetGeneratorUtil.generateMathSet(mathSet, size);
             System.out.println(mathSet);
             System.out.println("Creating new mathSet from first");
             MathSet other = new MathSet(mathSet);

@@ -2,7 +2,8 @@ package ua.com.alevel.examples.constructors;
 
 import ua.com.alevel.MathSet;
 import ua.com.alevel.TaskRunner;
-import ua.com.alevel.util.MathSetUtil;
+import ua.com.alevel.util.MathSetGeneratorUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +19,7 @@ public class CapacityConstructor implements TaskRunner {
             if (maxCapacity < 0) {
                 throw new RuntimeException("Your capacity must be >=0");
             }
-            MathSet mathSet = MathSetUtil.generateMathSet(maxCapacity, maxCapacity);
+            MathSet mathSet = MathSetGeneratorUtil.generateMathSet(maxCapacity, maxCapacity);
             System.out.println("Generating mathSet with N numbers, where N = maxCapacity");
             System.out.println(mathSet);
             System.out.println("Trying to add new element");
