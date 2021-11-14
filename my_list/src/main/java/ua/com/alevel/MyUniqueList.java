@@ -1,8 +1,7 @@
 package ua.com.alevel;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class MyUniqueList<E> implements Iterable<E> {
 
@@ -15,11 +14,11 @@ public class MyUniqueList<E> implements Iterable<E> {
         this.size = size;
     }
 
-    protected int getMaxCapacity() {
+    public int getMaxCapacity() {
         return maxCapacity;
     }
 
-    protected void setMaxCapacity(int maxCapacity) {
+    public void setMaxCapacity(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
@@ -116,11 +115,12 @@ public class MyUniqueList<E> implements Iterable<E> {
         return size;
     }
 
-    public E[] toArray() {
-        Object[] res = new Object[size];
+    public Object[] toArray() {
+        Object[] res =  new Object[size];
         System.arraycopy(data, 0, res, 0, size);
-        return (E[]) res;
+        return res;
     }
+
 
     private Object[] grow() {
         int oldCapacity = data.length;
@@ -156,6 +156,23 @@ public class MyUniqueList<E> implements Iterable<E> {
         for (int i = 0; i < size; i++)
             es[i] = null;
         size = 0;
+    }
+
+    public String toString(){
+        Iterator<E> it = iterator();
+        StringBuffer sb = new StringBuffer();
+        if(size() == 0){
+            return "[]";
+        }
+        sb.append("[");
+        while (true){
+            E e = it.next();
+            sb.append(e.toString());
+            if(!it.hasNext()){
+                return sb.append("]").toString();
+            }
+            sb.append(",").append(" ");
+        }
     }
 
     @Override

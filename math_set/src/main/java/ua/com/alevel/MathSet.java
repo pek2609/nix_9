@@ -177,6 +177,15 @@ public class MathSet extends MyUniqueList<Number> {
         return dest;
     }
 
+    public Number[] toArray(){
+        Object[] objects = super.toArray();
+        Number[] numbers = new Number[objects.length];
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = (Number) objects[i];
+        }
+        return numbers;
+    }
+
     public MathSet cut(int firstIndex, int lastIndex) {
         checkIndexes(firstIndex, lastIndex);
         MathSet toReturn = new MathSet(toArray(firstIndex, lastIndex));
