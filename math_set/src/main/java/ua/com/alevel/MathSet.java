@@ -62,9 +62,10 @@ public class MathSet extends MyUniqueList<Number> {
     }
 
     public void intersection(MathSet ms) {
-        for (Number number : this) {
-            if (!ms.contains(number)) {
-                remove(number);
+        for (int i = 0; i < size(); i++) {
+            if (!ms.contains(get(i))) {
+                remove(i);
+                i--;
             }
         }
     }
@@ -87,7 +88,7 @@ public class MathSet extends MyUniqueList<Number> {
     private void swap(Number[] src, int firstIndex, int secondIndex) {
         Number tmp = src[firstIndex];
         src[firstIndex] = src[secondIndex];
-        src[secondIndex] = src[firstIndex];
+        src[secondIndex] = tmp;
     }
 
     private void sort(boolean isAsc, int firstIndex, int lastIndex) {
@@ -105,6 +106,8 @@ public class MathSet extends MyUniqueList<Number> {
                 }
             }
         }
+        clear();
+        add(numbers);
     }
 
     public void sortDesc() {
@@ -160,7 +163,7 @@ public class MathSet extends MyUniqueList<Number> {
         other.sortAsc();
         int medianIndex = size() / 2;
         Number medianNumber;
-        if (medianIndex % 2 == 0) {
+        if (medianIndex % 2 == 1) {
             medianNumber = (other.get(medianIndex).doubleValue() + other.get(medianIndex - 1).doubleValue()) / 2;
         } else {
             medianNumber = other.get(medianIndex);
@@ -177,7 +180,7 @@ public class MathSet extends MyUniqueList<Number> {
         return dest;
     }
 
-    public Number[] toArray(){
+    public Number[] toArray() {
         Object[] objects = super.toArray();
         Number[] numbers = new Number[objects.length];
         for (int i = 0; i < numbers.length; i++) {
