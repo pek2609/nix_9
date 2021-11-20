@@ -30,8 +30,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>16</source>
+                    <target>16</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
@@ -146,9 +146,9 @@
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <junit.version>4.13.1</junit.version>
-        <junit.jupiter.version>5.7.0</junit.jupiter.version>
-        <slf4j.version>1.7.30</slf4j.version>
-        <logback.version>1.2.3</logback.version>
+        <junit.jupiter.version>5.8.1</junit.jupiter.version>
+        <slf4j.version>1.7.32</slf4j.version>
+        <logback.version>1.2.7</logback.version>
         <logs.folder>logs</logs.folder>
         <logs.test.folder>test</logs.test.folder>
         <logs.life.folder>life</logs.life.folder>
