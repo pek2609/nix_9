@@ -17,7 +17,7 @@ import java.util.LinkedHashSet;
 public class StudentDBImpl implements StudentDB {
 
     private static final String PATH_CSV = "hw_7_ionio/students.csv";
-    private final Collection<Student> students;
+    private Collection<Student> students;
     private static StudentDBImpl instance;
 
     public static StudentDBImpl getInstance() {
@@ -28,7 +28,11 @@ public class StudentDBImpl implements StudentDB {
     }
 
     private StudentDBImpl() {
-        students = new LinkedHashSet<>();
+        try {
+            students = findAll();
+        } catch (IOException e) {
+            students = new LinkedHashSet<>();
+        }
     }
 
     @Override

@@ -1,12 +1,18 @@
-package ua.com.alevel.entity;
+package ua.com.alevel.dto.student;
 
-import java.util.List;
-import java.util.Objects;
+import ua.com.alevel.dto.BaseResponseDto;
+import ua.com.alevel.entity.Student;
 
-public class Student extends BaseEntity {
+public class StudentResponseDto extends BaseResponseDto {
 
     private String firstName;
     private String lastName;
+
+    public StudentResponseDto(Student student) {
+        setId(student.getId());
+        setFirstName(student.getFirstName());
+        setLastName(student.getLastName());
+    }
 
     public String getFirstName() {
         return firstName;
@@ -25,21 +31,8 @@ public class Student extends BaseEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
-    }
-
-    @Override
     public String toString() {
-        return "Student{" +
+        return "StudentResponseDto{" +
                 "id='" + getId() + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

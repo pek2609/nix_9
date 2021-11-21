@@ -16,6 +16,7 @@ public final class Parser {
     public static <T extends BaseEntity> Collection<T> convertToEntities(Class<T> tClass, List<String[]> list) {
         Collection<T> collection = new LinkedHashSet<>();
         List<Method> setters = Arrays.stream(tClass.getDeclaredMethods()).filter(x -> x.getName().startsWith("set")).collect(Collectors.toList());
+        setters.forEach(System.out::println);
         for (int i = 1; i < list.size(); i++) {
             String[] strings = list.get(i);
             if (strings.length - 1 != setters.size()) {
@@ -32,6 +33,7 @@ public final class Parser {
                 e.printStackTrace();
             }
         }
+        collection.forEach(System.out::println);
         return collection;
     }
 

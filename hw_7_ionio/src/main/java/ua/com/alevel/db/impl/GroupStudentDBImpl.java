@@ -19,7 +19,7 @@ import java.util.LinkedHashSet;
 public class GroupStudentDBImpl implements GroupStudentDB {
 
     private static final String PATH_CSV = "hw_7_ionio/group_student.csv";
-    private final Collection<GroupStudent> groupStudents;
+    private Collection<GroupStudent> groupStudents;
     private static GroupStudentDBImpl instance;
 
     public static GroupStudentDBImpl getInstance() {
@@ -30,7 +30,11 @@ public class GroupStudentDBImpl implements GroupStudentDB {
     }
 
     private GroupStudentDBImpl() {
-        groupStudents = new LinkedHashSet<>();
+        try {
+            groupStudents = findAll();
+        } catch (IOException e) {
+            groupStudents = new LinkedHashSet<>();
+        }
     }
 
     @Override

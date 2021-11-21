@@ -17,7 +17,7 @@ import java.util.LinkedHashSet;
 public class GroupDBImpl implements GroupDB {
 
     private static final String PATH_CSV = "hw_7_ionio/groups.csv";
-    private final Collection<Group> groups;
+    private Collection<Group> groups;
     private static GroupDBImpl instance;
 
     public static GroupDBImpl getInstance() {
@@ -28,7 +28,11 @@ public class GroupDBImpl implements GroupDB {
     }
 
     private GroupDBImpl() {
-        groups = new LinkedHashSet<>();
+        try {
+            groups = findAll();
+        } catch (IOException e) {
+            groups = new LinkedHashSet<>();
+        }
     }
 
     @Override
