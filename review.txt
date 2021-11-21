@@ -26,3 +26,9 @@ for (int i = 0; i < m; i++) {
 
 
 а по коду все уже неплохо
+
+hw_4 = 8
+
+ua/com/alevel/entity/Book.java:11 - ну вот что это за зло??)))
+
+hw_5 = 9
