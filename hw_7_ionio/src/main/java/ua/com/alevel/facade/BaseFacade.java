@@ -17,4 +17,5 @@ public interface BaseFacade<REQ extends BaseRequestDto, RESP extends BaseRespons
     RESP findById(String id);
 
     Collection<RESP> findAll() throws IOException;
+
 }

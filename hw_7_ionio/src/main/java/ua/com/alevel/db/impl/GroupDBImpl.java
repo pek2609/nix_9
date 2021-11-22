@@ -8,6 +8,7 @@ import ua.com.alevel.entity.Group;
 import ua.com.alevel.util.GenerateIdUtil;
 import ua.com.alevel.util.Parser;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class GroupDBImpl implements GroupDB {
 
     private static final String PATH_CSV = "hw_7_ionio/groups.csv";
     private Collection<Group> groups;
+    private final File file = new File(PATH_CSV);
     private static GroupDBImpl instance;
 
     public static GroupDBImpl getInstance() {
@@ -29,6 +31,7 @@ public class GroupDBImpl implements GroupDB {
 
     private GroupDBImpl() {
         try {
+            file.createNewFile();
             groups = findAll();
         } catch (IOException e) {
             groups = new LinkedHashSet<>();
@@ -39,7 +42,7 @@ public class GroupDBImpl implements GroupDB {
     public void create(Group entity) {
         entity.setId(GenerateIdUtil.generateId(groups));
         groups.add(entity);
-        try (FileWriter fileWriter = new FileWriter(PATH_CSV)) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
             CSVWriter csvWriter = new CSVWriter(fileWriter);
             csvWriter.writeAll(Parser.convertToStrings(Group.class, groups));
         } catch (IOException e) {
@@ -52,7 +55,7 @@ public class GroupDBImpl implements GroupDB {
         Group byId = findById(entity.getId());
         byId.setName(entity.getName());
         byId.setTeacherName(entity.getTeacherName());
-        try (FileWriter fileWriter = new FileWriter(PATH_CSV)) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
             CSVWriter csvWriter = new CSVWriter(fileWriter);
             csvWriter.writeAll(Parser.convertToStrings(Group.class, groups));
         } catch (IOException e) {
@@ -63,7 +66,7 @@ public class GroupDBImpl implements GroupDB {
     @Override
     public void delete(String id) {
         groups.remove(findById(id));
-        try (FileWriter fileWriter = new FileWriter(PATH_CSV)) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
             CSVWriter csvWriter = new CSVWriter(fileWriter);
             csvWriter.writeAll(Parser.convertToStrings(Group.class, groups));
         } catch (IOException e) {
@@ -83,10 +86,11 @@ public class GroupDBImpl implements GroupDB {
 
     @Override
     public Collection<Group> findAll() throws IOException {
-        try (FileReader fileReader = new FileReader(PATH_CSV)) {
+        try (FileReader fileReader = new FileReader(file)) {
             CSVReader csvReader = new CSVReader(fileReader);
             return Parser.convertToEntities(Group.class, csvReader.readAll());
         }
     }
+
 }
 

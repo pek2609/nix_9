@@ -1,10 +1,8 @@
 package ua.com.alevel.util;
 
-import ua.com.alevel.MyUniqueList;
 import ua.com.alevel.entity.BaseEntity;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.UUID;
 
 public final class GenerateIdUtil {

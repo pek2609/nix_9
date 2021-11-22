@@ -56,7 +56,7 @@ public class GroupController implements TaskRunner {
         }
     }
 
-    public void findAll() {
+    private void findAll() {
         try {
             Collection<GroupResponseDto> groups = groupFacade.findAll();
             if (groups.isEmpty()) {
@@ -80,8 +80,6 @@ public class GroupController implements TaskRunner {
         } catch (IOException | RuntimeException e) {
             System.out.println("problem: = " + e.getMessage());
         }
-
-
     }
 
     private void delete(BufferedReader reader) {
@@ -121,4 +119,5 @@ public class GroupController implements TaskRunner {
             System.out.println("problem: = " + e.getMessage());
         }
     }
+
 }

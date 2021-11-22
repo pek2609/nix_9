@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
             groupStudentDao.deleteAllByStudent(student.getId());
             studentDao.delete(id);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -46,4 +46,5 @@ public class StudentServiceImpl implements StudentService {
     public Collection<Student> findAll() throws IOException {
         return studentDao.findAll();
     }
+
 }

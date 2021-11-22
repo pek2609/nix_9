@@ -35,4 +35,5 @@ public class GroupStudent extends BaseEntity {
     public int hashCode() {
         return Objects.hash(groupId, studentId);
     }
+
 }

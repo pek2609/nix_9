@@ -32,10 +32,11 @@ public class GroupResponseDto extends BaseResponseDto {
 
     @Override
     public String toString() {
-        return "GroupResponseDto{" +
+        return "Group{" +
                 "id='" + getId() + '\'' +
                 ", name='" + name + '\'' +
                 ", teacherName='" + teacherName + '\'' +
                 '}';
     }
+
 }

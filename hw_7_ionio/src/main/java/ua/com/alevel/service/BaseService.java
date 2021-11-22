@@ -16,4 +16,5 @@ public interface BaseService<ENTITY extends BaseEntity> {
     ENTITY findById(String id);
 
     Collection<ENTITY> findAll() throws IOException;
+
 }

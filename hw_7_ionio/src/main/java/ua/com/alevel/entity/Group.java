@@ -44,4 +44,5 @@ public class Group extends BaseEntity {
     public int hashCode() {
         return Objects.hash(name, teacherName);
     }
+
 }

@@ -1,6 +1,5 @@
 package ua.com.alevel.entity;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Student extends BaseEntity {
@@ -45,4 +44,5 @@ public class Student extends BaseEntity {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
 }

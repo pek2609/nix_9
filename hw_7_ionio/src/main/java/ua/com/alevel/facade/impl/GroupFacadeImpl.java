@@ -47,4 +47,5 @@ public class GroupFacadeImpl implements GroupFacade {
     public Collection<GroupResponseDto> findAll() throws IOException {
         return groupService.findAll().stream().map(GroupResponseDto::new).collect(Collectors.toCollection(LinkedHashSet::new));
     }
+
 }

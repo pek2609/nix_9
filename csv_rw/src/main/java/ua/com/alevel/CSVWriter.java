@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CSVWriter implements CSVWriterI {
 
-    private Writer writer;
+    private final Writer writer;
     private int numOfColumns = -1;
 
     public CSVWriter(Writer writer) {
@@ -21,7 +21,7 @@ public class CSVWriter implements CSVWriterI {
         }
         for (String[] line : lines) {
             boolean isWritten = writeLineToStringBuilder(line, sb);
-            if(!isWritten){
+            if (!isWritten) {
                 break;
             }
         }
@@ -34,13 +34,13 @@ public class CSVWriter implements CSVWriterI {
         if (numOfColumns == -1) {
             numOfColumns = line.length;
         }
-        if(numOfColumns == line.length){
+        if (numOfColumns == line.length) {
             writeLineToStringBuilder(line, sb);
         }
         writer.write(sb.toString());
     }
 
-    private boolean writeLineToStringBuilder(String[] line, StringBuilder stringBuilder) throws IOException {
+    private boolean writeLineToStringBuilder(String[] line, StringBuilder stringBuilder) {
         if (line.length == numOfColumns) {
             for (int i = 0; i < line.length; i++) {
                 stringBuilder.append("\"").append(line[i]).append("\"");
@@ -50,6 +50,4 @@ public class CSVWriter implements CSVWriterI {
         }
         return false;
     }
-
-
 }

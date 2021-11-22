@@ -4,7 +4,6 @@ import ua.com.alevel.entity.BaseEntity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,27 +14,26 @@ public final class Parser {
 
     public static <T extends BaseEntity> Collection<T> convertToEntities(Class<T> tClass, List<String[]> list) {
         Collection<T> collection = new LinkedHashSet<>();
-        List<Method> setters = Arrays.stream(tClass.getDeclaredMethods()).filter(x -> x.getName().startsWith("set")).collect(Collectors.toList());
-        setters.forEach(System.out::println);
+        List<Field> allFields = getAllFields(tClass);
         for (int i = 1; i < list.size(); i++) {
             String[] strings = list.get(i);
-            if (strings.length - 1 != setters.size()) {
-                throw new RuntimeException("Can't parse provided " + strings.length + "values in " + setters.size() + " class fields");
+            if (strings.length != allFields.size()) {
+                throw new RuntimeException("Can't parse provided " + strings.length + "values in " + allFields.size() + " class fields");
             }
             try {
-                T t = tClass.newInstance();
-                t.setId(strings[0]);
-                for (int j = 1, k = 0; j < strings.length; j++) {
-                    setters.get(k++).invoke(t, strings[j]);
+                T t = tClass.getDeclaredConstructor().newInstance();
+                for (int j = 0; j < allFields.size(); j++) {
+                    allFields.get(j).setAccessible(true);
+                    allFields.get(j).set(t, strings[j]);
                 }
                 collection.add(t);
-            } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
-        collection.forEach(System.out::println);
         return collection;
     }
+
 
     public static <T extends BaseEntity> List<String[]> convertToStrings(Class<T> tClass, Collection<T> collection) {
         List<String[]> res = new ArrayList<>();
@@ -46,24 +44,33 @@ public final class Parser {
         }
         res.add(stringBuilder.toString().split(" "));
         for (T t : collection) {
-            res.add(convertToString(tClass, t));
+            res.add(convertToString(t));
         }
         return res;
     }
 
-    public static <T extends BaseEntity> String[] convertToString(Class<T> tClass, T t) {
-        List<Method> getters = Arrays.stream(tClass.getDeclaredMethods()).filter(x -> x.getName().startsWith("get")).collect(Collectors.toList());
+    public static <T extends BaseEntity> String[] convertToString(T t) {
+        List<Field> allFields = getAllFields(t.getClass());
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(t.getId()).append(" ");
-        for (Method getter : getters) {
-            try {
-                stringBuilder.append(getter.invoke(t)).append(" ");
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
+        try {
+            for (Field field : allFields) {
+                field.setAccessible(true);
+                stringBuilder.append(field.get(t)).append(" ");
             }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
         return stringBuilder.toString().split(" ");
     }
 
+    private static <T> List<Field> getAllFields(Class<T> tClass) {
+        if (tClass == null) {
+            return Collections.emptyList();
+        }
+        List<Field> result = new ArrayList<>(getAllFields(tClass.getSuperclass()));
+        List<Field> filteredFields = Arrays.stream(tClass.getDeclaredFields()).collect(Collectors.toList());
+        result.addAll(filteredFields);
+        return result;
+    }
 
 }

@@ -16,4 +16,5 @@ public interface BaseDao<ENTITY extends BaseEntity> {
     ENTITY findById(String id);
 
     Collection<ENTITY> findAll() throws IOException;
+
 }

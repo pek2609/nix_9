@@ -34,7 +34,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Collection<Student> findAll() throws IOException {
-        studentDB.findAll().forEach(System.out::println);
         return studentDB.findAll();
     }
+
 }

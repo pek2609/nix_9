@@ -36,4 +36,5 @@ public class GroupDaoImpl implements GroupDao {
     public Collection<Group> findAll() throws IOException {
         return groupDB.findAll();
     }
+
 }

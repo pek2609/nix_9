@@ -3,11 +3,11 @@ package ua.com.alevel.db.impl;
 import ua.com.alevel.CSVReader;
 import ua.com.alevel.CSVWriter;
 import ua.com.alevel.db.StudentDB;
-import ua.com.alevel.entity.Group;
 import ua.com.alevel.entity.Student;
 import ua.com.alevel.util.GenerateIdUtil;
 import ua.com.alevel.util.Parser;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import java.util.LinkedHashSet;
 public class StudentDBImpl implements StudentDB {
 
     private static final String PATH_CSV = "hw_7_ionio/students.csv";
+    private final File file = new File(PATH_CSV);
     private Collection<Student> students;
     private static StudentDBImpl instance;
 
@@ -29,6 +30,7 @@ public class StudentDBImpl implements StudentDB {
 
     private StudentDBImpl() {
         try {
+            file.createNewFile();
             students = findAll();
         } catch (IOException e) {
             students = new LinkedHashSet<>();
@@ -39,7 +41,7 @@ public class StudentDBImpl implements StudentDB {
     public void create(Student entity) {
         entity.setId(GenerateIdUtil.generateId(students));
         students.add(entity);
-        try (FileWriter fileWriter = new FileWriter(PATH_CSV)) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
             CSVWriter csvWriter = new CSVWriter(fileWriter);
             csvWriter.writeAll(Parser.convertToStrings(Student.class, students));
         } catch (IOException e) {
@@ -52,7 +54,7 @@ public class StudentDBImpl implements StudentDB {
         Student byId = findById(entity.getId());
         byId.setFirstName(entity.getFirstName());
         byId.setLastName(entity.getLastName());
-        try (FileWriter fileWriter = new FileWriter(PATH_CSV)) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
             CSVWriter csvWriter = new CSVWriter(fileWriter);
             csvWriter.writeAll(Parser.convertToStrings(Student.class, students));
         } catch (IOException e) {
@@ -63,7 +65,7 @@ public class StudentDBImpl implements StudentDB {
     @Override
     public void delete(String id) {
         students.remove(findById(id));
-        try (FileWriter fileWriter = new FileWriter(PATH_CSV)) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
             CSVWriter csvWriter = new CSVWriter(fileWriter);
             csvWriter.writeAll(Parser.convertToStrings(Student.class, students));
         } catch (IOException e) {
@@ -83,7 +85,7 @@ public class StudentDBImpl implements StudentDB {
 
     @Override
     public Collection<Student> findAll() throws IOException {
-        try (FileReader fileReader = new FileReader(PATH_CSV)) {
+        try (FileReader fileReader = new FileReader(file)) {
             CSVReader csvReader = new CSVReader(fileReader);
             return Parser.convertToEntities(Student.class, csvReader.readAll());
         }

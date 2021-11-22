@@ -32,10 +32,11 @@ public class StudentResponseDto extends BaseResponseDto {
 
     @Override
     public String toString() {
-        return "StudentResponseDto{" +
+        return "Student{" +
                 "id='" + getId() + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
 }

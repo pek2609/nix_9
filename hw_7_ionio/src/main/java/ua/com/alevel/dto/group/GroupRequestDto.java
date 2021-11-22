@@ -27,4 +27,5 @@ public class GroupRequestDto extends BaseRequestDto {
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
     }
+
 }

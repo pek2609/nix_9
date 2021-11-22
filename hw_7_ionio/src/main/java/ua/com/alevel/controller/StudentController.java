@@ -57,7 +57,7 @@ public class StudentController implements TaskRunner {
         }
     }
 
-    public void findAll() {
+    private void findAll() {
         try {
             Collection<StudentResponseDto> students = studentFacade.findAll();
             if (students.isEmpty()) {
@@ -122,4 +122,5 @@ public class StudentController implements TaskRunner {
             System.out.println("problem: = " + e.getMessage());
         }
     }
+
 }

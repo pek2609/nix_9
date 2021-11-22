@@ -27,4 +27,5 @@ public class GroupStudentRequestDto extends BaseRequestDto {
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
+
 }

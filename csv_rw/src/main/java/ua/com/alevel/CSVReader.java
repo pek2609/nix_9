@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CSVReader implements CSVReaderI {
 
-    private BufferedReader reader;
+    private final BufferedReader reader;
     private int numbOfColumns = -1;
 
     public CSVReader(Reader reader) {
@@ -32,11 +32,9 @@ public class CSVReader implements CSVReaderI {
         if (numbOfColumns == -1) {
             numbOfColumns = splitLines.length;
         }
-        if(splitLines.length != numbOfColumns){
+        if (splitLines.length != numbOfColumns) {
             throw new RuntimeException("line = \"" + line + "\" isn't corresponded to header's line");
         }
         return splitLines;
     }
-
-
 }

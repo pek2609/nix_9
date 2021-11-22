@@ -36,4 +36,5 @@ public class GroupStudentServiceImpl implements GroupStudentService {
     public Collection<GroupStudent> findAll() throws IOException {
         return groupStudentDao.findAll();
     }
+
 }

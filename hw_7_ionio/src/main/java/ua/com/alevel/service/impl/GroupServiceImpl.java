@@ -22,7 +22,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void update(Group entity) {
-        groupDao.create(entity);
+        groupDao.update(entity);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class GroupServiceImpl implements GroupService {
             groupStudentDao.deleteAllByGroup(group.getId());
             groupDao.delete(id);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -45,4 +45,5 @@ public class GroupServiceImpl implements GroupService {
     public Collection<Group> findAll() throws IOException {
         return groupDao.findAll();
     }
+
 }

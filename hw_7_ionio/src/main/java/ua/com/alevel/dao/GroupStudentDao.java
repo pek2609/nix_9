@@ -9,4 +9,5 @@ public interface GroupStudentDao extends BaseDao<GroupStudent> {
     void deleteAllByGroup(String groupId) throws IOException;
 
     void deleteAllByStudent(String studentId) throws IOException;
+
 }

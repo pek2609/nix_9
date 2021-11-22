@@ -1,8 +1,10 @@
 package ua.com.alevel.controller;
 
 import ua.com.alevel.TaskRunner;
+import ua.com.alevel.dto.group.GroupResponseDto;
 import ua.com.alevel.dto.groupstudent.GroupStudentRequestDto;
 import ua.com.alevel.dto.groupstudent.GroupStudentResponseDto;
+import ua.com.alevel.dto.student.StudentResponseDto;
 import ua.com.alevel.facade.GroupFacade;
 import ua.com.alevel.facade.GroupStudentFacade;
 import ua.com.alevel.facade.StudentFacade;
@@ -87,8 +89,6 @@ public class GroupStudentController implements TaskRunner {
         } catch (IOException | RuntimeException e) {
             System.out.println("problem: = " + e.getMessage());
         }
-
-
     }
 
     private void delete(BufferedReader reader) {
@@ -103,12 +103,12 @@ public class GroupStudentController implements TaskRunner {
 
     private void update(BufferedReader reader) {
         try {
-            System.out.println("Please, enter id");
+            System.out.println("Please, enter record id");
             String id = reader.readLine();
-            groupFacade.findAll();
+            showGroups();
             System.out.println("Please, enter new group id");
             String groupId = reader.readLine();
-            studentFacade.findAll();
+            showStudents();
             System.out.println("Please, enter new student id");
             String studentId = reader.readLine();
             GroupStudentRequestDto record = new GroupStudentRequestDto(groupId, studentId);
@@ -120,17 +120,33 @@ public class GroupStudentController implements TaskRunner {
 
     private void create(BufferedReader reader) {
         try {
-            groupFacade.findAll();
-            System.out.println("Please, enter new group id");
+            showGroups();
+            System.out.println("Please, enter group id");
             String groupId = reader.readLine();
-            studentFacade.findAll();
-            System.out.println("Please, enter new student id");
+            showStudents();
+            System.out.println("Please, enter student id");
             String studentId = reader.readLine();
             GroupStudentRequestDto record = new GroupStudentRequestDto(groupId, studentId);
             groupStudentFacade.create(record);
         } catch (IOException | RuntimeException e) {
             System.out.println("problem: = " + e.getMessage());
         }
+    }
+
+    private void showGroups() throws IOException {
+        Collection<GroupResponseDto> groups = groupFacade.findAll();
+        if (groups.isEmpty()) {
+            throw new RuntimeException("There is no groups yet");
+        }
+        groups.forEach(System.out::println);
+    }
+
+    private void showStudents() throws IOException {
+        Collection<StudentResponseDto> students = studentFacade.findAll();
+        if (students.isEmpty()) {
+            throw new RuntimeException("There is no students yet");
+        }
+        students.forEach(System.out::println);
     }
 
 }
