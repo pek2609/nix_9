@@ -36,6 +36,7 @@
         <module>math_set</module>
         <module>hw_7_ionio</module>
         <module>csv_rw</module>
+        <module>module_2</module>
     </modules>
 
     <properties>
