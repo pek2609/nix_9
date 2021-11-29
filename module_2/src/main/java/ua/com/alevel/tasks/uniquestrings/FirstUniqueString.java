@@ -14,15 +14,13 @@ public class FirstUniqueString {
         if(names.isEmpty()){
             throw new RuntimeException("List is empty!");
         }
+        int index = 0;
         for (int i = 1; i < names.size(); i++) {
-            if(names.get(i).equals(names.get(i-1))){
-                names.remove(i-1);
-                i--;
-            }
-            else {
-                return names.get(i);
+            if(!names.get(i).equals(names.get(i-1))){
+                index = i;
+                break;
             }
         }
-        return names.get(0);
+        return names.get(index);
     }
 }

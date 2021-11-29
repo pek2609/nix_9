@@ -13,7 +13,6 @@ public final class DateValidator {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormat);
         try {
             LocalDate.parse(date, dateTimeFormatter);
-
         } catch (DateTimeParseException ex) {
             return false;
         }
