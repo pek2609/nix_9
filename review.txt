@@ -32,3 +32,6 @@ hw_4 = 8
 ua/com/alevel/entity/Book.java:11 - ну вот что это за зло??)))
 
 hw_5 = 9
+
+hw_7 = 9
+module_2 = 9
