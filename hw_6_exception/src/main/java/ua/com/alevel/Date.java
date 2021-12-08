@@ -64,5 +64,12 @@ public class Date {
                 && day >= MIN_DAY && day <= getMaxDayOfMonth(year, month);
     }
 
-
+    @Override
+    public String toString() {
+        return "Date{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
+    }
 }

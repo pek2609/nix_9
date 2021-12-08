@@ -14,15 +14,23 @@ public class DateTime {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Time getTime() {
         return time;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "DateTime{" +
+                "date=" + date +
+                ", time=" + time +
+                '}';
     }
 }
