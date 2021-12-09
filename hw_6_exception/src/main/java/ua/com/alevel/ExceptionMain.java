@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class ExceptionMain {
 
     public static void main(String[] args) {
-        DateTime parse = Parser.parse("1256");
+        DateTime parse = Parser.parse("09 Апрель 789 23:45","dd-mmm-yyyy 00:00");
         System.out.println(parse);
     }
 }
