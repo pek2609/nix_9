@@ -1,13 +1,10 @@
 package ua.com.alevel;
 
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-
 public class ExceptionMain {
 
     public static void main(String[] args) {
-        DateTime parse = Parser.parse("09 Апрель 789 23:45","dd-mmm-yyyy 00:00");
+        DateTime parse = Parser.parse("28-12-734 17:45");
         System.out.println(parse);
+        System.out.println(Parser.parse(parse));
     }
 }

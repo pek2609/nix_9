@@ -31,12 +31,15 @@ public final class Formats {
         formats.add("dd/mm/yyyy");
         formats.add("dd/mm/yyyy 00:00");
         formats.add("dd/mm/yyyy 00:00:00:000");
-        formats.add("mm/dd/yyyy");
-        formats.add("mm/dd/yyyy 00:00");
-        formats.add("mm/dd/yyyy 00:00:00:000");
+        formats.add("dd/mm/yy");
+        formats.add("dd/mm/yy 00:00");
+        formats.add("dd/mm/yy 00:00:00:000");
         formats.add("dd-mm-yyyy");
         formats.add("dd-mm-yyyy 00:00");
         formats.add("dd-mm-yyyy 00:00:00:000");
+        formats.add("dd-mm-yy");
+        formats.add("dd-mm-yy 00:00");
+        formats.add("dd-mm-yy 00:00:00:000");
         formats.add("mm-dd-yyyy");
         formats.add("mm-dd-yyyy 00:00");
         formats.add("mm-dd-yyyy 00:00:00:000");
