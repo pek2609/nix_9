@@ -1,8 +1,6 @@
 package ua.com.alevel.calendar;
 
-import ua.com.alevel.datetime.Date;
 import ua.com.alevel.datetime.DateTime;
-import ua.com.alevel.datetime.Time;
 import ua.com.alevel.util.DateUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -54,28 +52,25 @@ public final class Calendar {
         setDateTime(DateUtil.convertToDateTime(l + ms));
     }
 
-    public void addMonth(int months) {
-        DateTime cur = new DateTime();
-        Date date = new Date();
-        date.setMonth(months);
-        cur.setDate(date);
-        cur.setTime(new Time());
-        long ms = DateUtil.convertToMs(cur);
-        long l = DateUtil.convertToMs(this.dateTime);
-        DateTime dateTime = DateUtil.convertToDateTime(l + ms);
-        setDateTime(dateTime);
+    public void addMonth(long months) {
+        long newMonth = dateTime.getDate().getMonth() + months;
+        while (newMonth <= 0) {
+            addYear(-1);
+            newMonth += 12;
+        }
+        while (newMonth > 12) {
+            addYear(1);
+            newMonth -= 12;
+        }
+        dateTime.getDate().setMonth((int) newMonth);
     }
 
     public void addYear(int years) {
-        DateTime cur = new DateTime();
-        Date date = new Date();
-        date.setYear(years);
-        cur.setDate(date);
-        cur.setTime(new Time());
-        long ms = DateUtil.convertToMs(cur);
-        long l = DateUtil.convertToMs(this.dateTime);
-        DateTime dateTime = DateUtil.convertToDateTime(l + ms);
-        setDateTime(dateTime);
+        int newYear = dateTime.getDate().getYear() + years;
+        if (newYear < 0 || newYear > 9999) {
+            throw new RuntimeException("Date will be invalid!");
+        }
+        dateTime.getDate().setYear(newYear);
     }
 
 

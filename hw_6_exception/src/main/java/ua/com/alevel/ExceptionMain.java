@@ -1,15 +1,10 @@
 package ua.com.alevel;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import ua.com.alevel.controller.CalendarController;
 
 public class ExceptionMain {
 
-    public static void main(String[] args) throws ParseException {
-
-
-
+    public static void main(String[] args) {
+        new CalendarController().run();
     }
 }
