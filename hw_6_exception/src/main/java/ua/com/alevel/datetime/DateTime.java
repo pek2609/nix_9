@@ -1,6 +1,8 @@
-package ua.com.alevel;
+package ua.com.alevel.datetime;
 
-public class DateTime {
+import ua.com.alevel.util.DateUtil;
+
+public class DateTime implements Comparable<DateTime> {
 
     private Date date;
     private Time time;
@@ -32,5 +34,17 @@ public class DateTime {
                 "date=" + date +
                 ", time=" + time +
                 '}';
+    }
+
+    @Override
+    public int compareTo(DateTime o) {
+        long l = DateUtil.convertToMs(this) - DateUtil.convertToMs(o);
+        if (l < 0) {
+            return -1;
+        }
+        if (l > 0) {
+            return 1;
+        }
+        return 0;
     }
 }

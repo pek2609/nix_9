@@ -1,4 +1,4 @@
-package ua.com.alevel;
+package ua.com.alevel.dateformats;
 
 import java.util.ArrayList;
 import java.util.HashMap;
