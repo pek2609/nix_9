@@ -1,4 +1,4 @@
-package ua.com.alevel;
+package ua.com.alevel.datetime;
 
 public class Time {
 
@@ -65,4 +65,15 @@ public class Time {
                 && second >= MIN_SECOND && second <= MAX_SECOND
                 && ms >= MIN_MS && ms <= MAX_MS;
     }
+
+    @Override
+    public String toString() {
+        return "Time{" +
+                "hour=" + hour +
+                ", minute=" + minute +
+                ", second=" + second +
+                ", ms=" + ms +
+                '}';
+    }
+
 }

@@ -1,4 +1,6 @@
-package ua.com.alevel;
+package ua.com.alevel.datetime;
+
+import ua.com.alevel.util.DateUtil;
 
 public class Date {
 
@@ -46,23 +48,18 @@ public class Date {
         this.day = day;
     }
 
-    private boolean isLeap(int year) {
-        return year % 4 == 0;
-    }
-
-    private int getMaxDayOfMonth(int year, int month) {
-        int[] daysInEachMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        if (month == 2 && isLeap(year)) {
-            ++daysInEachMonth[1];
-        }
-        return daysInEachMonth[month - 1];
-    }
-
     public boolean isValid() {
         return year >= MIN_YEAR && year <= MAX_YEAR
                 && month >= MIN_MONTH && month <= MAX_MONTH
-                && day >= MIN_DAY && day <= getMaxDayOfMonth(year, month);
+                && day >= MIN_DAY && day <= DateUtil.getMaxDayOfMonth(year, month);
     }
 
-
+    @Override
+    public String toString() {
+        return "Date{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
+    }
 }

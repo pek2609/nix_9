@@ -1,12 +1,10 @@
 package ua.com.alevel;
 
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import ua.com.alevel.controller.CalendarController;
 
 public class ExceptionMain {
 
     public static void main(String[] args) {
-        System.out.println("ExceptionMain.main");
+        new CalendarController().run();
     }
 }
