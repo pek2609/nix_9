@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Group</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New Group</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/groups/create}" th:object="${group}" method="post"
+                          class="needs-validation">
+                        <div class="form-group">
+                            <label for="groupName">Group Name</label>
+                            <input type="text" class="form-control" id="groupName" aria-describedby="groupName"
+                                   placeholder="Enter group name" th:field="*{groupName} ">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherName">Group Name</label>
+                            <input type="text" class="form-control" id="teacherName" aria-describedby="teacherName"
+                                   placeholder="Enter teacher name" th:field="*{teacherName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Select course</label>
+                            <select class="form-control" id="type" th:field="*{course}">
+                                <option th:each="type : ${course}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

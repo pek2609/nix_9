@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Update record</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Update record</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{'/records/update/' + ${record.getId()}}" th:object="${record}"
+                          method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="group">Example select</label>
+                            <select class="form-control" id="group" th:field="*{groupId}">
+                                <option th:each="group : ${groups}"
+                                        th:value="${group.getId()}"
+                                        th:text="${group.getGroupName()}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="student">Example select</label>
+                            <select class="form-control" id="student" th:field="*{studentId}">
+                                <option th:each="student : ${students}"
+                                        th:value="${student.getId()}"
+                                        th:text="${student.getFullName()}">
+                                </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
