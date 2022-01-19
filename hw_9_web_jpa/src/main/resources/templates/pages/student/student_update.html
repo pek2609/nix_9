@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Update company</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Update student</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{'/students/update/' + ${student.getId()}}" th:object="${student}"
+                          method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="firstName">Firstname</label>
+                            <input type="text" class="form-control" id="firstName" aria-describedby="firstName"
+                                   placeholder="Enter firstname" th:field="*{firstName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Lastname</label>
+                            <input type="text" class="form-control" id="lastName" aria-describedby="lastName"
+                                   placeholder="Enter lastname" th:field="*{lastName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Age</label>
+                            <input type="text" class="form-control" id="age" aria-describedby="age"
+                                   placeholder="Enter age" th:field="*{age}">
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone number</label>
+                            <input type="text" class="form-control" id="phoneNumber" aria-describedby="phoneNumber"
+                                   placeholder="Enter phone number" th:field="*{phoneNumber}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" aria-describedby="email"
+                                   placeholder="Enter email" th:field="*{email}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

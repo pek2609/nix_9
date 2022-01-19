@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Details Student</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Details Record
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>record id</th>
+                            <td th:text="${record.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>created</th>
+                            <td th:text="${#calendars.format(record.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>updated</th>
+                            <td th:text="${#calendars.format(record.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>group</th>
+                            <td>
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>name</th>
+                                        <td th:text="${record.getGroup().getGroupName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>teacher</th>
+                                        <td th:text="${record.getGroup().getTeacherName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>course</th>
+                                        <td th:text="${record.getGroup().getCourse().name()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>created</th>
+                                        <td th:text="${#calendars.format(record.getGroup().getCreated(),'dd MMMM yyyy')}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>updated</th>
+                                        <td th:text="${#calendars.format(record.getGroup().getUpdated(),'dd MMMM yyyy')}"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>student</th>
+                            <td>
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>firstname</th>
+                                        <td th:text="${record.getStudent().getFirstName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>teacher</th>
+                                        <td th:text="${record.getStudent().getLastName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>phone number</th>
+                                        <td th:text="${record.getStudent().getPhoneNumber()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>email</th>
+                                        <td th:text="${record.getStudent().getEmail()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>created</th>
+                                        <td th:text="${#calendars.format(record.getStudent().getCreated(),'dd MMMM yyyy')}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>updated</th>
+                                        <td th:text="${#calendars.format(record.getStudent().getUpdated(),'dd MMMM yyyy')}"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <div>
+                        <a th:href="@{'/records/update/' + ${record.getId()}}" type="button" class="btn btn-primary">Update
+                            Record</a>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
