@@ -11,4 +11,8 @@ public interface GroupService extends BaseService<Group> {
     DataTableResponse<Group> findByStudentId(DataTableRequest dataTableRequest, Long studentId);
 
     List<Group> findAll();
+
+    void addStudent(Long groupId, Long studentId);
+
+    void removeStudent(Long groupId, Long studentId);
 }

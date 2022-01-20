@@ -2,6 +2,7 @@ package ua.com.alevel.persistence.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -60,6 +61,16 @@ public class Group extends BaseEntity {
         this.students = studyRecords;
     }
 
+    public void addStudent(Student student) {
+//        students.add(student);
+//        student.getGroups().add(this);
+    }
+
+    public void deleteStudent(Student student) {
+//        students.remove(student);
+//        student.getGroups().remove(this);
+    }
+
     @Override
     public String toString() {
         return "Group{" +
@@ -67,5 +78,15 @@ public class Group extends BaseEntity {
                 ", teacherName='" + teacherName + '\'' +
                 ", course=" + course +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

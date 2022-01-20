@@ -54,4 +54,5 @@ public class DataTableRequest {
     public void setRequestParamMap(Map<String, String[]> requestParamMap) {
         this.requestParamMap = requestParamMap;
     }
+
 }
