@@ -1,8 +1,6 @@
 package ua.com.alevel.persistence.entity;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -62,13 +60,13 @@ public class Group extends BaseEntity {
     }
 
     public void addStudent(Student student) {
-//        students.add(student);
-//        student.getGroups().add(this);
+        students.add(student);
+        student.getGroups().add(this);
     }
 
     public void deleteStudent(Student student) {
-//        students.remove(student);
-//        student.getGroups().remove(this);
+        students.remove(student);
+        student.getGroups().remove(this);
     }
 
     @Override

@@ -9,7 +9,6 @@ import ua.com.alevel.exception.IncorrectDataInput;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Group;
 import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.repository.StudentRepository;
 import ua.com.alevel.service.StudentService;

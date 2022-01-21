@@ -16,6 +16,7 @@ import ua.com.alevel.view.dto.response.GroupResponseDto;
 import ua.com.alevel.view.dto.response.PageData;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -95,6 +96,16 @@ public class GroupFacadeImpl implements GroupFacade {
     @Override
     public void removeStudent(Long groupId, Long studentId) {
         groupService.removeStudent(groupId, studentId);
+    }
+
+    @Override
+    public List<GroupResponseDto> findByStudentsId(Long studentId) {
+        return groupService.findByStudentId(studentId).stream().map(GroupResponseDto::new).toList();
+    }
+
+    @Override
+    public Set<GroupResponseDto> findNotByStudentsId(Long studentId) {
+        return groupService.findNotByStudentsId(studentId).stream().map(GroupResponseDto::new).collect(Collectors.toSet());
     }
 
     private List<GroupResponseDto> mapDTRespToListOfDto(DataTableResponse<Group> all) {

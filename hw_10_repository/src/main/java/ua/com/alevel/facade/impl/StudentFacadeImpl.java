@@ -90,6 +90,4 @@ public class StudentFacadeImpl implements StudentFacade {
     public List<StudentResponseDto> findAll() {
         return studentService.findAll().stream().map(StudentResponseDto::new).toList();
     }
-
-
 }

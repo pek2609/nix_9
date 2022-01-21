@@ -5,6 +5,7 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Group;
 
 import java.util.List;
+import java.util.Set;
 
 public interface GroupService extends BaseService<Group> {
 
@@ -15,4 +16,9 @@ public interface GroupService extends BaseService<Group> {
     void addStudent(Long groupId, Long studentId);
 
     void removeStudent(Long groupId, Long studentId);
+
+    List<Group> findByStudentId(Long studentId);
+
+    Set<Group> findNotByStudentsId(Long studentId);
+
 }

@@ -2,6 +2,8 @@ package ua.com.alevel.view.dto.response;
 
 import ua.com.alevel.persistence.entity.Student;
 
+import java.util.List;
+
 public class StudentResponseDto extends DtoResponse {
 
     private String firstName;

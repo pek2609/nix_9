@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import ua.com.alevel.facade.GroupFacade;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.view.dto.request.StudentRequestDto;
 import ua.com.alevel.view.dto.response.PageData;
@@ -20,9 +21,11 @@ import java.util.Map;
 public class StudentController extends AbstractController {
 
     private final StudentFacade studentFacade;
+    private final GroupFacade groupFacade;
 
-    public StudentController(StudentFacade studentFacade) {
+    public StudentController(StudentFacade studentFacade, GroupFacade groupFacade) {
         this.studentFacade = studentFacade;
+        this.groupFacade = groupFacade;
     }
 
     @GetMapping
@@ -60,6 +63,8 @@ public class StudentController extends AbstractController {
     public String details(@PathVariable Long id, Model model) {
         StudentResponseDto dto = studentFacade.findById(id);
         model.addAttribute("student", dto);
+        model.addAttribute("deleteFromGroup", groupFacade.findByStudentsId(id));
+        model.addAttribute("addToGroup", groupFacade.findNotByStudentsId(id));
         return "pages/student/student_details";
     }
 
@@ -74,6 +79,7 @@ public class StudentController extends AbstractController {
         studentFacade.delete(id);
         return "redirect:/students";
     }
+
 
     @PostMapping("/update/{id}")
     public String updateCompany(@PathVariable Long id, @ModelAttribute("student") StudentRequestDto studentRequestDto) {
@@ -125,4 +131,6 @@ public class StudentController extends AbstractController {
         }
         return new ModelAndView("redirect:/students/all/group/" + groupId, model);
     }
+
+
 }

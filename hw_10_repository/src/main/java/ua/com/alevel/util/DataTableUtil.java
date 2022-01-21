@@ -9,7 +9,8 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.Group;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class DataTableUtil {
 
@@ -54,17 +55,5 @@ public final class DataTableUtil {
         Map<Object, Object> otherParamMap = new HashMap<>();
         groupDataTableResponse.getItems().forEach(it-> otherParamMap.put(it.getId(), it.getStudents().size()));
         groupDataTableResponse.setOtherParamMap(otherParamMap);
-    }
-
-    public static void sortByStudentCount(DataTableResponse<Group> all, String order) {
-        Comparator<Group> studCountCmp = Comparator.comparingInt(o -> o.getStudents().size());
-        List<Group> items = new ArrayList<>(all.getItems());
-        items.forEach(it-> System.out.println(it.getStudents().toString()));
-        if (order.equals("asc")) {
-            items.sort(studCountCmp);
-        } else {
-            items.sort(studCountCmp.reversed());
-        }
-        all.setItems(items);
     }
 }

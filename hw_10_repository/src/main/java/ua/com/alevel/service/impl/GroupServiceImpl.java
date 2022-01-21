@@ -19,6 +19,7 @@ import ua.com.alevel.util.DataTableUtil;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Service
@@ -76,14 +77,7 @@ public class GroupServiceImpl implements GroupService {
     @Transactional(readOnly = true)
     @Override
     public DataTableResponse<Group> findAll(DataTableRequest dataTableRequest) {
-        boolean flag = dataTableRequest.getSort().equals("studentCount");
-        if (flag) {
-            dataTableRequest.setSort("created");
-        }
-        DataTableResponse<Group> all = crudRepositoryHelper.findAll(repository, dataTableRequest);
-        if (flag) {
-            DataTableUtil.sortByStudentCount(all, dataTableRequest.getOrder());
-        }
+        DataTableResponse<Group> all = DataTableUtil.formResponse(repository.findAllGroupsWithCount(DataTableUtil.formPageableByRequest(dataTableRequest)), dataTableRequest);
         DataTableUtil.setOtherParamMapStudCount(all);
         return all;
     }
@@ -91,15 +85,8 @@ public class GroupServiceImpl implements GroupService {
     @Transactional(readOnly = true)
     @Override
     public DataTableResponse<Group> findByStudentId(DataTableRequest dataTableRequest, Long studentId) {
-        boolean flag = dataTableRequest.getSort().equals("studentCount");
-        if (flag) {
-            dataTableRequest.setSort("created");
-        }
         Page<Group> groupPage = repository.findByStudentsId(studentId, DataTableUtil.formPageableByRequest(dataTableRequest));
         DataTableResponse<Group> all = DataTableUtil.formResponse(groupPage, dataTableRequest);
-        if (flag) {
-            DataTableUtil.sortByStudentCount(all, dataTableRequest.getOrder());
-        }
         DataTableUtil.setOtherParamMapStudCount(all);
         return all;
     }
@@ -110,6 +97,7 @@ public class GroupServiceImpl implements GroupService {
         return crudRepositoryHelper.findAll(repository);
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     @Override
     public void addStudent(Long groupId, Long studentId) {
         Group group = findById(groupId);
@@ -118,11 +106,23 @@ public class GroupServiceImpl implements GroupService {
         crudRepositoryHelper.update(repository, group);
     }
 
-    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void removeStudent(Long groupId, Long studentId) {
         Group group = findById(groupId);
         Student student = studentService.findById(studentId);
         group.deleteStudent(student);
         crudRepositoryHelper.update(repository, group);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Group> findByStudentId(Long studentId) {
+        return repository.findByStudentsId(studentId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Set<Group> findNotByStudentsId(Long studentId) {
+        return repository.findByStudentsIdNot(studentId);
     }
 }

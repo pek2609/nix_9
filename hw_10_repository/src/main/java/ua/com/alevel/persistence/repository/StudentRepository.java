@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 import ua.com.alevel.persistence.entity.Student;
 
 @Repository
-public interface StudentRepository extends BaseRepository<Student>{
+public interface StudentRepository extends BaseRepository<Student> {
 
     Page<Student> findByGroupsId(Long groupId, Pageable pageable);
+
 }

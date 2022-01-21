@@ -46,7 +46,7 @@ public class GroupController extends AbstractController {
                 new HeaderName("group name", "groupName", "group_name"),
                 new HeaderName("teacher name", "teacherName", "teacher_name"),
                 new HeaderName("course", "course", "course"),
-                new HeaderName("student count", "studentCount", "student_count"),
+                new HeaderName("student count", "students.size", null),
                 new HeaderName("details", null, null),
                 new HeaderName("delete", null, null)
         };
@@ -100,6 +100,18 @@ public class GroupController extends AbstractController {
         model.addAttribute("group", groupResponseDto);
         model.addAttribute("course", Course.values());
         return "pages/group/group_update";
+    }
+
+    @GetMapping("/delete/{groupId}/{studId}")
+    public String deleteFromGroup(@PathVariable Long groupId, @PathVariable Long studId) {
+        groupFacade.removeStudent(groupId, studId);
+        return "redirect:/groups";
+    }
+
+    @GetMapping("/add/{groupId}/{studId}")
+    public String addToGroup(@PathVariable Long groupId, @PathVariable Long studId) {
+        groupFacade.addStudent(groupId, studId);
+        return "redirect:/groups";
     }
 
     @GetMapping("/all/student/{studentId}")
