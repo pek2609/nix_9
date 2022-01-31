@@ -1,17 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
-html, body {
-    background: url('https://images.pexels.com/photos/5088017/pexels-photo-5088017.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') no-repeat center center fixed;
+body {
+    background: url('https://wallpaperaccess.com/full/1628641.jpg') no-repeat center center fixed;
     background-size: cover;
     height: 100%;
     font-family: 'Numans', sans-serif;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-}
-
-.navbar-custom {
-    background-color: #623f17;
 }
 
 a.nav-item.nav-link {
@@ -22,4 +18,3 @@ a.nav-item.nav-link {
     cursor: pointer;
     margin-right: 2em;
 }
-

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Promotion</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New Promotion</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/promotions/create}" th:object="${promotion}" method="post"
+                          class="needs-validation">
+                        <div class="form-group">
+                            <label for="image">Promotion Image</label>
+                            <input type="text" class="form-control" id="image" aria-describedby="image"
+                                   placeholder="Enter image url" th:field="*{image} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="name">Promotion Name</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="name"
+                                   placeholder="Enter promotion name" th:field="*{name} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="percent">Percent</label>
+                            <input type="number" class="form-control" id="percent" aria-describedby="percent"
+                                   placeholder="Enter sale percent" th:field="*{percent} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="start" class="col-1 col-form-label">Start</label>
+                            <input type="datetime-local" class="form-control" id="start" th:field="*{start}" required/>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="end" class="col-1 col-form-label">End</label>
+                            <input type="datetime-local" class="form-control" id="end" th:field="*{end}" required/>
+                        </div>
+                        <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

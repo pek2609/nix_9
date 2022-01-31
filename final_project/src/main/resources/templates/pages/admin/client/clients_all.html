@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>clients</title>
+</head>
+<body style="padding-top: 60px">
+<div layout:fragment="data_table_content">
+    <tr th:each="client,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td th:text="${client.getFirstName()}"></td>
+        <td th:text="${client.getLastName()}"></td>
+        <td th:text="${client.getEmail()}"></td>
+        <td th:text="${client.getPhoneNumber()}"></td>
+        <td th:text="${client.getSex()}"></td>
+        <td>
+            <a th:href="@{'/clients/details/' + ${client.getId()}}" type="button"
+               class="btn btn-primary">details</a>
+        </td>
+        <td>
+            <a th:if="${client.getVisible()}" th:href="@{'/clients/ban/' + ${client.getId()}}" type="button"
+               class="btn btn-danger" id="ban">ban</a>
+        </td>
+        <td>
+            <a th:unless="${client.getVisible()} " th:href="@{'/clients/unban/' + ${client.getId()}}" type="button"
+               class="btn btn-warning" id="unban">unban</a>
+        </td>
+    </tr>
+</div>
+</body>
+<th:block layout:fragment="scripts">
+    <script type="text/javascript" th:src="@{/js/ban.js}"></script>
+</th:block>
+</html>
+

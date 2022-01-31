@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bus_details.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+    <title>Details Bus</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="project-info-box mt-0">
+                    <h5 th:text="${promotion.getName()}"></h5>
+                </div>
+
+                <div class="project-info-box">
+                    <b>Created:</b>
+                    <p th:text="${#calendars.format(promotion.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
+                    <b>Updated:</b>
+                    <p th:text="${#calendars.format(promotion.getUpdated(),'dd MMMM yyyy hh:mm a')}"></p>
+                    <b>Active:</b>
+                    <p th:text="${promotion.getVisible()} == true ? 'Yes' : 'No'"></p>
+                    <b>Start:</b>
+                    <p th:text="${#calendars.format(promotion.getStart(),'dd MMMM yyyy')}"></p>
+                    <b>End:</b>
+                    <p th:text="${#calendars.format(promotion.getEnd(),'dd MMMM yyyy')}"></p>
+                    <b>Percent: </b>
+                    <p th:text="${promotion.getPercent()} + '%'"></p>
+                    <b>Trips Count:</b>
+                    <p th:text="${promotion.getTripCount()}"></p>
+                    <div class="btn-toolbar mb-0">
+                        <div class="item">
+                            <a th:href="@{'/promotions/update/' + ${promotion.getId()}}" type="button"
+                               class="btn btn-dark mr-3">Update promotion</a>
+                        </div>
+                        <div class="item" style="margin-left: 3px">
+                            <a th:href="@{'/trips/all/promotion/' + ${promotion.getId()}}" type="button"
+                               class="btn btn-dark mr-3">Show trips</a>
+                        </div>
+                    </div>
+                </div><!-- / project-info-box -->
+
+
+            </div><!-- / column -->
+
+            <div class="col-md-7">
+                <img th:src="${promotion.getImage()}" alt="project-image" class="rounded">
+            </div><!-- / column -->
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

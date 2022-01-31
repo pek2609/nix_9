@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>groups</title>
+</head>
+<body style="padding-top: 50px">
+    <div layout:fragment="data_table_content">
+        <tr th:each="promotion,iter : ${pageData.getItems()}">
+            <td th:text="${iter.count}"></td>
+            <td>
+                <img th:src="@{${promotion.getImage()}}" width="70" height="50"/>
+            </td>
+            <td th:text="${promotion.getName()}"></td>
+            <td th:text="${promotion.getVisible()}"></td>
+            <td th:text="${#calendars.format(promotion.getStart(),'dd MMMM yyyy')}"></td>
+            <td th:text="${#calendars.format(promotion.getEnd(),'dd MMMM yyyy')}"></td>
+            <td th:text="${promotion.getPercent()} + '%'"></td>
+            <td th:text="${promotion.getTripCount()}"></td>
+            <td>
+                <a th:href="@{'/promotions/details/' + ${promotion.getId()}}" type="button"
+                   class="btn btn-primary">details</a>
+            </td>
+            <td>
+                <a th:href="@{'/promotions/delete/' + ${promotion.getId()}}" type="button" class="btn btn-danger">delete</a>
+            </td>
+        </tr>
+    </div>
+</body>
+</html>

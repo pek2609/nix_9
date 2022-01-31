@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/open_layout}">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/tickets.css" rel="stylesheet">
+    <title>Select ticket</title>
+</head>
+<body>
+
+<div layout:fragment="open_content">
+
+    <div class="container rounded shadow-sm">
+        <form action="" th:action="@{/open/tickets/all}" th:object="${search}" method="post">
+            <div class="row">
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-control d-flex flex-column">
+                        <p class="h-blue">FROM</p>
+                        <select th:field="*{departureTown}" class="inputbox" id="departure">
+                            <option th:each="type : ${towns}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-control d-flex flex-column">
+                        <p class="h-blue">TO</p>
+                        <select th:field="*{arrivalTown}" class="inputbox" id="arrival">
+                            <option th:each="type : ${towns}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-12 mb-4">
+                    <div class="form-control d-flex flex-column">
+                        <p class="h-blue">DEPARTING</p>
+                        <input th:field="*{departure}" class="inputbox textmuted" type="date">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-control d-flex flex-column">
+                        <p class="h-blue">ADULTS(18+)</p>
+                        <select th:field="*{adults}" class="border-0 outline-none">
+                        <option th:value="0" hidden selected>0</option>
+                        <option th:value="1">1</option>
+                        <option th:value="2">2</option>
+                        <option th:value="3">3</option>
+                        <option th:value="2">4</option>
+                        <option th:value="3">5</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="form-control d-flex flex-column">
+                        <p class="h-blue">CHILDREN(0-17)</p>
+                        <select th:field="*{children}" class="border-0 outline-none">
+                        <option th:value="0" hidden selected>0</option>
+                        <option th:value="1">1</option>
+                        <option th:value="2">2</option>
+                        <option th:value="3">3</option>
+                        <option th:value="4">2</option>
+                        <option th:value="5">3</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-dark form-control text-center" type="submit">SEARCH</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

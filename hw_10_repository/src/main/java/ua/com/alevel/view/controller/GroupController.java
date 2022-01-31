@@ -114,28 +114,5 @@ public class GroupController extends AbstractController {
         return "redirect:/groups";
     }
 
-    @GetMapping("/all/student/{studentId}")
-    public String findAllByCompany(@PathVariable Long studentId, Model model, WebRequest request) {
-        HeaderName[] columnNames = getColumnNames();
-        PageData<GroupResponseDto> response = groupFacade.findByStudentId(request, studentId);
-        response.initPaginationState(response.getCurrentPage());
-        List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
-        model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("createUrl", "/groups/all/student/" + studentId);
-        model.addAttribute("createNewItemUrl", "/groups/new");
-        model.addAttribute("pageData", response);
-        model.addAttribute("allowCreate", false);
-        model.addAttribute("cardHeader", "All Groups");
-        return "pages/group/group_all";
-    }
 
-
-    @PostMapping("/all/student/{studentId}")
-    public ModelAndView findAllByCompanyRedirect(@PathVariable Long studentId, WebRequest request, ModelMap model) {
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        if (MapUtils.isNotEmpty(parameterMap)) {
-            parameterMap.forEach(model::addAttribute);
-        }
-        return new ModelAndView("redirect:/groups/all/student/" + studentId, model);
-    }
 }

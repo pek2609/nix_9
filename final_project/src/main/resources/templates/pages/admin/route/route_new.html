@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Bus</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New Route</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/routes/create}" th:object="${route}" method="post"
+                          class="needs-validation">
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="departure">Select departure town</label>
+                            <select class="form-control" id="departure" th:field="*{departureTown}">
+                                <option th:each="type : ${towns}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="arrival">Select arrival town</label>
+                            <select class="form-control" id="arrival" th:field="*{arrivalTown}">
+                                <option th:each="type : ${towns}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

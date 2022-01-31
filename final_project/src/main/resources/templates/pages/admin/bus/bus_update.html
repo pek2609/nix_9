@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Update company</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Update bus</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{'/buses/update/' + ${bus.getId()}}" th:object="${bus}"
+                          method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="image">Bus Image</label>
+                            <input type="text" class="form-control" id="image" aria-describedby="image"
+                                   placeholder="Enter image url" th:field="*{imageUrl} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="name">Bus Name</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="name"
+                                   placeholder="Enter bus name" th:field="*{name} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="seats">Number Of Seats</label>
+                            <input type="number" class="form-control" id="seats" aria-describedby="seats"
+                                   placeholder="Enter number of seats" th:field="*{seats} ">
+                        </div>
+                        <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

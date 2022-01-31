@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Update company</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Update bus</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{'/trips/update/' + ${trip.getId()}}" th:object="${trip}"
+                          method="post" enctype="multipart/form-data">
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="bus">Select bus</label>
+                            <select class="form-control" id="bus" th:field="*{bus.id}">
+                                <option th:each="bus : ${buses}"
+                                        th:value="${bus.getId()}"
+                                        th:text="${bus.getName()}+'(' + ${bus.getSeats()}+' seats)'">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="route">Select route</label>
+                            <select class="form-control" id="route" th:field="*{route.id}">
+                                <option th:each="route : ${routes}"
+                                        th:value="${route.id}"
+                                        th:text="${route.getDepartureTown()}+ '-' + ${route.getArrivalTown()}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="promo">Select promo</label>
+                            <select class="form-control" id="promo" th:field="*{promotion}">
+                                <option th:value="${null}">No promo</option>
+                                <option th:each="promo : ${promotions}"
+                                        th:value="${promo.id}"
+                                        th:text="${promo.getName()}">
+                                </option>
+
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="start" class="col-1 col-form-label">Departure</label>
+                            <input type="datetime-local" class="form-control" id="start" th:field="*{departure}" required/>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="end" class="col-1 col-form-label">Arrival</label>
+                            <input type="datetime-local" class="form-control" id="end" th:field="*{arrival}" required/>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" id="price" aria-describedby="seats"
+                                   placeholder="Enter price" th:field="*{price} ">
+                        </div>
+                        <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

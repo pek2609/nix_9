@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/auth_layout}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/client_details.css" rel="stylesheet">
+    <title>Details Group</title>
+</head>
+<body>
+
+<div layout:fragment="auth_content">
+
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img th:if="${client.getSex().name() =='MALE'}"
+                                         src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                         alt="avatar man">
+                                    <img th:if="${client.getSex().name() =='FEMALE'}"
+                                         src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                         alt="avatar woman">
+                                </div>
+                                <h5 class="user-name" th:text="${client.getFullName()}"></h5>
+                                <h6 class="user-email" th:text="${client.getEmail()}"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary" style="font-size: 24px">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <p class="mb-2" id="firstName" th:text="${client.getFirstName()}"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <p class="mb-2" id="lastName" th:text="${client.getLastName()}"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <p class="mb-2" id="phone" th:text="${client.getPhoneNumber()}"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="birthDate">BirthDate</label>
+                                    <p class="mb-2" id="birthDate"
+                                       th:text="${client.getBirthDate() == null} ? 'non specified' : ${#calendars.format(client.getBirthDate(),'dd MMMM yyyy')}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mt-3 text-primary mb-2" style="font-size: 24px">Other Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="created">Created</label>
+                                    <p class="mb-2" id="created"
+                                       th:text="${#calendars.format(client.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="updated">Last Update</label>
+                                    <p class="mb-2" id="updated"
+                                       th:text="${#calendars.format(client.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="banned">Banned</label>
+                                    <p class="mb-2" id="banned" th:text="${client.getVisible()} ? 'No' : 'Yes'"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="orderCount">Orders</label>
+                                    <p class="mb-2" id="orderCount" th:text="0"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters mt-3 mb-0">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right mb-0">
+                                    <button type="button" id="submit" name="submit" class="btn btn-dark">Show orders
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

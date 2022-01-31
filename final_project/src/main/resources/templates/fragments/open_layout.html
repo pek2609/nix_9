@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div layout:fragment="content">
+        <nav class="navbar navbar-dark bg-dark fixed-top pb-0 pt-0">
+            <a class="h1 fw-bold navbar-brand ml-1" href="#">
+                <img src="https://t4.ftcdn.net/jpg/03/01/82/47/360_F_301824765_o5VJVEp69miDvPJV5SPGSSGn8idWFbMu.jpg" width="10%" height="10%" class="d-inline-block align-center" alt="">
+                GoBus
+            </a>
+            <a class="nav-item nav-link" th:href="@{/open/tickets}">Tickets</a>
+            <a class="nav-item nav-link" th:href="@{/books}">Trips</a>
+            <a class="nav-item nav-link" th:href="@{/open/promotions}">Promotions</a>
+            <a class="nav-item nav-link" th:href="@{/login}">Login</a>
+            <a class="nav-item nav-link" th:href="@{/registration}">Sign Up</a>
+
+        </nav>
+        <section layout:fragment="open_content"></section>
+    </div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script type="text/javascript" th:src="@{/js/search.js}"></script>
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>groups</title>
+</head>
+<body style="padding-top: 50px">
+    <div layout:fragment="data_table_content">
+        <tr th:each="trip,iter : ${pageData.getItems()}">
+            <td th:text="${iter.count}"></td>
+            <td th:text="${trip.getBus().getName()}"></td>
+            <td th:text="${trip.getRoute().getDepartureTown()} + '-' + ${trip.getRoute().getArrivalTown()}"></td>
+            <td th:text="${#calendars.format(trip.getDeparture(), 'dd MMMM yyyy hh:mm a')}"></td>
+            <td th:text="${#calendars.format(trip.getArrival(),'dd MMMM yyyy hh:mm a')}"></td>
+            <td th:text="${trip.getPrice()}"></td>
+            <td th:text="${trip.getOrderCount()}"></td>
+            <td>
+                <a th:href="@{'/trips/details/' + ${trip.getId()}}" type="button"
+                   class="btn btn-primary">details</a>
+            </td>
+            <td>
+                <a th:href="@{'/trips/delete/' + ${trip.getId()}}" type="button" class="btn btn-danger">delete</a>
+            </td>
+        </tr>
+    </div>
+</body>
+</html>
