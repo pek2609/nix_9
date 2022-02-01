@@ -6,7 +6,6 @@ import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Order;
-import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.persistence.repository.OrderRepository;
 import ua.com.alevel.service.order.OrderService;
 

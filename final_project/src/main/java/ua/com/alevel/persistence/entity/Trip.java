@@ -31,9 +31,6 @@ public class Trip extends BaseEntity {
     @Column(precision = 7, scale = 2)
     private Double price;
 
-    @Transient
-    private Double finalPrice;
-
     @ManyToOne
     @JoinColumn(name = "promotion_id")
     private Promotion promotion;
@@ -121,13 +118,5 @@ public class Trip extends BaseEntity {
 
     public void setArrival(Date arrival) {
         this.arrival = arrival;
-    }
-
-    public Double getFinalPrice() {
-        return finalPrice;
-    }
-
-    public void setFinalPrice(Double finalPrice) {
-        this.finalPrice = finalPrice;
     }
 }

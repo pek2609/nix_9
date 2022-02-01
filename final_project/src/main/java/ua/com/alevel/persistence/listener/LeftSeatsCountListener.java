@@ -18,7 +18,7 @@ public class LeftSeatsCountListener {
         List<Order> orders = trip.getOrders();
         if (orders != null) {
             for (Order order : orders) {
-                seats -= (order.getChildren() + order.getAdults());
+                seats -= (order.getChildrenNumber() + order.getAdultsNumber());
             }
         }
         trip.setLeftSeats(seats);

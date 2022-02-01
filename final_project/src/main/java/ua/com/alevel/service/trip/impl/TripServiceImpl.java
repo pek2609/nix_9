@@ -12,6 +12,7 @@ import ua.com.alevel.persistence.entity.Trip;
 import ua.com.alevel.persistence.repository.TripRepository;
 import ua.com.alevel.service.trip.TripService;
 import ua.com.alevel.util.DataTableUtil;
+import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.web.dto.trip.TripSearchRequest;
 
 import java.util.Calendar;
@@ -87,25 +88,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<Trip> findAllBySearch(TripSearchRequest tripSearchRequest) {
-        Date arrival = addOneDay(tripSearchRequest.getDeparture());
+        Date arrival = PriceAndDateUtil.addOneDay(tripSearchRequest.getDeparture());
         List<Trip> search = tripRepository.findBySearch(tripSearchRequest.getDepartureTown(), tripSearchRequest.getArrivalTown(), tripSearchRequest.getDeparture(), arrival);
-        System.out.println(search.size());
-        search = search.stream().filter(trip -> trip.getVisible() && (trip.getLeftSeats() >= tripSearchRequest.getChildren()+tripSearchRequest.getAdults()))
-                .peek(trip -> trip.setFinalPrice(countPrice(tripSearchRequest, trip.getPrice(), trip.getPromotion()))).toList();
+        search = search.stream().filter(trip -> trip.getVisible() && (trip.getLeftSeats() >= tripSearchRequest.getChildren()+tripSearchRequest.getAdults())).toList();
         return search;
-    }
-
-    private Date addOneDay(Date date) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, 1);
-        return c.getTime();
-    }
-
-    private Double countPrice(TripSearchRequest tripSearchRequest, double priceForOne, Promotion promotion) {
-        if (promotion != null && promotion.isActive()) {
-            priceForOne = priceForOne - priceForOne*promotion.getPercent()/100;
-        }
-        return tripSearchRequest.getAdults()*priceForOne + tripSearchRequest.getChildren()*priceForOne/2;
     }
 }

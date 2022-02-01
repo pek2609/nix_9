@@ -1,19 +1,35 @@
 package ua.com.alevel.web.dto.order;
 
-import ua.com.alevel.persistence.entity.Order;
-import ua.com.alevel.persistence.entity.Trip;
+import org.hibernate.validator.constraints.Range;
 import ua.com.alevel.persistence.entity.user.Client;
-import ua.com.alevel.web.dto.DtoResponse;
+import ua.com.alevel.util.Messages;
+import ua.com.alevel.web.dto.DtoRequest;
 
-public class OrderResponseDto extends DtoResponse {
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
-    private Trip trip;
+public class OrderRequestDto extends DtoRequest {
+
+    @NotNull(message = Messages.NOT_NULL)
+    private Long tripId;
+
+    @NotNull(message = Messages.NOT_NULL)
     private String name;
+
+    @NotNull(message = Messages.NOT_NULL)
     private String surname;
+
+    @Pattern(regexp = "^\\+?3?8?(0\\d{9})$", message = Messages.INVALID_NUMBER)
     private String phoneNumber;
+
     private Client client;
+
+    @Range(min = 0, max = 5, message = Messages.INVALID_ADULTS_CHILDREN_NUMBER)
     private Integer children;
+
+    @Range(min = 0, max = 5, message = Messages.INVALID_ADULTS_CHILDREN_NUMBER)
     private Integer adults;
+
     private Double check;
 
     public String getPhoneNumber() {
@@ -24,24 +40,12 @@ public class OrderResponseDto extends DtoResponse {
         this.phoneNumber = phoneNumber;
     }
 
-    public OrderResponseDto(Order order) {
-        super(order.getId(), order.getCreated(), order.getUpdated(), true);
-        this.name = order.getFirstName();
-        this.surname = order.getLastName();
-        this.children = order.getChildrenNumber();
-        this.adults = order.getAdultsNumber();
-        this.client = order.getClient();
-        this.trip = order.getTrip();
-        this.check = order.getFinalPrice();
-        this.phoneNumber = order.getPhoneNumber();
+    public Long getTrip() {
+        return tripId;
     }
 
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
+    public void setTrip(Long trip) {
+        this.tripId = trip;
     }
 
     public Double getCheck() {

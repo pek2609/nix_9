@@ -2,14 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/open_layout}">
+      layout:decorate="~{fragments/client_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Tickets</title>
 </head>
 
 <body style="padding-top: 70px">
-<div layout:fragment="open_content">
+<div layout:fragment="client_content">
     <div class="container justify-content-center">
         <div class="card-group ">
             <div class="card" style="margin-left: 5px" th:each="promotion : ${promotions}">
@@ -23,7 +23,7 @@
                     <li class="list-group-item" th:text="${route.getDepartureTown()} + '-' + ${route.getArrivalTown()}">
                 </ul>
                 <div class="card-body">
-                    <a th:href="@{/open/tickets}" href="#" class="btn btn-dark">Search</a>
+                    <a th:href="@{/client/tickets}" class="btn btn-dark">Search</a>
                 </div>
             </div>
         </div>

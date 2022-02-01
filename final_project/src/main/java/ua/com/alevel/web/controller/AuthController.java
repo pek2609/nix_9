@@ -46,7 +46,7 @@ public class AuthController extends BaseController {
                 return "redirect:/clients";
             }
             if (SecurityUtil.hasRole(Role.ROLE_CLIENT.name())) {
-                return "redirect:/client/dashboard";
+                return "redirect:/client/tickets";
             }
         }
         if (error != null) {
@@ -85,7 +85,7 @@ public class AuthController extends BaseController {
             return "redirect:/clients";
         }
         if (SecurityUtil.hasRole(Role.ROLE_CLIENT.name())) {
-            return "redirect:/client/dashboard";
+            return "redirect:/client/tickets";
         }
         return "redirect:/login";
     }

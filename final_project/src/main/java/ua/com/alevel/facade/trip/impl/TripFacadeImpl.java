@@ -11,6 +11,7 @@ import ua.com.alevel.service.promotion.PromotionService;
 import ua.com.alevel.service.route.RouteService;
 import ua.com.alevel.service.trip.TripService;
 import ua.com.alevel.util.FacadeUtil;
+import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.web.dto.datatable.PageAndSizeData;
 import ua.com.alevel.web.dto.datatable.PageData;
@@ -124,7 +125,12 @@ public class TripFacadeImpl implements TripFacade {
     public List<TripResponseDto> findAllBySearch(TripSearchRequest tripSearchRequest) {
         return tripService.findAllBySearch(tripSearchRequest).stream()
                 .map(TripResponseDto::new)
-                .collect(Collectors.toList());
+                .peek(tripResponseDto -> tripResponseDto.setFinalPrice(
+                        PriceAndDateUtil.countPrice(
+                                tripSearchRequest.getAdults(),
+                                tripSearchRequest.getChildren(),
+                                tripResponseDto.getPrice(),
+                                tripResponseDto.getPromotion()))).collect(Collectors.toList());
     }
 
     private List<TripResponseDto> mapItemsToDto(DataTableResponse<Trip> all) {

@@ -30,7 +30,6 @@ public class TripResponseDto extends DtoResponse {
         this.arrival = trip.getArrival();
         this.orderCount = trip.getOrders().size();
         this.price = trip.getPrice();
-        this.finalPrice = trip.getFinalPrice();
         this.leftSeats = trip.getLeftSeats();
     }
 

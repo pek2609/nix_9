@@ -30,9 +30,10 @@
 
       <div sec:authorize="hasRole('CLIENT')">
         <nav class="navbar navbar-dark bg-dark fixed-top ">
-          <a class="nav-item nav-link" th:href="@{/client/dashboard}">Profile</a>
+          <a class="nav-item nav-link" th:href="@{/client/profile}">Profile</a>
           <a class="nav-item nav-link" th:href="@{/client/tickets}">Tickets</a>
-          <a class="nav-item nav-link" th:href="@{/client/prders}">Orders</a>
+          <a class="nav-item nav-link" th:href="@{/client/promotions}">Promotions</a>
+          <a class="nav-item nav-link" th:href="@{/client/orders}">Orders</a>
           <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>
         </nav>
       </div>

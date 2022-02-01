@@ -23,6 +23,11 @@ public class GlobalExceptionHandler {
         return generateModelAndView(exception.getMessage());
     }
 
+    @ExceptionHandler(value = NonActiveTripException.class)
+    public ModelAndView IncorrectInputDataErrorHandler(NonActiveTripException exception) {
+        return generateModelAndView(exception.getMessage());
+    }
+
     @ExceptionHandler(value = AlreadyExistEntity.class)
     public ModelAndView IncorrectInputDataErrorHandler(AlreadyExistEntity exception) {
         return generateModelAndView(exception.getMessage());

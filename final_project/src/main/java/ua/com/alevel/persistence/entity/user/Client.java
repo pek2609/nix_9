@@ -1,11 +1,13 @@
 package ua.com.alevel.persistence.entity.user;
 
+import ua.com.alevel.persistence.entity.Order;
 import ua.com.alevel.persistence.listener.FullNameGenerationListener;
 import ua.com.alevel.persistence.type.Role;
 import ua.com.alevel.persistence.type.Sex;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue(value = "CLIENT")
@@ -27,6 +29,9 @@ public class Client extends User {
 
     @Enumerated(EnumType.STRING)
     private Sex sex;
+
+    @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
+    private List<Order> orders;
 
     @Transient
     private String fullName;
@@ -93,5 +98,13 @@ public class Client extends User {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

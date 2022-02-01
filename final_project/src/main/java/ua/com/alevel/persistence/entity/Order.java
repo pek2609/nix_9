@@ -8,27 +8,42 @@ import javax.persistence.*;
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "first_name" , nullable = false)
+    private String firstName;
 
-    @Column(nullable = false)
-    private String surname;
+    @Column(name = "last_name" ,nullable = false)
+    private String lastName;
 
-    @OneToOne
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @Column(name = "children_number")
+    private Integer childrenNumber;
+
+    @Column(name = "adults_number")
+    private Integer adultsNumber;
+
+    @Column(name = "final_price", precision = 10, scale = 2)
+    private Double finalPrice;
+
     @ManyToOne
-    @JoinColumn(name = "trip_id")
+    @JoinColumn(name = "trip_id", updatable = false)
     private Trip trip;
-
-    private Integer children;
-
-    private Integer adults;
-
 
     public Order() {
         super();
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Trip getTrip() {
@@ -39,35 +54,51 @@ public class Order extends BaseEntity {
         this.trip = trip;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String surname) {
+        this.lastName = surname;
     }
 
-    public Integer getChildren() {
-        return children;
+    public Client getClient() {
+        return client;
     }
 
-    public void setChildren(Integer children) {
-        this.children = children;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public Integer getAdults() {
-        return adults;
+    public Integer getChildrenNumber() {
+        return childrenNumber;
     }
 
-    public void setAdults(Integer adults) {
-        this.adults = adults;
+    public void setChildrenNumber(Integer children) {
+        this.childrenNumber = children;
+    }
+
+    public Integer getAdultsNumber() {
+        return adultsNumber;
+    }
+
+    public void setAdultsNumber(Integer adults) {
+        this.adultsNumber = adults;
+    }
+
+    public Double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(Double check) {
+        this.finalPrice = check;
     }
 }

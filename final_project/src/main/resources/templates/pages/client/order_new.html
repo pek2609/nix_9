@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/client_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Order New</title>
+    <link href="/css/tickets.css" rel="stylesheet">
+</head>
+
+<body style="padding-top: 70px">
+<div layout:fragment="client_content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Order confirmation</h4>
+                </div>
+                <div class="card-body">
+                    <h5 th:text="${trip.getRoute().getDepartureTown()} + '-' + ${trip.getRoute().getArrivalTown()}"></h5>
+                    <div class="mt-1 mb-1 spec-1">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h6>Departure</h6>
+                                    <p th:text="${#calendars.format(trip.getDeparture(), 'dd MMMM yyyy hh:mm a')}"></p>
+                                </td>
+                                <td>
+                                    <h6>Arrival</h6>
+                                    <p th:text="${#calendars.format(trip.getArrival(), 'dd MMMM yyyy hh:mm a')}"></p>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6>Bus</h6>
+                                    <p th:text="${trip.getBus().getName()}"></p>
+                                </td>
+                                <td>
+                                    <h6>Adults</h6>
+                                    <p th:text="${order.getAdults()}"></p>
+                                </td>
+                                <td>
+                                    <h6>Children</h6>
+                                    <p th:text="${order.getChildren()}"></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h5 class="mr-1" th:text="${order.getCheck()} +' UAH'"></h5>
+                    <br>
+                    <h5>Enter order data</h5>
+                    <form action="#" th:action="@{/client/order/create}" th:object="${order}" method="post"
+                          class="needs-validation">
+                        <div class="form-group">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="image"
+                                   placeholder="Enter your first name" th:field="*{name} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="surname">Last Name</label>
+                            <input type="text" class="form-control" id="surname" aria-describedby="name"
+                                   placeholder="Enter your last name" th:field="*{surname} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" aria-describedby="name"
+                                   placeholder="Enter your phone number" th:field="*{phoneNumber} ">
+                        </div>
+                        <input type="hidden" class="form-control" id="trip"
+                                th:field="*{tripId} " th:value="${order.getTripId()}">
+                        <input type="hidden" class="form-control" id="adults"
+                               th:field="*{adults} " th:value="${order.getAdults()}">
+                        <input type="hidden" class="form-control" id="children"
+                               th:field="*{children} " th:value="${order.getChildren()}">
+                        <input type="hidden" class="form-control" id="price"
+                               th:field="*{check} " th:value="${order.getCheck()}">
+                        <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

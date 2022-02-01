@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ua.com.alevel.persistence.entity.user.Admin;
 import ua.com.alevel.persistence.repository.user.AdminRepository;
 import ua.com.alevel.persistence.repository.user.ClientRepository;
 
@@ -41,9 +42,5 @@ public class FinalProjectApplication {
 //        admin.setPassword(encoder.encode("rootroot"));
 //        adminUserRepository.save(admin);
 
-//        Client client = new Client();
-//        client.setEmail("pekaruk.ilyaa@gmail.com");
-//        client.setPassword(encoder.encode("123456789"));
-//        clientRepository.save(client);
     }
 }
