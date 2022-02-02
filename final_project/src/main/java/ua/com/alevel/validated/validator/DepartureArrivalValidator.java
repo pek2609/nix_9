@@ -1,5 +1,6 @@
-package ua.com.alevel.validated;
+package ua.com.alevel.validated.validator;
 
+import ua.com.alevel.validated.annotation.DepartureArrival;
 import ua.com.alevel.web.dto.trip.TripRequestDto;
 
 import javax.validation.ConstraintValidator;

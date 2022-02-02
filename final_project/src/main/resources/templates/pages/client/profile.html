@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/client_layout}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/client_details.css" rel="stylesheet">
+    <style>
+        h6{
+            font-weight: bold;
+        }
+    </style>
+    <title>My Profile</title>
+</head>
+<body>
+
+<div layout:fragment="client_content">
+
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img th:if="${client.getSex().name() =='MALE'}"
+                                         src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                         alt="avatar man">
+                                    <img th:if="${client.getSex().name() =='FEMALE'}"
+                                         src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                         alt="avatar woman">
+                                </div>
+                                <h5 class="user-name" th:text="${client.getFullName()}"></h5>
+                                <h6 class="user-email" th:text="${client.getEmail()}"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <p th:text="${client.getFullName()}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <p th:text="${client.getEmail()}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <p th:text="${client.getPhoneNumber()}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Birth Date</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <p class="mb-2" id="birthDate"
+                                   th:text="${client.getBirthDate() == null} ? 'non specified' : ${#calendars.format(client.getBirthDate(),'dd MMMM yyyy')}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Order count</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <p th:text="${client.getOrders().size()}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row gutters mt-3 mb-0">
+                            <div class="btn-toolbar mb-0">
+                                <div class="item">
+                                    <a th:href="@{'/client/profile/update'}" type="button" id="update" class="btn btn-info">Edit
+                                    </a>
+                                </div>
+                                <div class="item" style="margin-left: 10px">
+                                    <a th:href="@{'/client/orders'}" type="button" id="orders" class="btn btn-dark">Show orders
+                                    </a>
+                                </div>
+                                <div class="item" style="margin-left: 10px">
+                                    <button data-toggle="modal" data-target="#exampleModal" type="button" id="delete" class="btn btn-danger">Delete account
+                                    </button>
+                                </div>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure? You won't be able to recover your account
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <a th:href="@{'/client/profile/delete'}" type="button" class="btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

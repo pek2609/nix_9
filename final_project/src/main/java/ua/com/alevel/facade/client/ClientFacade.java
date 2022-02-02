@@ -1,13 +1,20 @@
 package ua.com.alevel.facade.client;
 
-import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.BaseFacade;
-import ua.com.alevel.web.dto.client.ClientRequestDto;
+import ua.com.alevel.web.dto.client.ChangePasswordRequestDto;
+import ua.com.alevel.web.dto.client.ClientProfileRequestDto;
+import ua.com.alevel.web.dto.client.ClientRegisterRequestDto;
 import ua.com.alevel.web.dto.client.ClientResponseDto;
 
-@Service
-public interface ClientFacade extends BaseFacade<ClientRequestDto, ClientResponseDto> {
+public interface ClientFacade extends BaseFacade<ClientRegisterRequestDto, ClientResponseDto> {
 
     void ban(Long clientId);
+
     void unban(Long clientId);
+
+    ClientResponseDto findByEmail(String email);
+
+    void updateProfile(ClientProfileRequestDto dto, Long id);
+
+    void changePassword(ChangePasswordRequestDto dto);
 }

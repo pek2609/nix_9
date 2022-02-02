@@ -2,7 +2,7 @@ package ua.com.alevel.web.dto.order;
 
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.util.Messages;
-import ua.com.alevel.validated.ChildrenAdults;
+import ua.com.alevel.validated.annotation.ChildrenAdults;
 import ua.com.alevel.web.dto.DtoRequest;
 
 import javax.validation.constraints.NotBlank;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.promotion.PromotionFacade;
-import ua.com.alevel.validated.ValidId;
+import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.promotion.PromotionRequestDto;

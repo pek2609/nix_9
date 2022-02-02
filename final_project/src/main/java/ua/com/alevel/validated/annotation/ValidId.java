@@ -1,4 +1,6 @@
-package ua.com.alevel.validated;
+package ua.com.alevel.validated.annotation;
+
+import ua.com.alevel.validated.validator.ValidIdConstraintValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

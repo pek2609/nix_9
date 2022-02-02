@@ -11,5 +11,4 @@ public final class Messages {
     public static final String INVALID_EMAIL = "impossible! examples: user@gmail.com";
     public static final String INVALID_TYPE = "please choose one of the options";
     public static final String INVALID_PERCENT = "input percent(1-99)";
-    public static final String INVALID_ADULTS_CHILDREN_NUMBER = "choose passengers up to 5";
 }

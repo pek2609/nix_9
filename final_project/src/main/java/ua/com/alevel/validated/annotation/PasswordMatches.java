@@ -1,4 +1,7 @@
-package ua.com.alevel.validated;
+package ua.com.alevel.validated.annotation;
+
+import ua.com.alevel.validated.validator.EditPasswordMatchesValidator;
+import ua.com.alevel.validated.validator.RegisterPasswordMatchesValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,7 +12,7 @@ import java.lang.annotation.*;
         ElementType.ANNOTATION_TYPE
 })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PasswordMatchesValidator.class)
+@Constraint(validatedBy = {RegisterPasswordMatchesValidator.class, EditPasswordMatchesValidator.class})
 @Documented
 public @interface PasswordMatches {
 

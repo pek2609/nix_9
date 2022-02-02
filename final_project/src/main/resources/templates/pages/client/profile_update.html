@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/client_layout}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/client_details.css" rel="stylesheet">
+    <style>
+        .small  {
+            font-weight: bold;
+        }
+    </style>
+    <title>My Profile</title>
+</head>
+<body>
+
+<div layout:fragment="client_content">
+
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img th:if="${client.getSex().name() =='MALE'}"
+                                         src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                         alt="avatar man">
+                                    <img th:if="${client.getSex().name() =='FEMALE'}"
+                                         src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                         alt="avatar woman">
+                                </div>
+                                <h5 class="user-name" th:text="${client.getFullName()}"></h5>
+                                <h6 class="user-email" th:text="${client.getEmail()}"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <form action="#" th:action="@{'/client/profile/update/' + ${client.getId()}}" th:object="${client}"
+                              method="post" enctype="multipart/form-data">
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">First name</label>
+                                    <input class="form-control" id="inputFirstName" type="text"
+                                           placeholder="Enter your first name" th:field="*{firstName}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLastName">Last name</label>
+                                    <input class="form-control" id="inputLastName" type="text"
+                                           placeholder="Enter your last name" th:field="*{lastName}">
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="phone">Phone Number</label>
+                                    <input class="form-control" id="phone" type="text"
+                                           placeholder="Enter your phone number" th:field="*{phoneNumber}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputEmailAddress">Date Birth</label>
+                                    <input class="form-control" id="inputEmailAddress" th:field="*{birthDate}" type="date">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="sex">Gender</label>
+                                <div id="sex" th:each="sex :${gender}"
+                                     class="form-check form-check-inline mb-0 me-4">
+                                    <label th:text="${sex}" class="form-check-label"
+                                           for="gender"></label>
+                                    <input
+                                            th:field="*{sex}" th:value="${sex}"
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="inlineRadioOptions"
+                                            id="gender"
+                                    />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="email">Email</label>
+                                <input class="form-control" id="email" type="email"
+                                       placeholder="Enter your email" th:field="*{email}">
+                            </div>
+                            <button class="btn btn-primary" type="submit">Save changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

@@ -80,9 +80,25 @@ public class ClientServiceImpl implements ClientService {
         personalRepository.unban(clientId);
     }
 
+
     @Override
     public boolean existsByPhoneNumber(String phoneNumber) {
         return personalRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    @Transactional
+    @Override
+    public void updateProfileData(Client client) {
+        if (!personalRepository.existsById(client.getId())) {
+            throw new EntityNotFoundException("entity not found");
+        }
+        personalRepository.updateProfileData(client);
+    }
+
+    @Transactional
+    @Override
+    public void changePassword(String password, Long clientId) {
+        personalRepository.changePassword(password, clientId);
     }
 
     @Override

@@ -1,4 +1,6 @@
-package ua.com.alevel.validated;
+package ua.com.alevel.validated.annotation;
+
+import ua.com.alevel.validated.validator.DifferentTownsValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,11 +11,11 @@ import java.lang.annotation.*;
         ElementType.ANNOTATION_TYPE
 })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {ChildrenAdultsTripValidator.class, ChildrenAdultsOrderValidator.class})
+@Constraint(validatedBy = DifferentTownsValidator.class)
 @Documented
-public @interface ChildrenAdults {
+public @interface DifferentTowns {
 
-    String message() default "choose number of passengers";
+    String message() default "the departure and arrival town is the same";
 
     Class<?>[] groups() default {};
 

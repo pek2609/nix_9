@@ -1,8 +1,10 @@
 package ua.com.alevel.facade.client.impl;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.exception.AlreadyExistEntity;
+import ua.com.alevel.exception.WrongPasswordException;
 import ua.com.alevel.facade.client.ClientFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -10,7 +12,9 @@ import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.service.client.ClientService;
 import ua.com.alevel.util.FacadeUtil;
 import ua.com.alevel.util.WebRequestUtil;
-import ua.com.alevel.web.dto.client.ClientRequestDto;
+import ua.com.alevel.web.dto.client.ChangePasswordRequestDto;
+import ua.com.alevel.web.dto.client.ClientProfileRequestDto;
+import ua.com.alevel.web.dto.client.ClientRegisterRequestDto;
 import ua.com.alevel.web.dto.client.ClientResponseDto;
 import ua.com.alevel.web.dto.datatable.PageAndSizeData;
 import ua.com.alevel.web.dto.datatable.PageData;
@@ -23,13 +27,15 @@ import java.util.stream.Collectors;
 public class ClientFacadeImpl implements ClientFacade {
 
     private final ClientService clientService;
+    private final BCryptPasswordEncoder encoder;
 
-    public ClientFacadeImpl(ClientService clientService) {
+    public ClientFacadeImpl(ClientService clientService, BCryptPasswordEncoder encoder) {
         this.clientService = clientService;
+        this.encoder = encoder;
     }
 
     @Override
-    public void create(ClientRequestDto clientRequestDto) {
+    public void create(ClientRegisterRequestDto clientRequestDto) {
         if (clientService.existsByPhoneNumber(clientRequestDto.getPhoneNumber())) {
             throw new AlreadyExistEntity("user with such phoneNumber is already exist");
         }
@@ -38,7 +44,7 @@ public class ClientFacadeImpl implements ClientFacade {
     }
 
     @Override
-    public void update(ClientRequestDto clientRequestDto, Long id) {
+    public void update(ClientRegisterRequestDto clientRequestDto, Long id) {
         Client client = getClientFromRequestDto(clientRequestDto);
         client.setId(id);
         clientService.update(client);
@@ -82,7 +88,37 @@ public class ClientFacadeImpl implements ClientFacade {
         clientService.unban(clientId);
     }
 
-    private Client getClientFromRequestDto(ClientRequestDto clientRequestDto) {
+    @Override
+    public ClientResponseDto findByEmail(String email) {
+        return new ClientResponseDto(clientService.findByEmail(email));
+    }
+
+    @Override
+    public void updateProfile(ClientProfileRequestDto dto, Long id) {
+        if (clientService.existsByPhoneNumber(dto.getPhoneNumber())) {
+            throw new AlreadyExistEntity("user with such phoneNumber is already exist");
+        }
+        Client client = new Client();
+        client.setId(id);
+        client.setFirstName(dto.getFirstName());
+        client.setLastName(dto.getLastName());
+        client.setEmail(dto.getEmail());
+        client.setBirthDate(dto.getBirthDate());
+        client.setPhoneNumber(dto.getPhoneNumber());
+        client.setSex(dto.getSex());
+        clientService.updateProfileData(client);
+    }
+
+    @Override
+    public void changePassword(ChangePasswordRequestDto dto) {
+        Client client = clientService.findByEmail(dto.getEmail());
+        if (!encoder.matches(dto.getOldPassword(), client.getPassword())) {
+            throw new WrongPasswordException("old password is wrong");
+        }
+        clientService.changePassword(encoder.encode(dto.getPassword()), client.getId());
+    }
+
+    private Client getClientFromRequestDto(ClientRegisterRequestDto clientRequestDto) {
         Client client = new Client();
         client.setFirstName(clientRequestDto.getFirstName());
         client.setLastName(clientRequestDto.getLastName());

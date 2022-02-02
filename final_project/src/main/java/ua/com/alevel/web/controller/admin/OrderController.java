@@ -13,7 +13,7 @@ import ua.com.alevel.facade.order.OrderFacade;
 import ua.com.alevel.facade.trip.TripFacade;
 import ua.com.alevel.service.client.ClientService;
 import ua.com.alevel.util.PriceAndDateUtil;
-import ua.com.alevel.validated.ValidId;
+import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.order.OrderRequestDto;

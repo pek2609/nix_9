@@ -1,5 +1,6 @@
-package ua.com.alevel.validated;
+package ua.com.alevel.validated.validator;
 
+import ua.com.alevel.validated.annotation.ChildrenAdults;
 import ua.com.alevel.web.dto.trip.TripSearchRequest;
 
 import javax.validation.ConstraintValidator;

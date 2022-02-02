@@ -3,7 +3,7 @@ package ua.com.alevel.web.dto.promotion;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.com.alevel.util.Messages;
-import ua.com.alevel.validated.StartEndDate;
+import ua.com.alevel.validated.annotation.StartEndDate;
 import ua.com.alevel.web.dto.DtoRequest;
 
 import javax.validation.constraints.*;

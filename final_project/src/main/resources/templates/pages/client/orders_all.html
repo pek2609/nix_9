@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>My Orders</title>
+</head>
+<body style="padding-top: 50px">
+    <div layout:fragment="data_table_content">
+        <tr th:each="order,iter : ${pageData.getItems()}">
+            <td th:text="${iter.count}"></td>
+            <td th:text="${#calendars.format(order.getCreated(),'dd MMMM yyyy hh:mm a')}"></td>
+            <td th:text="${#calendars.format(order.getUpdated(),'dd MMMM yyyy hh:mm a')}"></td>
+            <td th:text="${order.getTrip().getRoute().getDepartureTown()} + '-' + ${order.getTrip().getRoute().getArrivalTown()}"></td>
+            <td th:text="${#calendars.format(order.getTrip().getDeparture(), 'dd MMMM yyyy hh:mm a')}"></td>
+            <td th:text="${#calendars.format(order.getTrip().getArrival(),'dd MMMM yyyy hh:mm a')}"></td>
+            <td th:text="${order.getTrip().getBus().getName()}"></td>
+            <td th:text="${order.getAdults()}"></td>
+            <td th:text="${order.getChildren()}"></td>
+            <td th:text="${order.getCheck()} + 'UAH'"></td>
+        </tr>
+    </div>
+</body>
+</html>

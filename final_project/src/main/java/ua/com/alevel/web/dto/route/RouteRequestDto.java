@@ -2,7 +2,7 @@ package ua.com.alevel.web.dto.route;
 
 import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.util.Messages;
-import ua.com.alevel.validated.DifferentTowns;
+import ua.com.alevel.validated.annotation.DifferentTowns;
 import ua.com.alevel.web.dto.DtoRequest;
 
 import javax.validation.constraints.NotNull;

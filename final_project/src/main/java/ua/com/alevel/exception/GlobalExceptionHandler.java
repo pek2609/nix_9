@@ -14,22 +14,27 @@ import javax.validation.ConstraintViolationException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = EntityNotFoundException.class)
-    public ModelAndView defaultErrorHandler(EntityNotFoundException exception) {
+    public ModelAndView entityNotFoundExceptionHandler(EntityNotFoundException exception) {
+        return generateModelAndView(exception.getMessage());
+    }
+
+    @ExceptionHandler(value = WrongPasswordException.class)
+    public ModelAndView wrongPasswordExceptionHandler(WrongPasswordException exception) {
         return generateModelAndView(exception.getMessage());
     }
 
     @ExceptionHandler(value = IncorrectDataInput.class)
-    public ModelAndView IncorrectInputDataErrorHandler(IncorrectDataInput exception) {
+    public ModelAndView incorrectInputDataExceptionHandler(IncorrectDataInput exception) {
         return generateModelAndView(exception.getMessage());
     }
 
     @ExceptionHandler(value = NonActiveTripException.class)
-    public ModelAndView IncorrectInputDataErrorHandler(NonActiveTripException exception) {
+    public ModelAndView nonActiveTripExceptionHandler(NonActiveTripException exception) {
         return generateModelAndView(exception.getMessage());
     }
 
     @ExceptionHandler(value = AlreadyExistEntity.class)
-    public ModelAndView IncorrectInputDataErrorHandler(AlreadyExistEntity exception) {
+    public ModelAndView alreadyExistEntityExceptionHandler(AlreadyExistEntity exception) {
         return generateModelAndView(exception.getMessage());
     }
 

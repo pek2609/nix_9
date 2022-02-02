@@ -16,7 +16,7 @@ import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.service.security.SecurityService;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.util.SecurityUtil;
-import ua.com.alevel.validated.ValidId;
+import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.dto.DtoResponse;
 import ua.com.alevel.web.dto.order.OrderRequestDto;
 import ua.com.alevel.web.dto.promotion.PromotionResponseDto;

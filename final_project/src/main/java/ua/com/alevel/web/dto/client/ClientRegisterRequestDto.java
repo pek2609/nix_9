@@ -4,14 +4,15 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.com.alevel.persistence.type.Sex;
 import ua.com.alevel.util.Messages;
-import ua.com.alevel.validated.PasswordMatches;
+import ua.com.alevel.validated.annotation.PasswordMatches;
+import ua.com.alevel.validated.annotation.ValidBirthDate;
 import ua.com.alevel.web.dto.DtoRequest;
 
 import javax.validation.constraints.*;
 import java.util.Date;
 
 @PasswordMatches
-public class ClientRequestDto extends DtoRequest {
+public class ClientRegisterRequestDto extends DtoRequest {
 
     @NotBlank(message = Messages.NOT_NULL)
     private String firstName;
@@ -36,6 +37,7 @@ public class ClientRequestDto extends DtoRequest {
     private String passwordConfirm;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @ValidBirthDate
     private Date birthDate;
 
     public Date getBirthDate() {

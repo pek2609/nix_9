@@ -1,5 +1,6 @@
-package ua.com.alevel.validated;
+package ua.com.alevel.validated.validator;
 
+import ua.com.alevel.validated.annotation.DifferentTowns;
 import ua.com.alevel.web.dto.route.RouteRequestDto;
 
 import javax.validation.ConstraintValidator;

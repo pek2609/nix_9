@@ -3,6 +3,7 @@ package ua.com.alevel.persistence.crud.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -55,7 +56,7 @@ public class CrudRepositoryHelperImpl<
 
     private void checkExist(R repository, Long id) {
         if (!repository.existsById(id)) {
-            throw new RuntimeException("entity not found");
+            throw new EntityNotFoundException("entity not found");
         }
     }
 }

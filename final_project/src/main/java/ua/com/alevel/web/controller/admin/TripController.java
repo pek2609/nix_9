@@ -13,7 +13,7 @@ import ua.com.alevel.facade.trip.TripFacade;
 import ua.com.alevel.service.bus.BusService;
 import ua.com.alevel.service.promotion.PromotionService;
 import ua.com.alevel.service.route.RouteService;
-import ua.com.alevel.validated.ValidId;
+import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.trip.TripRequestDto;

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.com.alevel.persistence.entity.user.Client;
+import ua.com.alevel.util.QueryUtil;
 
 import java.util.Optional;
 
@@ -20,4 +21,18 @@ public interface ClientRepository extends UserRepository<Client> {
     void unban(@Param("id") Long clientId);
 
     boolean existsByPhoneNumber(String phoneNumber);
+
+    @Modifying
+    @Query(value ="update Client set " +
+            "firstName=:#{#client.firstName}, " +
+            "lastName=:#{#client.lastName}, " +
+            "email=:#{#client.email}, " +
+            "phoneNumber=:#{#client.phoneNumber}, " +
+            "sex=:#{#client.sex}," +
+            "birthDate = :#{#client.birthDate} where id=:#{#client.id}")
+    void updateProfileData(@Param("client") Client client);
+
+    @Modifying
+    @Query(value = "update Client set password =:password where id=:id")
+    void changePassword(@Param(("password")) String password, @Param(("id")) Long clientId);
 }

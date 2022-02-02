@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.route.RouteFacade;
 import ua.com.alevel.persistence.type.Town;
-import ua.com.alevel.validated.ValidId;
+import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.route.RouteRequestDto;

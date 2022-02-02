@@ -3,7 +3,7 @@ package ua.com.alevel.web.dto.trip;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.util.Messages;
-import ua.com.alevel.validated.ChildrenAdults;
+import ua.com.alevel.validated.annotation.ChildrenAdults;
 import ua.com.alevel.web.dto.DtoRequest;
 
 import javax.validation.constraints.NotNull;

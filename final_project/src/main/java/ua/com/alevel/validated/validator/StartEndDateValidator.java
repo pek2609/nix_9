@@ -1,11 +1,10 @@
-package ua.com.alevel.validated;
+package ua.com.alevel.validated.validator;
 
+import ua.com.alevel.validated.annotation.StartEndDate;
 import ua.com.alevel.web.dto.promotion.PromotionRequestDto;
-import ua.com.alevel.web.dto.trip.TripRequestDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Date;
 
 public class StartEndDateValidator implements ConstraintValidator<StartEndDate, Object> {
 

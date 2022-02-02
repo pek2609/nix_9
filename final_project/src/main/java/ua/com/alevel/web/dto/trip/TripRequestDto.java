@@ -5,7 +5,7 @@ import ua.com.alevel.persistence.entity.Bus;
 import ua.com.alevel.persistence.entity.Promotion;
 import ua.com.alevel.persistence.entity.Route;
 import ua.com.alevel.util.Messages;
-import ua.com.alevel.validated.DepartureArrival;
+import ua.com.alevel.validated.annotation.DepartureArrival;
 import ua.com.alevel.web.dto.DtoRequest;
 
 import javax.validation.constraints.Min;

@@ -36,18 +36,18 @@
                 <p th:if="${order.getClient() == null}" th:text="'no'">
                 </p>
                 <p th:unless="${order.getClient() == null}">
-                    <a th:unless="${order.getClient() == null}" th:text="${order.getClient().getId()}"
+                    <a th:text="${order.getClient().getId()}"
                        th:href="@{'/clients/details/'+${order.getClient().getId()}}"></a>
                 </p>
                 <b>Adults:</b>
                 <p th:text="${order.getAdults()}"></p>
-                <b>Adults:</b>
+                <b>Children:</b>
                 <p th:text="${order.getChildren()}"></p>
                 <b>Check:</b>
                 <p th:text="${order.getCheck()}"></p>
                 <div class="btn-toolbar mb-0">
                     <div class="item">
-                        <a th:href="@{'/orders/update/' + ${order.getId()}}" type="button"
+                        <a th:if="${order.getTrip().getVisible()}" th:href="@{'/orders/update/' + ${order.getId()}}" type="button"
                            class="btn btn-dark mr-3">Update order</a>
                     </div>
                 </div>
