@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>Orders</title>
+</head>
+<body style="padding-top: 50px">
+    <div layout:fragment="data_table_content">
+        <tr th:each="order,iter : ${pageData.getItems()}">
+            <td th:text="${iter.count}"></td>
+            <td ><a th:text="${order.getTrip().getId()}" th:href="@{'/trips/details/'+${order.getTrip().getId()}}"></a></td>
+            <td th:text="${order.getName()}"></td>
+            <td th:text="${order.getSurname()}"></td>
+            <td th:text="${order.getPhoneNumber()}"></td>
+            <td th:text="${order.getCheck()} + 'UAH'"></td>
+            <td>
+                <a th:href="@{'/orders/details/' + ${order.getId()}}" type="button"
+                   class="btn btn-primary">details</a>
+            </td>
+            <td>
+                <a th:href="@{'/orders/delete/' + ${order.getId()}}" type="button" class="btn btn-danger">delete</a>
+            </td>
+        </tr>
+    </div>
+</body>
+</html>

@@ -68,6 +68,8 @@
                             <input type="text" class="form-control" id="phone" aria-describedby="name"
                                    placeholder="Enter your phone number" th:field="*{phoneNumber} ">
                         </div>
+                        <input type="hidden" class="form-control" id="trip"
+                               th:field="*{trip} " th:value="${trip.getId()}">
                         <input type="hidden" class="form-control" id="adults"
                                th:field="*{adults} " th:value="${order.getAdults()}">
                         <input type="hidden" class="form-control" id="children"

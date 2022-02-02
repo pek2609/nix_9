@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.alevel.exception.AlreadyExistEntity;
-import ua.com.alevel.facade.authvalidation.AuthValidatorFacade;
 import ua.com.alevel.facade.client.ClientFacade;
 import ua.com.alevel.facade.registration.RegistrationFacade;
 import ua.com.alevel.persistence.type.Role;
@@ -28,13 +27,11 @@ public class AuthController extends BaseController {
     private final ClientFacade clientFacade;
     private final RegistrationFacade registrationFacade;
     private final SecurityService securityService;
-    private final AuthValidatorFacade authValidatorFacade;
 
-    public AuthController(ClientFacade clientFacade, RegistrationFacade registrationFacade, SecurityService securityService, AuthValidatorFacade authValidatorFacade) {
+    public AuthController(ClientFacade clientFacade, RegistrationFacade registrationFacade, SecurityService securityService) {
         this.clientFacade = clientFacade;
         this.registrationFacade = registrationFacade;
         this.securityService = securityService;
-        this.authValidatorFacade = authValidatorFacade;
     }
 
     @GetMapping("/login")

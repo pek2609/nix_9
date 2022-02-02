@@ -35,7 +35,7 @@ public class Trip extends BaseEntity {
     @JoinColumn(name = "promotion_id")
     private Promotion promotion;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trip", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<Order> orders;
 
     @Transient

@@ -14,8 +14,8 @@ import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.validated.ValidId;
 import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.datatable.PageData;
-import ua.com.alevel.web.dto.routs.RouteRequestDto;
-import ua.com.alevel.web.dto.routs.RouteResponseDto;
+import ua.com.alevel.web.dto.route.RouteRequestDto;
+import ua.com.alevel.web.dto.route.RouteResponseDto;
 
 import javax.validation.Valid;
 import java.util.Map;

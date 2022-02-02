@@ -22,10 +22,10 @@ public class Order extends BaseEntity {
     private Client client;
 
     @Column(name = "children_number")
-    private Integer childrenNumber;
+    private int childrenNumber;
 
     @Column(name = "adults_number")
-    private Integer adultsNumber;
+    private int adultsNumber;
 
     @Column(name = "final_price", precision = 10, scale = 2)
     private Double finalPrice;
@@ -78,19 +78,19 @@ public class Order extends BaseEntity {
         this.client = client;
     }
 
-    public Integer getChildrenNumber() {
+    public int getChildrenNumber() {
         return childrenNumber;
     }
 
-    public void setChildrenNumber(Integer children) {
+    public void setChildrenNumber(int children) {
         this.childrenNumber = children;
     }
 
-    public Integer getAdultsNumber() {
+    public int getAdultsNumber() {
         return adultsNumber;
     }
 
-    public void setAdultsNumber(Integer adults) {
+    public void setAdultsNumber(int adults) {
         this.adultsNumber = adults;
     }
 

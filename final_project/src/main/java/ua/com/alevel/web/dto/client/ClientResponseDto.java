@@ -15,6 +15,7 @@ public class ClientResponseDto extends DtoResponse {
     private Sex sex;
     private Date birthDate;
     private String fullName;
+    private int orderCount;
 
     public ClientResponseDto(Client client) {
         super(client.getId(), client.getCreated(), client.getUpdated(), client.getEnabled());
@@ -25,6 +26,7 @@ public class ClientResponseDto extends DtoResponse {
         this.email = client.getEmail();
         this.sex = client.getSex();
         this.fullName = client.getFullName();
+        this.orderCount = client.getOrders().size();
     }
 
 
@@ -82,5 +84,13 @@ public class ClientResponseDto extends DtoResponse {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
     }
 }

@@ -1,7 +1,6 @@
 package ua.com.alevel.validated;
 
-import ua.com.alevel.web.dto.client.ClientRequestDto;
-import ua.com.alevel.web.dto.routs.RouteRequestDto;
+import ua.com.alevel.web.dto.route.RouteRequestDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -61,15 +61,48 @@ public class OrderFacadeImpl implements OrderFacade {
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
 
         DataTableResponse<Order> all = orderService.findAll(dataTableRequest);
-        List<OrderResponseDto> clients = all.getItems()
-                .stream()
-                .map(OrderResponseDto::new)
-                .collect(Collectors.toList());
+        List<OrderResponseDto> clients = mapItemsToDto(all.getItems());
 
         PageData<OrderResponseDto> pageData = FacadeUtil.getPageDataFromDTResp(clients, pageAndSizeData, sortData);
         pageData.setItemsSize(all.getItemsSize());
         pageData.initPaginationState(pageData.getCurrentPage());
         return pageData;
+    }
+
+    @Override
+    public PageData<OrderResponseDto> findByClient(Long clientId, WebRequest webRequest) {
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(webRequest);
+        SortData sortData = WebRequestUtil.generateSortData(webRequest);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
+
+        DataTableResponse<Order> all = orderService.findByClient(clientId, dataTableRequest);
+        List<OrderResponseDto> orders = mapItemsToDto(all.getItems());
+
+        PageData<OrderResponseDto> pageData = FacadeUtil.getPageDataFromDTResp(orders, pageAndSizeData, sortData);
+        pageData.setItemsSize(all.getItemsSize());
+        pageData.initPaginationState(pageData.getCurrentPage());
+        return pageData;
+    }
+
+    @Override
+    public PageData<OrderResponseDto> findByTrip(Long tripId, WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
+        SortData sortData = WebRequestUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
+
+        DataTableResponse<Order> all = orderService.findByTrip(tripId, dataTableRequest);
+        List<OrderResponseDto> orders = mapItemsToDto(all.getItems());
+
+        PageData<OrderResponseDto> pageData = FacadeUtil.getPageDataFromDTResp(orders, pageAndSizeData, sortData);
+        pageData.setItemsSize(all.getItemsSize());
+        pageData.initPaginationState(pageData.getCurrentPage());
+        return pageData;
+    }
+
+    private List<OrderResponseDto> mapItemsToDto(List<Order> all) {
+        return all.stream()
+                .map(OrderResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     private Order getOrderFromRequestDto(OrderRequestDto orderRequestDto) {

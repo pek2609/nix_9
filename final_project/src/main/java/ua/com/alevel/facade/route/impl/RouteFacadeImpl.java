@@ -7,15 +7,14 @@ import ua.com.alevel.facade.route.RouteFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Route;
-import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.service.route.RouteService;
 import ua.com.alevel.util.FacadeUtil;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.web.dto.datatable.PageAndSizeData;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.datatable.SortData;
-import ua.com.alevel.web.dto.routs.RouteRequestDto;
-import ua.com.alevel.web.dto.routs.RouteResponseDto;
+import ua.com.alevel.web.dto.route.RouteRequestDto;
+import ua.com.alevel.web.dto.route.RouteResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

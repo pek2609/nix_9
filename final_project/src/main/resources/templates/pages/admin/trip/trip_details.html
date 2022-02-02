@@ -34,8 +34,8 @@
                                     class="btn btn-dark mr-3">Update trip</a>
                         </div>
                         <div class="item" style="margin-left: 3px">
-                            <button th:href="@{'/groups/all/student/' + ${trip.getId()}}" type="button"
-                                    class="btn btn-dark mr-3">Show orders</button>
+                            <a th:href="@{'/orders/all/trip/' + ${trip.getId()}}" type="button"
+                                    class="btn btn-dark mr-3">Show orders</a>
                         </div>
                     </div>
                 </div><!-- / project-info-box -->

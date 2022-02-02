@@ -1,12 +1,11 @@
 package ua.com.alevel.validated;
 
 import ua.com.alevel.web.dto.order.OrderRequestDto;
-import ua.com.alevel.web.dto.trip.TripSearchRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class ChildrenAdultsValidatorOrder implements ConstraintValidator<ChildrenAdults, Object> {
+public class ChildrenAdultsOrderValidator implements ConstraintValidator<ChildrenAdults, OrderRequestDto> {
 
 
     @Override
@@ -15,8 +14,7 @@ public class ChildrenAdultsValidatorOrder implements ConstraintValidator<Childre
     }
 
     @Override
-    public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
-        OrderRequestDto order = (OrderRequestDto) o;
-        return !(order.getChildren() + order.getAdults() == 0);
+    public boolean isValid(OrderRequestDto order, ConstraintValidatorContext constraintValidatorContext) {
+        return !(order.getAdults() == 0 && order.getChildren() == 0) && !(order.getAdults() < 0 || order.getChildren() < 0);
     }
 }

@@ -14,6 +14,7 @@ import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.persistence.repository.user.ClientRepository;
 import ua.com.alevel.service.client.ClientService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -82,5 +83,15 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean existsByPhoneNumber(String phoneNumber) {
         return personalRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public Client findByEmail(String email) {
+        return personalRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<Client> findAll() {
+        return personalRepository.findAll();
     }
 }

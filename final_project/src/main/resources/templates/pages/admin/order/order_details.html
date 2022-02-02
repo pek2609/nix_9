@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bus_details.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+    <title>Details Order</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="container">
+        <div class="row">
+            <div class="project-info-box mt-0">
+                <h5 th:text="'Order №'+ ${order.getId()}"></h5>
+            </div>
+            <div class="project-info-box">
+                <b>Created:</b>
+                <p th:text="${#calendars.format(order.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Updated:</b>
+                <p th:text="${#calendars.format(order.getUpdated(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Trip:</b>
+                <p><a th:text="${order.getTrip().getId()}"
+                      th:href="@{'/trips/details/'+${order.getTrip().getId()}}"></a></p>
+                <b>First Name:</b>
+                <p th:text="${order.getName()}"></p>
+                <b>Last Name:</b>
+                <p th:text="${order.getSurname()}"></p>
+                <b>Phone Number:</b>
+                <p th:text="${order.getPhoneNumber()}"></p>
+                <b>Client:</b>
+                <p th:if="${order.getClient() == null}" th:text="'no'">
+                </p>
+                <p th:unless="${order.getClient() == null}">
+                    <a th:unless="${order.getClient() == null}" th:text="${order.getClient().getId()}"
+                       th:href="@{'/clients/details/'+${order.getClient().getId()}}"></a>
+                </p>
+                <b>Adults:</b>
+                <p th:text="${order.getAdults()}"></p>
+                <b>Adults:</b>
+                <p th:text="${order.getChildren()}"></p>
+                <b>Check:</b>
+                <p th:text="${order.getCheck()}"></p>
+                <div class="btn-toolbar mb-0">
+                    <div class="item">
+                        <a th:href="@{'/orders/update/' + ${order.getId()}}" type="button"
+                           class="btn btn-dark mr-3">Update order</a>
+                    </div>
+                </div>
+            </div><!-- / project-info-box -->
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

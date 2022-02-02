@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.order.OrderFacade;
+import ua.com.alevel.facade.trip.TripFacade;
+import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.validated.ValidId;
 import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.order.OrderRequestDto;
 import ua.com.alevel.web.dto.order.OrderResponseDto;
+import ua.com.alevel.web.dto.trip.TripResponseDto;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Validated
@@ -25,9 +30,13 @@ import java.util.Map;
 public class OrderController extends BaseController {
 
     private final OrderFacade orderFacade;
+    private final ClientService clientService;
+    private final TripFacade tripFacade;
 
-    public OrderController(OrderFacade orderFacade) {
+    public OrderController(OrderFacade orderFacade, ClientService clientService, TripFacade tripFacade) {
         this.orderFacade = orderFacade;
+        this.clientService = clientService;
+        this.tripFacade = tripFacade;
     }
 
     @GetMapping
@@ -39,7 +48,7 @@ public class OrderController extends BaseController {
         model.addAttribute("createUrl", "/orders/all");
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Orders");
-        model.addAttribute("allowCreate", true);
+        model.addAttribute("allowCreate", false);
         model.addAttribute("createNewItemUrl", "/orders/new");
         return "pages/admin/order/orders_all";
     }
@@ -62,32 +71,85 @@ public class OrderController extends BaseController {
 
     @PostMapping("/update/{id}")
     public String updateOrder(@PathVariable @ValidId Long id, @Valid @ModelAttribute("order") OrderRequestDto dto, BindingResult bindingResult) {
+        TripResponseDto trip = tripFacade.findById(dto.getTrip());
+        dto.setCheck(PriceAndDateUtil.countPrice(dto.getAdults(), dto.getChildren(), trip.getPrice(), trip.getPromotion()));
         orderFacade.update(dto, id);
-        return "redirect:/order/details/" + id;
+        return "redirect:/orders/details/" + id;
     }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable @ValidId Long id, Model model) {
         OrderResponseDto orderResponseDto = orderFacade.findById(id);
+        model.addAttribute("order", orderResponseDto);
+        model.addAttribute("clients", clientService.findAll());
         return "pages/admin/order/order_update";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable @ValidId Long id) {
         orderFacade.delete(id);
-        return "redirect:/trips";
+        return "redirect:/orders";
+    }
+
+    @GetMapping("/all/client/{clientId}")
+    public String findAllByClient(@PathVariable @ValidId Long clientId, Model model, WebRequest request) {
+        HeaderName[] columnNames = getColumnNames();
+        PageData<OrderResponseDto> response = orderFacade.findByClient(clientId, request);
+        response.initPaginationState(response.getCurrentPage());
+        List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
+        model.addAttribute("headerDataList", headerDataList);
+        model.addAttribute("createUrl", "/orders/all/client/" + clientId);
+        model.addAttribute("createNewItemUrl", "/orders/new");
+        model.addAttribute("pageData", response);
+        model.addAttribute("allowCreate", false);
+        model.addAttribute("cardHeader", "All Orders");
+        return "pages/admin/order/orders_all";
+    }
+
+
+    @PostMapping("/all/client/{clientId}")
+    public ModelAndView findAllByClient(@PathVariable Long clientId, WebRequest request, ModelMap model) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (MapUtils.isNotEmpty(parameterMap)) {
+            parameterMap.forEach(model::addAttribute);
+        }
+        return new ModelAndView("redirect:/trips/all/client/" + clientId, model);
+    }
+
+    @GetMapping("/all/trip/{tripId}")
+    public String findAllByTrip(@PathVariable @ValidId Long tripId, Model model, WebRequest request) {
+        HeaderName[] columnNames = getColumnNames();
+        PageData<OrderResponseDto> response = orderFacade.findByTrip(tripId, request);
+        response.initPaginationState(response.getCurrentPage());
+        List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
+        model.addAttribute("headerDataList", headerDataList);
+        model.addAttribute("createUrl", "/orders/all/trip/" + tripId);
+        model.addAttribute("createNewItemUrl", "/orders/new");
+        model.addAttribute("pageData", response);
+        model.addAttribute("allowCreate", false);
+        model.addAttribute("cardHeader", "All Orders");
+        return "pages/admin/order/orders_all";
+    }
+
+
+    @PostMapping("/all/trip/{tripId}")
+    public ModelAndView findAllByTrip(@PathVariable Long tripId, WebRequest request, ModelMap model) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (MapUtils.isNotEmpty(parameterMap)) {
+            parameterMap.forEach(model::addAttribute);
+        }
+        return new ModelAndView("redirect:/trips/all/trip/" + tripId, model);
     }
 
 
     private HeaderName[] getColumnNames() {
         return new HeaderName[]{
                 new HeaderName("#", null, null),
-                new HeaderName("route", "trip.route.departureTown", null),
-                new HeaderName("departure", "trip.departure", null),
-                new HeaderName("arrival", "trip.arrival", null),
-                new HeaderName("first name", "name", "name"),
-                new HeaderName("last name", "surname", "surname"),
-                new HeaderName("check", "check", "check"),
+                new HeaderName("trip", "trip.id", null),
+                new HeaderName("first name", "firstName", "first_name"),
+                new HeaderName("last name", "lastName", "last_name"),
+                new HeaderName("phone number", "phoneNumber", "phone_number"),
+                new HeaderName("check", "finalPrice", "final_price"),
                 new HeaderName("details", null, null),
                 new HeaderName("delete", null, null)
         };

@@ -6,6 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.com.alevel.persistence.entity.user.Client;
 
+import java.util.Optional;
+
 @Repository
 public interface ClientRepository extends UserRepository<Client> {
 
@@ -18,5 +20,4 @@ public interface ClientRepository extends UserRepository<Client> {
     void unban(@Param("id") Long clientId);
 
     boolean existsByPhoneNumber(String phoneNumber);
-
 }

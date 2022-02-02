@@ -50,26 +50,33 @@
                     </div>
                     <h5 class="mr-1" th:text="${order.getCheck()} +' UAH'"></h5>
                     <br>
-                    <h5>Enter order data</h5>
+                    <h5>Order data</h5>
                     <form action="#" th:action="@{/client/order/create}" th:object="${order}" method="post"
                           class="needs-validation">
-                        <div class="form-group">
-                            <label for="name">First Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="image"
-                                   placeholder="Enter your first name" th:field="*{name} ">
-                        </div>
-                        <div class="form-group" style="margin-top: 10px">
-                            <label for="surname">Last Name</label>
-                            <input type="text" class="form-control" id="surname" aria-describedby="name"
-                                   placeholder="Enter your last name" th:field="*{surname} ">
-                        </div>
-                        <div class="form-group" style="margin-top: 10px">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" class="form-control" id="phone" aria-describedby="name"
-                                   placeholder="Enter your phone number" th:field="*{phoneNumber} ">
-                        </div>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>First Name</th>
+                                <td th:text="${order.getClient().getFirstName()}"></td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td th:text="${order.getClient().getLastName()}"></td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td th:text="${order.getClient().getPhoneNumber()}"></td>
+                            </tr>
+                        </table>
                         <input type="hidden" class="form-control" id="trip"
-                                th:field="*{tripId} " th:value="${order.getTripId()}">
+                               th:field="*{trip}" th:value="${trip.getId()}">
+                        <input type="hidden" class="form-control" id="name"
+                               th:field="*{name}" th:value="${order.getName()}">
+                        <input type="hidden" class="form-control" id="surname"
+                               th:field="*{surname}" th:value="${order.getSurname()}">
+                        <input type="hidden" class="form-control" id="phone"
+                               th:field="*{phoneNumber}" th:value="${order.getPhoneNumber()}">
+                        <input type="hidden" class="form-control" id="client"
+                                th:field="*{client} " th:value="${order.getClient()}">
                         <input type="hidden" class="form-control" id="adults"
                                th:field="*{adults} " th:value="${order.getAdults()}">
                         <input type="hidden" class="form-control" id="children"

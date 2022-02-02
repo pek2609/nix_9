@@ -1,6 +1,5 @@
 package ua.com.alevel.web.controller;
 
-import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import ua.com.alevel.facade.trip.TripFacade;
 import ua.com.alevel.persistence.type.Role;
 import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.service.security.SecurityService;
-import ua.com.alevel.util.Messages;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.validated.ValidId;
@@ -76,10 +74,10 @@ public class OpenController {
 
     @GetMapping("/order/new/{tripId}")
     public String redirectToNewOrderPage(@PathVariable @ValidId Long tripId,
-                                         @RequestParam @Range(min = 1, max = 5, message = Messages.INVALID_ADULTS_CHILDREN_NUMBER) Integer adults,
-                                         @RequestParam @Range(min = 0, max = 5, message = Messages.INVALID_ADULTS_CHILDREN_NUMBER) Integer children, Model model) {
+                                         @RequestParam Integer adults,
+                                         @RequestParam Integer children, Model model) {
         if (securityService.isAuthenticated()) {
-            return redirectClientRejectAdmin("/client/order/new/" + tripId+"?adults=" + adults+"&children=" +children);
+            return redirectClientRejectAdmin("/client/order/new/" + tripId + "?adults=" + adults + "&children=" + children);
         }
         TripResponseDto trip = tripFacade.findById(tripId);
         if (!trip.getVisible()) {

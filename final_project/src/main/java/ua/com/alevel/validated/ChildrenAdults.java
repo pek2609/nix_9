@@ -9,7 +9,7 @@ import java.lang.annotation.*;
         ElementType.ANNOTATION_TYPE
 })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ChildrenAdultsValidator.class)
+@Constraint(validatedBy = {ChildrenAdultsTripValidator.class, ChildrenAdultsOrderValidator.class})
 @Documented
 public @interface ChildrenAdults {
 

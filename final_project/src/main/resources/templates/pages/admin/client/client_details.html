@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <link href="/css/client_details.css" rel="stylesheet">
-    <title>Details Group</title>
+    <title>Details Client</title>
 </head>
 <body>
 
@@ -93,15 +93,15 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="orderCount">Orders</label>
-                                    <p class="mb-2" id="orderCount" th:text="0"></p>
+                                    <p class="mb-2" id="orderCount" th:text="${client.getOrderCount()}"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="row gutters mt-3 mb-0">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-right mb-0">
-                                    <button type="button" id="submit" name="submit" class="btn btn-dark">Show orders
-                                    </button>
+                                    <a th:href="@{'/orders/all/client/' + ${client.getId()}}" type="button" id="submit" class="btn btn-dark">Show orders
+                                    </a>
                                 </div>
                             </div>
                         </div>

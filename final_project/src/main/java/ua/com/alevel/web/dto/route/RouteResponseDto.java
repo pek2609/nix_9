@@ -1,4 +1,4 @@
-package ua.com.alevel.web.dto.routs;
+package ua.com.alevel.web.dto.route;
 
 import ua.com.alevel.persistence.entity.Route;
 import ua.com.alevel.persistence.type.Town;

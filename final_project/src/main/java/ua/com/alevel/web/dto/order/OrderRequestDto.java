@@ -1,19 +1,21 @@
 package ua.com.alevel.web.dto.order;
 
-import org.hibernate.validator.constraints.Range;
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.util.Messages;
+import ua.com.alevel.validated.ChildrenAdults;
 import ua.com.alevel.web.dto.DtoRequest;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+@ChildrenAdults
 public class OrderRequestDto extends DtoRequest {
 
     @NotNull(message = Messages.NOT_NULL)
     private Long tripId;
 
-    @NotNull(message = Messages.NOT_NULL)
+    @NotBlank(message = Messages.NOT_NULL)
     private String name;
 
     @NotNull(message = Messages.NOT_NULL)
@@ -24,10 +26,8 @@ public class OrderRequestDto extends DtoRequest {
 
     private Client client;
 
-    @Range(min = 0, max = 5, message = Messages.INVALID_ADULTS_CHILDREN_NUMBER)
     private Integer children;
 
-    @Range(min = 0, max = 5, message = Messages.INVALID_ADULTS_CHILDREN_NUMBER)
     private Integer adults;
 
     private Double check;

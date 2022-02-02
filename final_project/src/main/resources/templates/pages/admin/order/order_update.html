@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Update order</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Update order</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{'/orders/update/' + ${order.getId()}}" th:object="${order}"
+                          method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="client">Select client</label>
+                            <select class="form-control" id="client" th:field="*{client.id}">
+                                <option selected="selected" th:value="${null}">no client</option>
+                                <option th:each="client : ${clients}"
+                                        th:first_name="${client.getFirstName()}"
+                                        th:last_name="${client.getLastName()}"
+                                        th:phone="${client.getPhoneNumber()}"
+                                        th:value="${client}"
+                                        th:text="${client.getFirstName()} + ' ' + ${client.getLastName()}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="image"
+                                   placeholder="Enter firstName" th:field="*{name} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="surname">Last Name</label>
+                            <input type="text" class="form-control" id="surname" aria-describedby="name"
+                                   placeholder="Enter lastName" th:field="*{surname} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" aria-describedby="seats"
+                                   placeholder="Enter phone number" th:field="*{phoneNumber} ">
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="adults">Adults</label>
+                            <select class="form-control" id="adults" th:field="*{adults}">
+                                <option th:value="0">0</option>
+                                <option th:value="1">1</option>
+                                <option th:value="2">2</option>
+                                <option th:value="3">3</option>
+                                <option th:value="2">4</option>
+                                <option th:value="3">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <label for="children">Children</label>
+                            <select class="form-control" id="children" th:field="*{children}">
+                                <option th:value="0">0</option>
+                                <option th:value="1">1</option>
+                                <option th:value="2">2</option>
+                                <option th:value="3">3</option>
+                                <option th:value="2">4</option>
+                                <option th:value="3">5</option>
+                            </select>
+                        </div>
+                        <input type="hidden" class="form-control" id="trip"
+                               th:field="*{trip} " th:value="${order.getTrip().getId()}">
+                        <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<th:block layout:fragment="scripts">
+    <script type="text/javascript" th:src="@{/js/order_update.js}"></script>
+</th:block>
+</body>
+</html>
