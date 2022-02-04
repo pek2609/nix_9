@@ -1,4 +1,4 @@
-package ua.com.alevel.web.controller;
+package ua.com.alevel.web.controller.client;
 
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Controller;
@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.facade.client.ClientFacade;
 import ua.com.alevel.facade.order.OrderFacade;
 import ua.com.alevel.facade.promotion.PromotionFacade;
@@ -17,12 +18,11 @@ import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.persistence.type.Sex;
 import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.service.client.ClientService;
-import ua.com.alevel.service.security.SecurityService;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.validated.annotation.ValidId;
+import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.DtoResponse;
 import ua.com.alevel.web.dto.client.ClientProfileRequestDto;
-import ua.com.alevel.web.dto.client.ClientRegisterRequestDto;
 import ua.com.alevel.web.dto.client.ClientResponseDto;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.order.OrderRequestDto;
@@ -68,10 +68,8 @@ public class ClientController extends BaseController {
     @GetMapping("/profile/update")
     public String updateProfile(Model model) {
         ClientResponseDto currentClient = new ClientResponseDto(getCurrentClient());
-
         model.addAttribute("client", currentClient);
         model.addAttribute("gender", Sex.values());
-
         return "pages/client/profile_update";
     }
 

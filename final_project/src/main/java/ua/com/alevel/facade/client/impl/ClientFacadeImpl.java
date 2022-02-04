@@ -36,9 +36,6 @@ public class ClientFacadeImpl implements ClientFacade {
 
     @Override
     public void create(ClientRegisterRequestDto clientRequestDto) {
-        if (clientService.existsByPhoneNumber(clientRequestDto.getPhoneNumber())) {
-            throw new AlreadyExistEntity("user with such phoneNumber is already exist");
-        }
         Client client = getClientFromRequestDto(clientRequestDto);
         clientService.create(client);
     }
@@ -89,15 +86,7 @@ public class ClientFacadeImpl implements ClientFacade {
     }
 
     @Override
-    public ClientResponseDto findByEmail(String email) {
-        return new ClientResponseDto(clientService.findByEmail(email));
-    }
-
-    @Override
     public void updateProfile(ClientProfileRequestDto dto, Long id) {
-        if (clientService.existsByPhoneNumber(dto.getPhoneNumber())) {
-            throw new AlreadyExistEntity("user with such phoneNumber is already exist");
-        }
         Client client = new Client();
         client.setId(id);
         client.setFirstName(dto.getFirstName());
@@ -115,7 +104,7 @@ public class ClientFacadeImpl implements ClientFacade {
         if (!encoder.matches(dto.getOldPassword(), client.getPassword())) {
             throw new WrongPasswordException("old password is wrong");
         }
-        clientService.changePassword(encoder.encode(dto.getPassword()), client.getId());
+        clientService.changePassword(dto.getPassword(), client.getId());
     }
 
     private Client getClientFromRequestDto(ClientRegisterRequestDto clientRequestDto) {

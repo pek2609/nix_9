@@ -30,14 +30,11 @@ public class Client extends User {
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
-    @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     @Transient
     private String fullName;
-
-    @Transient
-    private Integer age;
 
     public Client() {
         super();
@@ -90,14 +87,6 @@ public class Client extends User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public List<Order> getOrders() {

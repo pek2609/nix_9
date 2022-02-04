@@ -11,7 +11,9 @@ import java.util.List;
 public interface TripService extends BaseService<Trip> {
 
     DataTableResponse<Trip> findAllByBus(DataTableRequest request, Long busId);
+
     DataTableResponse<Trip> findAllByPromotion(DataTableRequest request, Long promotionId);
+
     DataTableResponse<Trip> findAllByRoute(DataTableRequest request, Long routeId);
 
     List<Trip> findAllBySearch(TripSearchRequest tripSearchRequest);

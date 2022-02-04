@@ -7,7 +7,7 @@ import java.util.Date;
 
 public final class PriceAndDateUtil {
 
-    private PriceAndDateUtil(){
+    private PriceAndDateUtil() {
     }
 
     public static Date addOneDay(Date date) {
@@ -19,8 +19,8 @@ public final class PriceAndDateUtil {
 
     public static Double countPrice(int adults, int children, double priceForOne, Promotion promotion) {
         if (promotion != null && promotion.isActive()) {
-            priceForOne = priceForOne - priceForOne*promotion.getPercent()/100;
+            priceForOne = priceForOne - priceForOne * promotion.getPercent() / 100;
         }
-        return adults*priceForOne + children*priceForOne/2;
+        return adults * priceForOne + children * priceForOne / 2;
     }
 }

@@ -8,7 +8,10 @@ import ua.com.alevel.validated.annotation.PasswordMatches;
 import ua.com.alevel.validated.annotation.ValidBirthDate;
 import ua.com.alevel.web.dto.DtoRequest;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @PasswordMatches
@@ -24,14 +27,14 @@ public class ClientRegisterRequestDto extends DtoRequest {
     private String phoneNumber;
 
     @NotBlank(message = Messages.NOT_NULL)
-    @Email(message =  Messages.INVALID_EMAIL)
+    @Email(message = Messages.INVALID_EMAIL)
     private String email;
 
-    @NotNull(message =  Messages.INVALID_TYPE)
+    @NotNull(message = Messages.INVALID_TYPE)
     private Sex sex;
 
     @Length(min = 8, max = 32, message = "at least 8 characters, max 32")
-    @NotBlank(message =  Messages.NOT_NULL)
+    @NotBlank(message = Messages.NOT_NULL)
     private String password;
 
     private String passwordConfirm;

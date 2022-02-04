@@ -22,7 +22,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/clients")
 public class AdminClientController extends BaseController {
-    
+
     private final ClientFacade clientFacade;
 
     public AdminClientController(ClientFacade clientFacade) {
@@ -53,7 +53,7 @@ public class AdminClientController extends BaseController {
     }
 
     @GetMapping("/details/{id}")
-    public String details(@PathVariable  Long id, Model model) {
+    public String details(@PathVariable Long id, Model model) {
         ClientResponseDto dto = clientFacade.findById(id);
         model.addAttribute("client", dto);
         return "pages/admin/client/client_details";

@@ -67,7 +67,7 @@ public class PromotionController extends BaseController {
     }
 
     @PostMapping("/create")
-    public String createNewPromotion(@ModelAttribute("promotion") @Valid PromotionRequestDto dto , BindingResult bindingResult) {
+    public String createNewPromotion(@ModelAttribute("promotion") @Valid PromotionRequestDto dto, BindingResult bindingResult) {
         promotionFacade.create(dto);
         return "redirect:/promotions";
     }

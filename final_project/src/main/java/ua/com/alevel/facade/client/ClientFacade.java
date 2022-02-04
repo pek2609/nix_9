@@ -12,8 +12,6 @@ public interface ClientFacade extends BaseFacade<ClientRegisterRequestDto, Clien
 
     void unban(Long clientId);
 
-    ClientResponseDto findByEmail(String email);
-
     void updateProfile(ClientProfileRequestDto dto, Long id);
 
     void changePassword(ChangePasswordRequestDto dto);

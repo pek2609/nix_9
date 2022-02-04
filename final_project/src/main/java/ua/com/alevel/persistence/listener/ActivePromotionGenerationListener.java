@@ -14,7 +14,7 @@ public class ActivePromotionGenerationListener {
     @PostUpdate
     public void generatePromotion(Promotion promotion) {
         Date cur = new Date();
-        boolean active = cur.compareTo(promotion.getStart())*cur.compareTo(promotion.getEnd()) < 0;
+        boolean active = cur.compareTo(promotion.getStart()) * cur.compareTo(promotion.getEnd()) < 0;
         promotion.setActive(active);
     }
 }

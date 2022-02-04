@@ -1,4 +1,4 @@
-package ua.com.alevel.web.controller;
+package ua.com.alevel.web.controller.open;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -7,13 +7,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.exception.NonActiveTripException;
 import ua.com.alevel.facade.order.OrderFacade;
 import ua.com.alevel.facade.promotion.PromotionFacade;
 import ua.com.alevel.facade.trip.TripFacade;
+import ua.com.alevel.logger.LoggerLevel;
+import ua.com.alevel.logger.LoggerService;
 import ua.com.alevel.persistence.type.Role;
 import ua.com.alevel.persistence.type.Town;
-import ua.com.alevel.service.security.SecurityService;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.validated.annotation.ValidId;
@@ -31,12 +33,14 @@ import java.util.List;
 @RequestMapping("/open")
 public class OpenController {
 
+    private final LoggerService loggerService;
     private final PromotionFacade promotionFacade;
     private final TripFacade tripFacade;
     private final OrderFacade orderFacade;
     private final SecurityService securityService;
 
-    public OpenController(PromotionFacade promotionFacade, TripFacade tripFacade, OrderFacade orderFacade, SecurityService securityService) {
+    public OpenController(LoggerService loggerService, PromotionFacade promotionFacade, TripFacade tripFacade, OrderFacade orderFacade, SecurityService securityService) {
+        this.loggerService = loggerService;
         this.promotionFacade = promotionFacade;
         this.tripFacade = tripFacade;
         this.orderFacade = orderFacade;
@@ -81,6 +85,7 @@ public class OpenController {
         }
         TripResponseDto trip = tripFacade.findById(tripId);
         if (!trip.getVisible()) {
+            loggerService.commit(LoggerLevel.ERROR, "trip is not active, id = " + trip.getId());
             throw new NonActiveTripException("trip is not active");
         }
         OrderRequestDto orderRequestDto = new OrderRequestDto();
@@ -104,7 +109,7 @@ public class OpenController {
         if (securityService.isAuthenticated()) {
             return redirectClientRejectAdmin("/client/order/ok");
         }
-        model.addAttribute("back", "/client/tickets");
+        model.addAttribute("back", "/open/tickets");
         return "success";
     }
 

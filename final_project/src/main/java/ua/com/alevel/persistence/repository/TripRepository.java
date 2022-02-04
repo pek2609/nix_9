@@ -9,7 +9,6 @@ import ua.com.alevel.persistence.type.Town;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface TripRepository extends BaseRepository<Trip> {
 

@@ -1,4 +1,4 @@
-package ua.com.alevel.service.security.impl;
+package ua.com.alevel.config.security.impl;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,9 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.user.UserRepository;
-import ua.com.alevel.service.security.SecurityService;
 
 @Service
 public class SecurityServiceImpl implements SecurityService {

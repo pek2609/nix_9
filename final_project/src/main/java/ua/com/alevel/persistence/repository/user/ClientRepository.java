@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.com.alevel.persistence.entity.user.Client;
-import ua.com.alevel.util.QueryUtil;
-
-import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends UserRepository<Client> {
@@ -23,7 +20,7 @@ public interface ClientRepository extends UserRepository<Client> {
     boolean existsByPhoneNumber(String phoneNumber);
 
     @Modifying
-    @Query(value ="update Client set " +
+    @Query(value = "update Client set " +
             "firstName=:#{#client.firstName}, " +
             "lastName=:#{#client.lastName}, " +
             "email=:#{#client.email}, " +

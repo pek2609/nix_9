@@ -7,12 +7,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.exception.AlreadyExistEntity;
 import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.facade.client.ClientFacade;
+import ua.com.alevel.logger.LoggerLevel;
+import ua.com.alevel.logger.LoggerService;
 import ua.com.alevel.persistence.type.Role;
 import ua.com.alevel.persistence.type.Sex;
-import ua.com.alevel.service.security.SecurityService;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.web.dto.client.ChangePasswordRequestDto;
 import ua.com.alevel.web.dto.client.ClientRegisterRequestDto;
@@ -24,11 +26,12 @@ import javax.validation.Valid;
 @Controller
 public class AuthController extends BaseController {
 
-
+    private final LoggerService loggerService;
     private final ClientFacade clientFacade;
     private final SecurityService securityService;
 
-    public AuthController(ClientFacade clientFacade, SecurityService securityService) {
+    public AuthController(LoggerService loggerService, ClientFacade clientFacade, SecurityService securityService) {
+        this.loggerService = loggerService;
         this.clientFacade = clientFacade;
         this.securityService = securityService;
     }
@@ -88,6 +91,7 @@ public class AuthController extends BaseController {
     public String registration(@ModelAttribute("authForm") @Valid ClientRegisterRequestDto authForm, BindingResult bindingResult, Model model) {
         showMessage(model, false);
         if (securityService.existsByEmail(authForm.getEmail())) {
+            loggerService.commit(LoggerLevel.ERROR, "user with this email is already exist " + authForm.getEmail());
             throw new AlreadyExistEntity("user with this email is already exist");
         }
         clientFacade.create(authForm);

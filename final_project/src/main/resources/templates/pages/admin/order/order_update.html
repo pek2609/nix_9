@@ -22,7 +22,7 @@
                           method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="client">Select client</label>
-                            <select class="form-control" id="client" th:field="*{client.id}">
+                            <select class="form-control" id="client" th:field="*{client}">
                                 <option selected="selected" th:value="${null}">no client</option>
                                 <option th:each="client : ${clients}"
                                         th:first_name="${client.getFirstName()}"

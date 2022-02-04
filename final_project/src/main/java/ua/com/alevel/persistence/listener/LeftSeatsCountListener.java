@@ -13,7 +13,7 @@ public class LeftSeatsCountListener {
     @PostLoad
     @PostPersist
     @PostUpdate
-    public void generateFullName(Trip trip) {
+    public void generateLeftSeats(Trip trip) {
         int seats = trip.getBus().getSeats();
         List<Order> orders = trip.getOrders();
         if (orders != null) {

@@ -7,7 +7,7 @@ import ua.com.alevel.web.dto.DtoResponse;
 import java.util.Date;
 import java.util.List;
 
-public class PromotionResponseDto extends DtoResponse{
+public class PromotionResponseDto extends DtoResponse {
 
     private String image;
     private String name;

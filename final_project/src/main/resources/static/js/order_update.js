@@ -1,9 +1,10 @@
 document.getElementById("client").onclick = function () {
     let option = this.options[this.selectedIndex];
+
     let inputName = document.getElementById("name");
     let inputSurname = document.getElementById("surname");
     let inputPhone = document.getElementById("phone");
-    console.log(option.value);
+
     if (option.value) {
         let name = option.getAttribute("first_name");
         let surname = option.getAttribute("last_name");

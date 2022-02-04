@@ -75,7 +75,7 @@ public class BusController extends BaseController {
     @PostMapping("/update/{id}")
     public String updateBus(@PathVariable @ValidId Long id, @ModelAttribute("bus") @Valid BusRequestDto busRequestDto, BindingResult bindingResult) {
         busFacade.update(busRequestDto, id);
-        return "redirect:/buses/details/"+id;
+        return "redirect:/buses/details/" + id;
     }
 
     @GetMapping("/update/{id}")

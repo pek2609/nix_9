@@ -6,7 +6,9 @@ import ua.com.alevel.util.Messages;
 import ua.com.alevel.validated.annotation.StartEndDate;
 import ua.com.alevel.web.dto.DtoRequest;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @StartEndDate

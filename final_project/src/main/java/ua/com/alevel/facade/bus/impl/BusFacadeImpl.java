@@ -14,7 +14,6 @@ import ua.com.alevel.web.dto.bus.BusResponseDto;
 import ua.com.alevel.web.dto.datatable.PageAndSizeData;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.datatable.SortData;
-import ua.com.alevel.web.dto.promotion.PromotionResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

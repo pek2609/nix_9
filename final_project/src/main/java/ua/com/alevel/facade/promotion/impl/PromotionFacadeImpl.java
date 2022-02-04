@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PromotionFacadeImpl implements PromotionFacade{
+public class PromotionFacadeImpl implements PromotionFacade {
 
     private final PromotionService promotionService;
     private final RouteService routeService;

@@ -6,15 +6,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "routs", uniqueConstraints = {@UniqueConstraint(columnNames = {"departure_town", "arrival_town"})})
-public class Route extends BaseEntity{
+@Table(name = "routes", uniqueConstraints = {@UniqueConstraint(columnNames = {"departure_town", "arrival_town"})})
+public class Route extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "departure_town", nullable = false)
     private Town departureTown;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "arrival_town" , nullable = false)
+    @Column(name = "arrival_town", nullable = false)
     private Town arrivalTown;
 
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL)

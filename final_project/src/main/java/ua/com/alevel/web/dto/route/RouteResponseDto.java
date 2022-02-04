@@ -16,7 +16,7 @@ public class RouteResponseDto extends DtoResponse {
         super(route.getId(), route.getCreated(), route.getUpdated(), true);
         this.departureTown = route.getDepartureTown();
         this.arrivalTown = route.getArrivalTown();
-        this.route = route.getDepartureTown().name()+"-"+route.getArrivalTown().name();
+        this.route = route.getDepartureTown().name() + "-" + route.getArrivalTown().name();
         this.tripCount = route.getTrips().size();
     }
 

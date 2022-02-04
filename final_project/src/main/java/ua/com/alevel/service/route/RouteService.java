@@ -1,6 +1,5 @@
 package ua.com.alevel.service.route;
 
-import org.springframework.data.repository.query.Param;
 import ua.com.alevel.persistence.entity.Route;
 import ua.com.alevel.persistence.entity.Trip;
 import ua.com.alevel.persistence.type.Town;

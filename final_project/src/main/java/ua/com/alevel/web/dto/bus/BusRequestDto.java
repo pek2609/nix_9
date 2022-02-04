@@ -4,8 +4,6 @@ import org.hibernate.validator.constraints.Range;
 import ua.com.alevel.util.Messages;
 import ua.com.alevel.web.dto.DtoRequest;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -18,7 +16,7 @@ public class BusRequestDto extends DtoRequest {
     @NotBlank(message = Messages.NOT_NULL)
     private String name;
 
-    @Range(min = 8 , max = 100, message = "invalid number of seats(at least 8, max 100)")
+    @Range(min = 8, max = 100, message = "invalid number of seats(at least 8, max 100)")
     private Integer seats;
 
     public String getImageUrl() {

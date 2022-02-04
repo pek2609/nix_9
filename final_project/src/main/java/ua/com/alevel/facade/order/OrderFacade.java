@@ -2,9 +2,6 @@ package ua.com.alevel.facade.order;
 
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.BaseFacade;
-import ua.com.alevel.persistence.datatable.DataTableRequest;
-import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Order;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.order.OrderRequestDto;
 import ua.com.alevel.web.dto.order.OrderResponseDto;

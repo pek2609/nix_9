@@ -13,18 +13,20 @@
     <div class="container justify-content-center">
         <div class="card-group ">
             <div class="card" style="margin-left: 5px" th:each="promotion : ${promotions}">
-                <img class="card-img-top" style="height: 250px" th:src="${promotion.getImage()}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${promotion.getName()}"></h5>
-                    <p th:text="'Ends '+ ${#calendars.format(promotion.getEnd(),'dd MMMM yyyy')} + ', ' + ${promotion.getPercent()} + '% sale, include routes:'"
-                       class="card-text"></p>
-                </div>
-                <ul class="list-group list-group-flush" th:each="route: ${promotion.getRoutes()}">
-                    <li class="list-group-item" th:text="${route.getDepartureTown()} + '-' + ${route.getArrivalTown()}">
-                </ul>
-                <div class="card-body">
-                    <a th:href="@{/open/tickets}" href="#" class="btn btn-dark">Search</a>
-                </div>
+                    <img class="card-img-top" style="height: 250px" th:src="${promotion.getImage()}"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${promotion.getName()}"></h5>
+                        <p th:text="'Ends '+ ${#calendars.format(promotion.getEnd(),'dd MMMM yyyy')} + ', ' + ${promotion.getPercent()} + '% sale, include routes:'"
+                           class="card-text"></p>
+                    </div>
+                    <ul class="list-group list-group-flush" th:each="route: ${promotion.getRoutes()}">
+                        <li class="list-group-item"
+                            th:text="${route.getDepartureTown()} + '-' + ${route.getArrivalTown()}">
+                    </ul>
+                    <div class="card-body">
+                        <a th:href="@{/open/tickets}" href="#" class="btn btn-dark">Search</a>
+                    </div>
             </div>
         </div>
     </div>
