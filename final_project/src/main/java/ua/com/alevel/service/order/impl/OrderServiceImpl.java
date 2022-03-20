@@ -2,6 +2,7 @@ package ua.com.alevel.service.order.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.logger.LoggerLevel;
@@ -15,6 +16,7 @@ import ua.com.alevel.service.order.OrderService;
 import ua.com.alevel.util.DataTableUtil;
 import ua.com.alevel.util.Messages;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,11 +48,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(Long id) {
         loggerService.commit(LoggerLevel.WARN, Messages.entityLog("delete", "order", id, "start"));
+        Order order = findById(id);
+        List<Order> orders = order.getTrip().getOrders();
+        orders.remove(order);
         crudRepositoryHelper.delete(orderRepository, id);
         loggerService.commit(LoggerLevel.WARN, Messages.entityLog("delete", "order", id, "end"));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     @Override
     public Order findById(Long id) {
         Optional<Order> order = crudRepositoryHelper.findById(orderRepository, id);

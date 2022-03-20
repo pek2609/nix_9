@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.exception.AlreadyExistEntity;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.exception.WrongPasswordException;
 import ua.com.alevel.facade.client.ClientFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -101,6 +102,9 @@ public class ClientFacadeImpl implements ClientFacade {
     @Override
     public void changePassword(ChangePasswordRequestDto dto) {
         Client client = clientService.findByEmail(dto.getEmail());
+        if (!client.getEnabled()) {
+            throw new EntityNotFoundException("can't find user with this email");
+        }
         if (!encoder.matches(dto.getOldPassword(), client.getPassword())) {
             throw new WrongPasswordException("old password is wrong");
         }

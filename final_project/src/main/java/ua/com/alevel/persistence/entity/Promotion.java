@@ -23,7 +23,7 @@ public class Promotion extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date end;
 
-    @OneToMany(mappedBy = "promotion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL)
     private List<Trip> trips;
 
     @Transient

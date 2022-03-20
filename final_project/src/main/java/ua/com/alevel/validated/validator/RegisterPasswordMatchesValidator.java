@@ -15,7 +15,6 @@ public class RegisterPasswordMatchesValidator implements ConstraintValidator<Pas
 
     @Override
     public boolean isValid(ClientRegisterRequestDto user, ConstraintValidatorContext constraintValidatorContext) {
-        ;
         return user.getPassword().equals(user.getPasswordConfirm());
     }
 }

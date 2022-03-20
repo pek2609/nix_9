@@ -37,7 +37,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public void create(Client entity) {
-        checkExistByEmailEndPhone(entity.getEmail(), entity.getPhoneNumber(), entity.getId());
+        checkExistByEmailAndPhone(entity.getEmail(), entity.getPhoneNumber(), entity.getId());
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
         crudRepositoryHelper.create(personalRepository, entity);
     }
@@ -45,7 +45,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public void update(Client entity) {
-        checkExistByEmailEndPhone(entity.getEmail(), entity.getPhoneNumber(), entity.getId());
+        checkExistByEmailAndPhone(entity.getEmail(), entity.getPhoneNumber(), entity.getId());
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
         crudRepositoryHelper.update(personalRepository, entity);
     }
@@ -113,7 +113,7 @@ public class ClientServiceImpl implements ClientService {
             loggerService.commit(LoggerLevel.ERROR, Messages.entityNotFoundLog("client", client.getId()));
             throw new EntityNotFoundException("client is not found");
         }
-        checkExistByEmailEndPhone(client.getEmail(), client.getPhoneNumber(), client.getId());
+        checkExistByEmailAndPhone(client.getEmail(), client.getPhoneNumber(), client.getId());
         personalRepository.updateProfileData(client);
         loggerService.commit(LoggerLevel.INFO, Messages.entityLog("updateProfileData", "client", client.getId(), "end"));
     }
@@ -142,7 +142,7 @@ public class ClientServiceImpl implements ClientService {
         return crudRepositoryHelper.findAll(personalRepository);
     }
 
-    private void checkExistByEmailEndPhone(String email, String phone, Long id) {
+    private void checkExistByEmailAndPhone(String email, String phone, Long id) {
         if (personalRepository.existsByEmail(email)) {
             loggerService.commit(LoggerLevel.ERROR, "client exist with email , id = " + id);
             throw new AlreadyExistEntity("client with this email is exist");

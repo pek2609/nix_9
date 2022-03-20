@@ -9,5 +9,4 @@ public interface OrderRepository extends BaseRepository<Order> {
     Page<Order> findByClientId(Long clientId, Pageable pageable);
 
     Page<Order> findByTripId(Long tripId, Pageable pageable);
-
 }

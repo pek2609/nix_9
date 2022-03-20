@@ -88,6 +88,4 @@ public class BusServiceTest {
         DataTableRequest dataTableRequest = GenerationUtil.getRequest("name", 1, 3);
         Assertions.assertEquals(3, busService.findAll(dataTableRequest).getItems().size());
     }
-
-
 }

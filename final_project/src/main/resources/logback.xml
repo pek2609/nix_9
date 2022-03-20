@@ -11,7 +11,7 @@
         <appender-ref ref="console"/>
     </root>
 
-    <property name="HOME_LOG" value="final_project/logs"/>
+    <property name="HOME_LOG" value="logs"/>
     <property name="ARCHIVED_LOG" value="archived"/>
 
     <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">

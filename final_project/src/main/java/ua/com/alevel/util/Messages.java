@@ -20,14 +20,6 @@ public final class Messages {
         return operation + " " + entityName + " " + status;
     }
 
-    public static String entityLog(String operation, String entityName) {
-        return operation + " " + entityName;
-    }
-
-    public static String entityLog(String operation, String entityName, Long id) {
-        return operation + " " + entityName + ", id = " + id;
-    }
-
     public static String entityNotFoundLog(String entityName, Long id) {
         return entityName + " is not found, id = " + id;
     }

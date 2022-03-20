@@ -14,7 +14,7 @@ public class VisibleTripGenerationListener {
     @PostUpdate
     public void generateTripVisible(Trip trip) {
         Date cur = new Date();
-        boolean visible = cur.compareTo(trip.getDeparture()) < 0 || trip.getLeftSeats() == 0;
+        boolean visible = cur.compareTo(trip.getDeparture()) < 0 && trip.getLeftSeats() > 0;
         trip.setVisible(visible);
     }
 }

@@ -42,7 +42,6 @@ public class CrudRepositoryHelperImpl<
         checkExist(repository, entity.getId());
         repository.save(entity);
         loggerService.commit(LoggerLevel.INFO, Messages.entityLog("update", entity.getClass().getSimpleName(), "end"));
-
     }
 
     @Override

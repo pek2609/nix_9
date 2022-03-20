@@ -15,7 +15,6 @@ public class EditPasswordMatchesValidator implements ConstraintValidator<Passwor
 
     @Override
     public boolean isValid(ChangePasswordRequestDto user, ConstraintValidatorContext constraintValidatorContext) {
-        ;
         return user.getPassword().equals(user.getPasswordConfirm());
     }
 }
