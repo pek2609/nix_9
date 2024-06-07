@@ -1,11 +1,17 @@
 package ua.com.alevel.web.controller.open;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.exception.NonActiveTripException;
@@ -14,8 +20,11 @@ import ua.com.alevel.facade.promotion.PromotionFacade;
 import ua.com.alevel.facade.trip.TripFacade;
 import ua.com.alevel.logger.LoggerLevel;
 import ua.com.alevel.logger.LoggerService;
+import ua.com.alevel.persistence.repository.TownRepository;
+import ua.com.alevel.persistence.repository.TripRepositoryV2;
 import ua.com.alevel.persistence.type.Role;
-import ua.com.alevel.persistence.type.Town;
+import ua.com.alevel.service.trip.v2.SearchTripResult;
+import ua.com.alevel.service.trip.v2.TripServiceV2;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.validated.annotation.ValidId;
@@ -31,6 +40,7 @@ import java.util.List;
 @Validated
 @Controller
 @RequestMapping("/open")
+@AllArgsConstructor
 public class OpenController {
 
     private final LoggerService loggerService;
@@ -38,31 +48,27 @@ public class OpenController {
     private final TripFacade tripFacade;
     private final OrderFacade orderFacade;
     private final SecurityService securityService;
-
-    public OpenController(LoggerService loggerService, PromotionFacade promotionFacade, TripFacade tripFacade, OrderFacade orderFacade, SecurityService securityService) {
-        this.loggerService = loggerService;
-        this.promotionFacade = promotionFacade;
-        this.tripFacade = tripFacade;
-        this.orderFacade = orderFacade;
-        this.securityService = securityService;
-    }
+    private final TownRepository townRepository;
+    private final TripServiceV2 tripServiceV2;
 
     @GetMapping("/tickets")
     public String tickets(Model model) {
         if (securityService.isAuthenticated()) {
             return redirectClientRejectAdmin("/client/tickets");
         }
-        model.addAttribute("towns", Town.values());
+        model.addAttribute("towns", townRepository.findAll());
         model.addAttribute("search", new TripSearchRequest());
         return "pages/open/ticket_select";
     }
 
-    @PostMapping("/tickets/all")
+    @PostMapping("/tickets")
     public String ticketsRedirect(Model model, @Valid @ModelAttribute("search") TripSearchRequest tripSearchRequest, BindingResult bindingResult) {
-        List<TripResponseDto> all = tripFacade.findAllBySearch(tripSearchRequest);
-        model.addAttribute("trips", all);
-        model.addAttribute("req", tripSearchRequest);
-        return "pages/open/tickets";
+//        List<TripResponseDto> all = tripFacade.findAllBySearch(tripSearchRequest);
+        List<SearchTripResult> results = tripServiceV2.searchTrips(tripSearchRequest);
+        model.addAttribute("results", results);
+        model.addAttribute("towns", townRepository.findAll());
+        model.addAttribute("search", tripSearchRequest);
+        return "pages/open/ticket_select";
     }
 
     @GetMapping("/promotions")

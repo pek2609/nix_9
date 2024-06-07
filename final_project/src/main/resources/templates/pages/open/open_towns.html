@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/open_layout}">
+
+<head>
+    <title>Towns</title>
+    <style>
+        .no-gutters {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .no-gutters > .col,
+        .no-gutters > [class*="col-"] {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .full-width-card {
+            margin: 0.5%; /* Removes margin from cards */
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="open_content">
+    <div class="container-fluid mt-5 pt-5 no-gutters">
+        <div class="row no-gutters">
+            <!-- Loop through towns, cards take full width on all viewport sizes -->
+            <div th:each="town : ${towns}" class="col-12 col-md-6">
+                <div class="card full-width-card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <h5 class="card-title" th:text="${town.name}">Town Name</h5>
+                        <a th:href="@{/open/routes(town=${town.name})}" class="btn btn-dark">Show Routes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

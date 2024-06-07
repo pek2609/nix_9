@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/open_layout}">
+
+<head>
+    <title>Routes</title>
+    <style>
+        .color-white {
+            color: white;
+        }
+
+        .card {
+            height: 450px;
+            margin-bottom: 20px; /* Space between rows */
+        }
+
+        .card-img-top {
+            height: 200px; /* Fixed height for all images */
+            object-fit: cover; /* Ensures the image covers the area, without distortion */
+        }
+
+        .card-body {
+            overflow: hidden; /* Keeps the content within the card */
+        }
+
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .col-md-4 {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        .white-underline-link {
+            color: white; /* Set text color to white */
+            text-decoration: underline; /* Ensure the link is underlined */
+        }
+
+        .white-underline-link:hover, .white-underline-link:focus {
+            color: white; /* Maintain white color on hover and focus */
+            text-decoration: underline; /* Ensure underline remains on hover and focus */
+        }
+    </style>
+</head>
+<body>
+<h1>Routes</h1>
+<div layout:fragment="open_content">
+    <div class="container-fluid mt-5">
+        <form th:action="@{/open/routes}" method="get">
+            <input type="text" th:value="${town}" name="town" placeholder="Filter by town">
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="row mt-5">
+            <div th:each="route : ${page.content}" class="col-md-4">
+                <div class="card d-flex flex-column">
+                    <img th:src="@{${route.imagePath}}" class="card-img-top" alt="Route Image">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold" th:text="${route.departureTown.name} + ' - ' + ${route.arrivalTown.name}">Route Name</h5>
+                        <p class="card-text flex-grow-1" th:text="${route.description}">Description</p>
+                        <a th:href="@{/open/tickets}" class="btn btn-dark mt-auto">Search
+                            Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${page.isEmpty()}">
+            <h5 class="color-white fw-bold">Routes not found</h5>
+        </div>
+
+        <div th:if="${not page.isEmpty()}">
+            <!-- Pagination controls -->
+            <a class="white-underline-link" th:if="${page.hasPrevious()}"
+               th:href="@{/open/routes(page=${page.number - 1}, size=${page.size}, town=${town})}">Previous</a>
+
+            <!-- Display current range and total -->
+            <span class="color-white" th:text="'Showing page ' + (${page.number + 1}) + ' of ' + ${page.totalPages}">Showing pages</span>
+
+            <a class="white-underline-link" th:if="${page.hasNext()}"
+               th:href="@{/open/routes(page=${page.number + 1}, size=${page.size}, town=${town})}">Next</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

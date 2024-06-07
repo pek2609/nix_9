@@ -23,4 +23,8 @@ public final class PriceAndDateUtil {
         }
         return adults * priceForOne + children * priceForOne / 2;
     }
+
+    public static Double countPrice(int adults, int children, double priceForOne) {
+        return countPrice(adults, children, priceForOne, null);
+    }
 }

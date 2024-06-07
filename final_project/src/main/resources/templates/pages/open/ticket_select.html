@@ -12,16 +12,17 @@
 
 <div layout:fragment="open_content">
 
-    <div class="container rounded shadow-sm">
-        <form action="" th:action="@{/open/tickets/all}" th:object="${search}" method="post">
+<!--    SEARCH-->
+    <div class="container rounded shadow-sm mt-100">
+        <form th:action="@{/open/tickets}" th:object="${search}" method="post">
             <div class="row">
                 <div class="col-md-6 col-12 mb-4">
                     <div class="form-control d-flex flex-column">
                         <p class="h-blue">FROM</p>
-                        <select th:field="*{departureTown}" class="inputbox" id="departure">
-                            <option th:each="type : ${towns}"
-                                    th:value="${type}"
-                                    th:text="${type}">
+                        <select th:field="*{departureTownId}" class="inputbox" id="departure">
+                            <option th:each="town : ${towns}"
+                                    th:value="${town.id}"
+                                    th:text="${town.name}">
                             </option>
                         </select>
                     </div>
@@ -29,10 +30,10 @@
                 <div class="col-md-6 col-12 mb-4">
                     <div class="form-control d-flex flex-column">
                         <p class="h-blue">TO</p>
-                        <select th:field="*{arrivalTown}" class="inputbox" id="arrival">
-                            <option th:each="type : ${towns}"
-                                    th:value="${type}"
-                                    th:text="${type}">
+                        <select th:field="*{arrivalTownId}" class="inputbox" id="arrival">
+                            <option th:each="town : ${towns}"
+                                    th:value="${town.id}"
+                                    th:text="${town.name}">
                             </option>
                         </select>
                     </div>
@@ -42,7 +43,7 @@
                 <div class="col-md-12 col-12 mb-4">
                     <div class="form-control d-flex flex-column">
                         <p class="h-blue">DEPARTING</p>
-                        <input th:field="*{departure}" class="inputbox textmuted" type="date">
+                        <input th:field="*{departureDate}" class="inputbox textmuted" type="date">
                     </div>
                 </div>
             </div>
@@ -51,8 +52,7 @@
                     <div class="form-control d-flex flex-column">
                         <p class="h-blue">ADULTS(18+)</p>
                         <select th:field="*{adults}" class="border-0 outline-none">
-                            <option th:value="0" hidden selected>0</option>
-                            <option th:value="1">1</option>
+                            <option th:value="1" selected>1</option>
                             <option th:value="2">2</option>
                             <option th:value="3">3</option>
                             <option th:value="2">4</option>
@@ -64,7 +64,7 @@
                     <div class="form-control d-flex flex-column">
                         <p class="h-blue">CHILDREN(0-17)</p>
                         <select th:field="*{children}" class="border-0 outline-none">
-                            <option th:value="0" hidden selected>0</option>
+                            <option th:value="0" selected>0</option>
                             <option th:value="1">1</option>
                             <option th:value="2">2</option>
                             <option th:value="3">3</option>
@@ -78,6 +78,32 @@
         </form>
     </div>
 
+    <!-- Results section -->
+    <div class="container rounded shadow-sm mt-4">
+        <div th:each="result : ${results}" class="card mb-3" style="width: 100%">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5 class="card-title fw-bold" th:text="${result.departureTown.name}">Departure</h5>
+                        <p class="card-text" th:text="${result.getDepartureDateTimeFormatted()}"></p>
+                        <small th:text="${result.bus.name}"></small>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="card-text" th:text="${result.getTripDurationFormatted()}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="card-title fw-bold" th:text="${result.arrivalTown.name}">Arrival</h5>
+                        <p class="card-text" th:text="${result.getArrivalDateTimeFormatted()}"></p>
+                        <small th:text="'Left places: ' + ${result.remainingPlaces}"></small>
+                    </div>
+                    <div class="col-md-3 d-flex flex-column justify-content-between">
+                        <button type="button" class="btn btn-dark btn-lg" th:text="${result.totalPrice} + ' UAH'">Buy</button>
+                        <p th:text="${search.adults} + ' adults, ' + ${search.children} + ' children'"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
