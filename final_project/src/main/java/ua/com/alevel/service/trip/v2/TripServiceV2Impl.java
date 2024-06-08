@@ -2,15 +2,14 @@ package ua.com.alevel.service.trip.v2;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.TripV2;
 import ua.com.alevel.persistence.repository.TripRepositoryV2;
-import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.web.dto.trip.TripSearchRequest;
 
 import java.sql.Date;
-import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,24 +24,22 @@ public class TripServiceV2Impl implements TripServiceV2 {
 
         List<TripV2> bySearch = tripRepositoryV2.findBySearch(request.getDepartureTownId(), request.getArrivalTownId(), Date.valueOf(request.getDepartureDate()), request.getAdults() + request.getChildren());
 
-        return bySearch.stream().map(t -> toResult(t, request))
+        return bySearch.stream().map(t -> SearchTripResult.from(t, request.getAdults(), request.getChildren()))
                 .collect(Collectors.toList());
-
     }
 
-    private SearchTripResult toResult(TripV2 tripV2, TripSearchRequest request) {
-        return SearchTripResult.builder()
-                .departureTown(tripV2.getRoute().getDepartureTown())
-                .arrivalTown(tripV2.getRoute().getArrivalTown())
-                .pricePerPerson(tripV2.getPrice())
-                .remainingPlaces(tripV2.getBus().getSeats() - tripV2.getUsedSeats())
-                .tripDuration(Duration.between(tripV2.getDeparture(), tripV2.getArrival()))
-                .totalPrice(PriceAndDateUtil.countPrice(request.getAdults(), request.getChildren(), tripV2.getPrice()))
-                .departure(tripV2.getDeparture())
-                .arrival(tripV2.getArrival())
-                .bus(tripV2.getBus())
-                .build();
+    @Transactional
+    @Override
+    public SearchTripResult prepareTripSearchResult(Long tripId, Integer adults, Integer children) {
+        return SearchTripResult.from(findById(tripId), adults, children);
     }
+
+    @Transactional
+    @Override
+    public void plusUsedSeats(Long tripId, Integer passengerCount) {
+        tripRepositoryV2.plusUsedSeats(tripId, passengerCount);
+    }
+
 
     @Override
     public void create(TripV2 entity) {
@@ -59,9 +56,10 @@ public class TripServiceV2Impl implements TripServiceV2 {
 
     }
 
+    @Transactional
     @Override
     public TripV2 findById(Long id) {
-        return null;
+        return tripRepositoryV2.findById(id).orElse(null);
     }
 
     @Override

@@ -21,7 +21,6 @@ import ua.com.alevel.facade.trip.TripFacade;
 import ua.com.alevel.logger.LoggerLevel;
 import ua.com.alevel.logger.LoggerService;
 import ua.com.alevel.persistence.repository.TownRepository;
-import ua.com.alevel.persistence.repository.TripRepositoryV2;
 import ua.com.alevel.persistence.type.Role;
 import ua.com.alevel.service.trip.v2.SearchTripResult;
 import ua.com.alevel.service.trip.v2.TripServiceV2;
@@ -58,7 +57,7 @@ public class OpenController {
         }
         model.addAttribute("towns", townRepository.findAll());
         model.addAttribute("search", new TripSearchRequest());
-        return "pages/open/ticket_select";
+        return "pages/open/open_search";
     }
 
     @PostMapping("/tickets")
@@ -68,7 +67,7 @@ public class OpenController {
         model.addAttribute("results", results);
         model.addAttribute("towns", townRepository.findAll());
         model.addAttribute("search", tripSearchRequest);
-        return "pages/open/ticket_select";
+        return "pages/open/open_search";
     }
 
     @GetMapping("/promotions")
@@ -79,7 +78,7 @@ public class OpenController {
         List<PromotionResponseDto> all = promotionFacade.findAll();
         all = all.stream().filter(DtoResponse::getVisible).toList();
         model.addAttribute("promotions", all);
-        return "pages/open/promotions";
+        return "pages/open/open_search";
     }
 
     @GetMapping("/order/new/{tripId}")

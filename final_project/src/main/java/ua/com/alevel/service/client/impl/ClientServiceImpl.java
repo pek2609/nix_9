@@ -1,8 +1,10 @@
 package ua.com.alevel.service.client.impl;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.exception.AlreadyExistEntity;
 import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.logger.LoggerLevel;
@@ -12,13 +14,16 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.persistence.repository.user.ClientRepository;
+import ua.com.alevel.persistence.type.Role;
 import ua.com.alevel.service.client.ClientService;
 import ua.com.alevel.util.Messages;
+import ua.com.alevel.util.SecurityUtil;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
 
@@ -26,13 +31,7 @@ public class ClientServiceImpl implements ClientService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ClientRepository personalRepository;
     private final CrudRepositoryHelper<Client, ClientRepository> crudRepositoryHelper;
-
-    public ClientServiceImpl(LoggerService loggerService, BCryptPasswordEncoder bCryptPasswordEncoder, ClientRepository personalRepository, CrudRepositoryHelper<Client, ClientRepository> crudRepositoryHelper) {
-        this.loggerService = loggerService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.personalRepository = personalRepository;
-        this.crudRepositoryHelper = crudRepositoryHelper;
-    }
+    private final SecurityService securityService;
 
     @Override
     @Transactional
@@ -140,6 +139,15 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Client> findAll() {
         return crudRepositoryHelper.findAll(personalRepository);
+    }
+
+    @Transactional
+    @Override
+    public Client getCurrentClient() {
+        if (!SecurityUtil.hasRole(Role.ROLE_CLIENT.name())) {
+            System.out.println("CURRENT USER IS NOT CLIENT");
+        }
+        return findByEmail(securityService.getCurrentUserName());
     }
 
     private void checkExistByEmailAndPhone(String email, String phone, Long id) {

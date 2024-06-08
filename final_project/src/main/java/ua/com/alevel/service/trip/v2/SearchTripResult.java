@@ -4,8 +4,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import ua.com.alevel.persistence.entity.Bus;
 import ua.com.alevel.persistence.entity.Town;
+import ua.com.alevel.persistence.entity.TripV2;
+import ua.com.alevel.util.PriceAndDateUtil;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,7 +19,9 @@ import java.time.temporal.ChronoUnit;
 @Data
 @Getter
 @Setter
+@ToString
 public class SearchTripResult {
+    private Long tripId;
     private Town departureTown;
     private Town arrivalTown;
 
@@ -27,6 +32,21 @@ public class SearchTripResult {
     private Integer remainingPlaces;
     private Duration tripDuration;
     private Bus bus;
+
+    public static SearchTripResult from(TripV2 tripV2, Integer adults, Integer children) {
+        return SearchTripResult.builder()
+                .departureTown(tripV2.getRoute().getDepartureTown())
+                .arrivalTown(tripV2.getRoute().getArrivalTown())
+                .pricePerPerson(tripV2.getPrice())
+                .remainingPlaces(tripV2.getBus().getSeats() - tripV2.getUsedSeats())
+                .tripDuration(Duration.between(tripV2.getDeparture(), tripV2.getArrival()))
+                .totalPrice(PriceAndDateUtil.countPrice(adults, children, tripV2.getPrice()))
+                .departure(tripV2.getDeparture())
+                .arrival(tripV2.getArrival())
+                .bus(tripV2.getBus())
+                .tripId(tripV2.getId())
+                .build();
+    }
 
     public String getDepartureDateTimeFormatted() {
         return departure.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm"));

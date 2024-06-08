@@ -2,6 +2,7 @@ package ua.com.alevel.web.dto.trip;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.com.alevel.persistence.type.Town;
 import ua.com.alevel.util.Messages;
@@ -14,6 +15,7 @@ import java.util.Date;
 
 @Setter
 @Getter
+@ToString
 @ChildrenAdults
 public class TripSearchRequest extends DtoRequest {
 

@@ -12,7 +12,7 @@
 
 <div layout:fragment="open_content">
 
-<!--    SEARCH-->
+    <!--    SEARCH-->
     <div class="container rounded shadow-sm mt-100">
         <form th:action="@{/open/tickets}" th:object="${search}" method="post">
             <div class="row">
@@ -55,8 +55,8 @@
                             <option th:value="1" selected>1</option>
                             <option th:value="2">2</option>
                             <option th:value="3">3</option>
-                            <option th:value="2">4</option>
-                            <option th:value="3">5</option>
+                            <option th:value="4">4</option>
+                            <option th:value="5">5</option>
                         </select>
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                             <option th:value="1">1</option>
                             <option th:value="2">2</option>
                             <option th:value="3">3</option>
-                            <option th:value="4">2</option>
-                            <option th:value="5">3</option>
+                            <option th:value="4">4</option>
+                            <option th:value="5">5</option>
                         </select>
                     </div>
                 </div>
@@ -97,7 +97,16 @@
                         <small th:text="'Left places: ' + ${result.remainingPlaces}"></small>
                     </div>
                     <div class="col-md-3 d-flex flex-column justify-content-between">
-                        <button type="button" class="btn btn-dark btn-lg" th:text="${result.totalPrice} + ' UAH'">Buy</button>
+                        <!-- Hidden Form -->
+                        <form th:action="@{/open/booking}" method="post">
+                            <input type="hidden" th:name="tripId" th:value="${result.tripId}"/>
+                            <input type="hidden" th:name="adults" th:value="${search.adults}"/>
+                            <input type="hidden" th:name="children" th:value="${search.children}"/>
+                            <!-- Visible Button -->
+                            <button type="submit" class="btn btn-dark btn-lg" th:text="${result.totalPrice} + ' UAH'">
+                                Buy
+                            </button>
+                        </form>
                         <p th:text="${search.adults} + ' adults, ' + ${search.children} + ' children'"></p>
                     </div>
                 </div>

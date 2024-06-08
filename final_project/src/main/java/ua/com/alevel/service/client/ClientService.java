@@ -20,4 +20,6 @@ public interface ClientService extends BaseService<Client> {
     Client findByEmail(String email);
 
     List<Client> findAll();
+
+    Client getCurrentClient();
 }

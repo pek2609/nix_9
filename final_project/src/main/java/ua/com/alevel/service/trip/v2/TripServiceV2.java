@@ -9,4 +9,8 @@ import java.util.List;
 public interface TripServiceV2 extends BaseService<TripV2> {
 
     List<SearchTripResult> searchTrips(TripSearchRequest request);
+
+    SearchTripResult prepareTripSearchResult(Long tripId, Integer adults, Integer children);
+
+    void plusUsedSeats(Long tripId, Integer passengerCount);
 }

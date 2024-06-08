@@ -2,14 +2,13 @@ package ua.com.alevel.persistence.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.entity.Trip;
 import ua.com.alevel.persistence.entity.TripV2;
-import ua.com.alevel.persistence.type.Town;
-import ua.com.alevel.service.trip.v2.SearchTripResult;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 import java.util.List;
 
@@ -28,4 +27,10 @@ public interface TripRepositoryV2 extends BaseRepository<TripV2> {
             "at.id=:arrivalTownId and " +
             "DATE(t.departure) =:departure and (b.seats - t.usedSeats) >= :needSeats")
     List<TripV2> findBySearch(Long departureTownId, Long arrivalTownId, Date departure, int needSeats);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "update TripV2 t set t.usedSeats = t.usedSeats + :passengerCount where t.id = :tripId")
+    void plusUsedSeats(Long tripId, Integer passengerCount);
 }

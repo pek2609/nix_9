@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/open_layout}">
+<head>
+    <title>Confirm Booking</title>
+</head>
+<body>
+<div layout:fragment="open_content">
+    <div class="container bg-white mt-3 px-5 py-5">
+        <!-- Trip Confirmation Card -->
+        <div class="card mb-3">
+            <div class="card-header">Booking Confirmation</div>
+            <div class="card-body">
+                <h5 class="card-title pb-2">Review and Confirm Your Booking</h5>
+                <!-- Trip Details -->
+                <p><strong>Departure:</strong> <span th:text="${trip.departureTown.name}"></span>, <span
+                        th:text="${trip.getDepartureDateTimeFormatted()}"></span></p>
+                <p><strong>Arrival:</strong> <span th:text="${trip.arrivalTown.name}"></span>, <span
+                        th:text="${trip.getArrivalDateTimeFormatted()}"></span></p>
+                <p><strong>Bus:</strong> <span th:text="${trip.bus.name}"></span></p>
+                <hr>
+                <p><strong>Total Price:</strong> <span th:text="${booking.totalPrice}"></span> UAH</p>
+                <p><strong>Adults:</strong> <span th:text="${booking.adults}"></span></p>
+                <p><strong>Children:</strong> <span th:text="${booking.children}"></span></p>
+                <hr>
+                <!-- Contact Information -->
+                <p><strong>Email:</strong> <span th:text="${booking.email}"></span></p>
+                <p><strong>Phone Number:</strong> <span th:text="${booking.phoneNumber}"></span></p>
+                <!-- Passenger Details -->
+                <div th:each="passenger, iterStat : ${booking.passengers}">
+                    <p><strong>Passenger [[${iterStat.index + 1}]]:</strong> <span
+                            th:text="${passenger.firstName + ' ' + passenger.lastName}"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="text-center">
+            <button type="button" class="btn btn-dark" th:onclick="'confirm()'">Confirm</button>
+            <button type="button" class="btn btn-danger" th:onclick="'cancel()'">Cancel</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
