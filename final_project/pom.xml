@@ -15,6 +15,8 @@
     <description>final_project</description>
 
     <properties>
+        <my.mail.username>${mail.username}</my.mail.username>
+        <my.mail.password>${mail.password}</my.mail.password>
         <slf4j.version>1.7.32</slf4j.version>
         <logback.version>1.2.9</logback.version>
         <java.version>17</java.version>

@@ -1,5 +1,6 @@
 package ua.com.alevel;
 
+import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -15,19 +16,12 @@ import ua.com.alevel.persistence.repository.user.ClientRepository;
         DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class})
+@AllArgsConstructor
 public class FinalProjectApplication {
 
     private final AdminRepository adminUserRepository;
     private final ClientRepository clientRepository;
     private final BCryptPasswordEncoder encoder;
-
-
-    public FinalProjectApplication(AdminRepository adminUserRepository, ClientRepository clientRepository, BCryptPasswordEncoder encoder) {
-        this.adminUserRepository = adminUserRepository;
-        this.clientRepository = clientRepository;
-        this.encoder = encoder;
-    }
-
 
     public static void main(String[] args) {
         SpringApplication.run(FinalProjectApplication.class, args);
@@ -36,7 +30,7 @@ public class FinalProjectApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void test() {
 //        Admin admin = new Admin();
-//        admin.setEmail("admin@mail.ru");
+//        admin.setEmail("admin@gmail.com");
 //        admin.setPassword(encoder.encode("rootroot"));
 //        adminUserRepository.save(admin);
 //
