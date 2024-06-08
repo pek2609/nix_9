@@ -21,7 +21,7 @@ public final class PriceAndDateUtil {
         if (promotion != null && promotion.isActive()) {
             priceForOne = priceForOne - priceForOne * promotion.getPercent() / 100;
         }
-        return adults * priceForOne + children * priceForOne / 2;
+        return (adults + children) * priceForOne;
     }
 
     public static Double countPrice(int adults, int children, double priceForOne) {
