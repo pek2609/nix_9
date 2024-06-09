@@ -29,6 +29,12 @@ public class Booking extends BaseEntity {
     @Column(name = "uuid", nullable = false)
     private String uuid;
 
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "phone", nullable = false)
+    private String phoneNumber;
+
     @Column(name = "adults", nullable = false)
     private Integer adults;
 
@@ -40,6 +46,7 @@ public class Booking extends BaseEntity {
 
     @Column(name = "status", nullable = false)
     private BookingStatus status;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_id", nullable = false)

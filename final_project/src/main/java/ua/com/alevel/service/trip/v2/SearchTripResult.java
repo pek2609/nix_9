@@ -49,11 +49,12 @@ public class SearchTripResult {
     }
 
     public String getDepartureDateTimeFormatted() {
-        return departure.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm"));
+        return PriceAndDateUtil.formatLocalDateTime(departure);
     }
 
     public String getArrivalDateTimeFormatted() {
-        return arrival.format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm"));
+        return PriceAndDateUtil.formatLocalDateTime(arrival);
+
     }
 
     public String getTripDurationFormatted() {

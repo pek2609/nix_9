@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/open_layout}">
+<head>
+    <title>Search Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="open_content">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Search Booking</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/open/booking/search}" th:object="${search}" method="post">
+                            <div class="form-group mb-3">
+                                <label for="uuid">UUID:</label>
+                                <input type="text" id="uuid" th:field="*{uuid}" class="form-control"
+                                       placeholder="Enter UUID" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" th:field="*{email}" class="form-control"
+                                       placeholder="Enter email" required>
+                            </div>
+                            <button type="submit" class="btn btn-dark w-100">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Display booking information if it exists -->
+        <div th:if="${booking != null}" class="card mt-4 mb-3">
+            <div class="card-header">Booking Information</div>
+            <div class="card-body">
+                <h5 class="card-title pb-2" th:text="${booking.status}"></h5>
+                <!-- Trip Details -->
+                <p><strong>Departure:</strong> <span th:text="${trip.departureTown.name}"></span>, <span
+                        th:text="${trip.getDepartureDateTimeFormatted()}"></span></p>
+                <p><strong>Arrival:</strong> <span th:text="${trip.arrivalTown.name}"></span>, <span
+                        th:text="${trip.getArrivalDateTimeFormatted()}"></span></p>
+                <p><strong>Bus:</strong> <span th:text="${trip.bus.name}"></span></p>
+                <hr>
+                <p><strong>Total Price:</strong> <span th:text="${booking.totalPrice}"></span> UAH</p>
+                <p><strong>Adults:</strong> <span th:text="${booking.adults}"></span></p>
+                <p><strong>Children:</strong> <span th:text="${booking.children}"></span></p>
+                <hr>
+                <!-- Contact Information -->
+                <p><strong>Email:</strong> <span th:text="${booking.email}"></span></p>
+                <p><strong>Phone Number:</strong> <span th:text="${booking.phoneNumber}"></span></p>
+                <!-- Passenger Details -->
+                <div th:each="passenger, iterStat : ${booking.passengers}">
+                    <p><strong>Passenger [[${iterStat.index + 1}]]:</strong> <span
+                            th:text="${passenger.firstName + ' ' + passenger.lastName}"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${booking == null and searchPerformed != null and searchPerformed}"
+             class="alert alert-light mt-4" role="alert">
+            <p class="text-dark">No booking found for the given UUID and email.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

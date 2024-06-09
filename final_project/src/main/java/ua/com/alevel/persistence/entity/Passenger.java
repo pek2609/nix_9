@@ -29,8 +29,12 @@ public class Passenger extends BaseEntity {
     private String lastName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "booking_id")
+    @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
 
     private Boolean present;
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }

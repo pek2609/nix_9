@@ -37,9 +37,13 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="text-center">
-            <button type="button" class="btn btn-dark" th:onclick="'confirm()'">Confirm</button>
-            <button type="button" class="btn btn-danger" th:onclick="'cancel()'">Cancel</button>
+        <div class="d-flex justify-content-center gap-2">
+            <form th:action="@{'/open/booking/confirm/' + ${bookingId}}" method="post">
+                <button type="submit" class="btn btn-dark">Confirm</button>
+            </form>
+            <form th:action="@{'/open/booking/cancel/' + ${bookingId}}" method="post">
+                <button type="submit" class="btn btn-danger">Cancel</button>
+            </form>
         </div>
     </div>
 </div>

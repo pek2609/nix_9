@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ua.com.alevel.persistence.repository.user.AdminRepository;
 import ua.com.alevel.persistence.repository.user.ClientRepository;
@@ -16,6 +17,7 @@ import ua.com.alevel.persistence.repository.user.ClientRepository;
         DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class})
+@EnableAsync
 @AllArgsConstructor
 public class FinalProjectApplication {
 
