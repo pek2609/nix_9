@@ -2,14 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/admin_layout}">
+      layout:decorate="~{layout_new}">
 <head>
     <meta charset="utf-8">
     <title>Update Bus</title>
 </head>
 <body>
 
-<div layout:fragment="admin_content">
+<div layout:fragment="content">
 
     <div class="row">
         <div class="col-12">
@@ -18,7 +18,7 @@
                     <h4>Update bus</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{'/buses/update/' + ${bus.getId()}}" th:object="${bus}"
+                    <form action="#" th:action="@{'/admin/buses/update/' + ${bus.getId()}}" th:object="${bus}"
                           method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="image">Bus Image</label>

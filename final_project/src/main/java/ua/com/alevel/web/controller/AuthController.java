@@ -42,7 +42,7 @@ public class AuthController extends BaseController {
         boolean authenticated = securityService.isAuthenticated();
         if (authenticated) {
             if (SecurityUtil.hasRole(Role.ROLE_ADMIN.name())) {
-                return "redirect:/open/tickets";
+                return "redirect:/admin/buses";
             }
             if (SecurityUtil.hasRole(Role.ROLE_CLIENT.name())) {
                 return "redirect:/open/tickets";
@@ -102,7 +102,7 @@ public class AuthController extends BaseController {
     private String redirectProcess(Model model) {
         showMessage(model, false);
         if (SecurityUtil.hasRole(Role.ROLE_ADMIN.name())) {
-            return "redirect:/trips";
+            return "redirect:/admin/buses";
         }
         if (SecurityUtil.hasRole(Role.ROLE_CLIENT.name())) {
             return "redirect:/open/tickets";

@@ -8,14 +8,12 @@ public class BusResponseDto extends DtoResponse {
     private String imageUrl;
     private String name;
     private Integer seats;
-    private Integer tripCount;
 
     public BusResponseDto(Bus bus) {
         super(bus.getId(), bus.getCreated(), bus.getUpdated(), true);
         this.imageUrl = bus.getImageUrl();
         this.name = bus.getName();
         this.seats = bus.getSeats();
-        this.tripCount = bus.getTrips().size();
     }
 
     public String getImageUrl() {
@@ -40,13 +38,5 @@ public class BusResponseDto extends DtoResponse {
 
     public void setSeats(Integer seats) {
         this.seats = seats;
-    }
-
-    public Integer getTripCount() {
-        return tripCount;
-    }
-
-    public void setTripCount(Integer tripCount) {
-        this.tripCount = tripCount;
     }
 }

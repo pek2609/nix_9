@@ -2,23 +2,23 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/admin_layout}">
+      layout:decorate="~{layout_new}">
 <head>
     <meta charset="utf-8">
     <title>New Bus</title>
 </head>
 <body>
 
-<div layout:fragment="admin_content">
+<div layout:fragment="content">
 
     <div class="row">
         <div class="col-12">
-            <div class="card mt-2">
+            <div class="card">
                 <div class="card-header">
                     <h4>New Bus</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{/buses/create}" th:object="${bus}" method="post"
+                    <form action="#" th:action="@{/admin/buses/create}" th:object="${bus}" method="post"
                           class="needs-validation">
                         <div class="form-group">
                             <label for="image">Bus Image</label>

@@ -19,9 +19,6 @@ public class Bus extends BaseEntity {
 
     private Integer seats;
 
-    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
-    private List<Trip> trips;
-
     public Bus() {
         super();
     }

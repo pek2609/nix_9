@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Validated
 @Controller
-@RequestMapping("/buses")
+@RequestMapping("/admin/buses")
 public class BusController extends BaseController {
 
     private final BusFacade busFacade;
@@ -36,11 +36,11 @@ public class BusController extends BaseController {
         PageData<BusResponseDto> response = busFacade.findAll(webRequest);
         response.initPaginationState(response.getCurrentPage());
         model.addAttribute("headerDataList", getHeaderDataList(columnNames, response));
-        model.addAttribute("createUrl", "/buses/all");
+        model.addAttribute("createUrl", "/admin/buses/all");
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Buses");
         model.addAttribute("allowCreate", true);
-        model.addAttribute("createNewItemUrl", "/buses/new");
+        model.addAttribute("createNewItemUrl", "/admin/buses/new");
         return "pages/admin/bus/buses_all";
     }
 
@@ -50,7 +50,7 @@ public class BusController extends BaseController {
         if (MapUtils.isNotEmpty(parameterMap)) {
             parameterMap.forEach(model::addAttribute);
         }
-        return new ModelAndView("redirect:/buses", model);
+        return new ModelAndView("redirect:/admin/buses", model);
     }
 
     @GetMapping("/details/{id}")
@@ -69,13 +69,13 @@ public class BusController extends BaseController {
     @PostMapping("/create")
     public String createNewBus(@ModelAttribute("bus") @Valid BusRequestDto dto, BindingResult bindingResult) {
         busFacade.create(dto);
-        return "redirect:/buses";
+        return "redirect:/admin/buses";
     }
 
     @PostMapping("/update/{id}")
     public String updateBus(@PathVariable @ValidId Long id, @ModelAttribute("bus") @Valid BusRequestDto busRequestDto, BindingResult bindingResult) {
         busFacade.update(busRequestDto, id);
-        return "redirect:/buses/details/" + id;
+        return "redirect:/admin/buses/details/" + id;
     }
 
     @GetMapping("/update/{id}")
@@ -88,7 +88,7 @@ public class BusController extends BaseController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable @ValidId Long id) {
         busFacade.delete(id);
-        return "redirect:/buses";
+        return "redirect:/admin/buses";
     }
 
     private HeaderName[] getColumnNames() {
@@ -97,7 +97,6 @@ public class BusController extends BaseController {
                 new HeaderName("image", null, null),
                 new HeaderName("name", "name", "name"),
                 new HeaderName("number of seats", "seats", "seats"),
-                new HeaderName("trips count", "trips.size", null),
                 new HeaderName("details", null, null),
                 new HeaderName("delete", null, null)
         };

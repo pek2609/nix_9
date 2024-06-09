@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <title>Buses</title>
 </head>
-<body style="padding-top: 50px">
+<body>
     <div layout:fragment="data_table_content">
         <tr th:each="bus,iter : ${pageData.getItems()}">
             <td th:text="${iter.count}"></td>
@@ -16,13 +16,12 @@
             </td>
             <td th:text="${bus.getName()}"></td>
             <td th:text="${bus.getSeats()}"></td>
-            <td th:text="${bus.getTripCount()}"></td>
             <td>
-                <a th:href="@{'/buses/details/' + ${bus.getId()}}" type="button"
+                <a th:href="@{'/admin/buses/details/' + ${bus.getId()}}" type="button"
                    class="btn btn-primary">details</a>
             </td>
             <td>
-                <a th:href="@{'/buses/delete/' + ${bus.getId()}}" type="button" class="btn btn-danger">delete</a>
+                <a th:href="@{'/admin/buses/delete/' + ${bus.getId()}}" type="button" class="btn btn-danger">delete</a>
             </td>
         </tr>
     </div>
