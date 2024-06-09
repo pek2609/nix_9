@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/open_layout}">
+      layout:decorate="~{layout_new}">
 
 <head>
     <title>Routes</title>
@@ -48,7 +48,7 @@
 </head>
 <body>
 <h1>Routes</h1>
-<div layout:fragment="open_content">
+<div layout:fragment="content">
     <div class="container-fluid mt-5">
         <form th:action="@{/open/routes}" method="get">
             <input type="text" th:value="${town}" name="town" placeholder="Filter by town">

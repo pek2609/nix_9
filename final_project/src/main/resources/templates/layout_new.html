@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link href="/css/app.css" rel="stylesheet">
+</head>
+<body>
+<!--NAVBAR-->
+<section>
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <nav class="navbar navbar-dark bg-dark pb-0 pt-0">
+        <a class="h1 fw-bold navbar-brand ml-1" href="#">
+            <img src="https://t4.ftcdn.net/jpg/03/01/82/47/360_F_301824765_o5VJVEp69miDvPJV5SPGSSGn8idWFbMu.jpg"
+                 width="10%" height="10%" class="d-inline-block align-center" alt="">
+            GoBus
+        </a>
+
+        <!--DRIVER-->
+        <a sec:authorize="hasRole('DRIVER')" class="nav-item nav-link" th:href="@{/driver/trips}">My Trips</a>
+
+        <!--ADMIN-->
+        <a sec:authorize="hasRole('ADMIN')" class="nav-item nav-link" th:href="@{/admin/bookings}">Bookings</a>
+        <a sec:authorize="hasRole('ADMIN')" class="nav-item nav-link" th:href="@{/admin/trips}">Trips</a>
+        <a sec:authorize="hasRole('ADMIN')" class="nav-item nav-link" th:href="@{/admin/routes}">Routes</a>
+        <a sec:authorize="hasRole('ADMIN')" class="nav-item nav-link" th:href="@{/admin/towns}">Towns</a>
+        <a sec:authorize="hasRole('ADMIN')" class="nav-item nav-link" th:href="@{/admin/buses}">Buses</a>
+
+
+        <!--CLIENT + ANONYMOUS-->
+        <a sec:authorize="hasRole('CLIENT')" class="nav-item nav-link" th:href="@{/profile}">My Profile</a>
+        <a sec:authorize="hasRole('CLIENT')" class="nav-item nav-link" th:href="@{/client/booking}">My Bookings</a>
+        <a sec:authorize="!hasAnyRole('ADMIN', 'DRIVER')" class="nav-item nav-link"
+           th:href="@{/open/tickets}">Search</a>
+        <a sec:authorize="!hasAnyRole('ADMIN', 'DRIVER')" class="nav-item nav-link" th:href="@{/open/routes}">Routes</a>
+        <a sec:authorize="!hasAnyRole('ADMIN', 'DRIVER')" class="nav-item nav-link" th:href="@{/open/towns}">Towns</a>
+        <a sec:authorize="!hasAnyRole('ADMIN', 'DRIVER')" class="nav-item nav-link" th:href="@{/open/booking/search}">Check
+            Booking</a>
+        <a sec:authorize="!isAuthenticated()" class="nav-item nav-link" th:href="@{/login}">Login</a>
+        <a sec:authorize="!isAuthenticated()" class="nav-item nav-link" th:href="@{/registration}">Sign Up</a>
+
+
+        <!--        </div>-->
+        <a sec:authorize="isAuthenticated()" class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()"
+           style="cursor: pointer !important;">Logout</a>
+    </nav>
+</section>
+
+
+<!--        <div sec:authorize="hasRole('CLIENT')">-->
+<!--            <nav class="navbar navbar-dark bg-dark fixed-top pb-0 pt-0">-->
+<!--                <a class="h1 fw-bold navbar-brand ml-1" href="#">-->
+<!--                    <img src="https://t4.ftcdn.net/jpg/03/01/82/47/360_F_301824765_o5VJVEp69miDvPJV5SPGSSGn8idWFbMu.jpg" width="10%" height="10%" class="d-inline-block align-center" alt="">-->
+<!--                    GoBus-->
+<!--                </a>-->
+<!--                <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>-->
+<!--                <a class="nav-item nav-link" th:href="@{/client/booking}">My Bookings</a>-->
+<!--                <a class="nav-item nav-link" th:href="@{/open/tickets}">Search</a>-->
+<!--                <a class="nav-item nav-link" th:href="@{/open/routes}">Routes</a>-->
+<!--                <a class="nav-item nav-link" th:href="@{/open/towns}">Towns</a>-->
+<!--                <a class="nav-item nav-link" th:href="@{/open/booking/search}">Check Booking</a>-->
+<!--                <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>-->
+<!--            </nav>-->
+<!--        </div>-->
+
+
+<section layout:fragment="content"></section>
+
+
+<div class="row" th:if="${showMessage}">
+    <div class="col">
+        <div th:if="${message}" class="alert alert-primary alert-dismissible fade show" role="alert">
+            <span th:text="${message}">message text</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${errorMessage}">message text</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div th:if="${warnMessage}" class="alert alert-dark alert-dismissible fade show" role="alert">
+            <span th:text="${warnMessage}">message text</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<th:block layout:fragment="scripts"/>
+
+</body>
+</html>

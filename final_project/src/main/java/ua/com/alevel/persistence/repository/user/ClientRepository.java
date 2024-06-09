@@ -23,13 +23,14 @@ public interface ClientRepository extends UserRepository<Client> {
     @Query(value = "update Client set " +
             "firstName=:#{#client.firstName}, " +
             "lastName=:#{#client.lastName}, " +
-            "email=:#{#client.email}, " +
             "phoneNumber=:#{#client.phoneNumber}, " +
-            "sex=:#{#client.sex}," +
             "birthDate = :#{#client.birthDate} where id=:#{#client.id}")
     void updateProfileData(@Param("client") Client client);
 
     @Modifying
     @Query(value = "update Client set password =:password where id=:id")
     void changePassword(@Param(("password")) String password, @Param(("id")) Long clientId);
+
+    boolean existsClientByEmailAndIdNot(String email, Long id);
+    boolean existsClientByPhoneNumberAndIdNot(String phoneNumber, Long id);
 }

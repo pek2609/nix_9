@@ -18,6 +18,12 @@ public class GlobalExceptionHandler {
         return generateModelAndView(exception.getMessage());
     }
 
+    @ExceptionHandler(value = CustomForbiddenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ModelAndView forbiddenExceptionHandler(CustomForbiddenException exception) {
+        return generateModelAndView("access denied");
+    }
+
     @ExceptionHandler(value = WrongPasswordException.class)
     public ModelAndView wrongPasswordExceptionHandler(WrongPasswordException exception) {
         return generateModelAndView(exception.getMessage());

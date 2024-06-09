@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/client_layout}">
+      layout:decorate="~{layout_new}">
 <head>
     <meta charset="utf-8">
     <link href="/css/client_details.css" rel="stylesheet">
@@ -14,9 +14,9 @@
 </head>
 <body>
 
-<div layout:fragment="client_content">
+<div layout:fragment="content">
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row gutters">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
@@ -65,26 +65,6 @@
                                     <label class="small mb-1" for="inputEmailAddress">Date Birth</label>
                                     <input class="form-control" id="inputEmailAddress" th:field="*{birthDate}" type="date">
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="small mb-1" for="sex">Gender</label>
-                                <div id="sex" th:each="sex :${gender}"
-                                     class="form-check form-check-inline mb-0 me-4">
-                                    <label th:text="${sex}" class="form-check-label"
-                                           for="gender"></label>
-                                    <input
-                                            th:field="*{sex}" th:value="${sex}"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="inlineRadioOptions"
-                                            id="gender"
-                                    />
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="small mb-1" for="email">Email</label>
-                                <input class="form-control" id="email" type="email"
-                                       placeholder="Enter your email" th:field="*{email}">
                             </div>
                             <button class="btn btn-primary" type="submit">Save changes</button>
                         </form>

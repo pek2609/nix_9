@@ -52,9 +52,6 @@ public class OpenController {
 
     @GetMapping("/tickets")
     public String tickets(Model model) {
-        if (securityService.isAuthenticated()) {
-            return redirectClientRejectAdmin("/client/tickets");
-        }
         model.addAttribute("towns", townRepository.findAll());
         model.addAttribute("search", new TripSearchRequest());
         return "pages/open/open_search";
@@ -70,6 +67,7 @@ public class OpenController {
         return "pages/open/open_search";
     }
 
+    @Deprecated
     @GetMapping("/promotions")
     public String promotions(Model model) {
         if (securityService.isAuthenticated()) {
@@ -81,6 +79,7 @@ public class OpenController {
         return "pages/open/open_search";
     }
 
+    @Deprecated
     @GetMapping("/order/new/{tripId}")
     public String redirectToNewOrderPage(@PathVariable @ValidId Long tripId,
                                          @RequestParam Integer adults,
@@ -103,12 +102,14 @@ public class OpenController {
         return "pages/open/order_new";
     }
 
+    @Deprecated
     @PostMapping("order/create")
     public String createNewOrder(@ModelAttribute("order") @Valid OrderRequestDto dto, BindingResult bindingResult) {
         orderFacade.create(dto);
         return "redirect:/open/order/ok";
     }
 
+    @Deprecated
     @GetMapping("order/ok")
     public String successfulOrder(Model model) {
         if (securityService.isAuthenticated()) {

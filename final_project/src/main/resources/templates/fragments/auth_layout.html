@@ -22,12 +22,23 @@
             <img src="https://t4.ftcdn.net/jpg/03/01/82/47/360_F_301824765_o5VJVEp69miDvPJV5SPGSSGn8idWFbMu.jpg" style="width: 10%; height: 10%" class="d-inline-block align-center mt-0 mb-0" alt="">
             GoBus
           </a>
-          <a class="nav-item nav-link" th:href="@{/clients}">Users</a>
-          <a class="nav-item nav-link" th:href="@{/orders}">Orders</a>
-          <a class="nav-item nav-link" th:href="@{/trips}">Trips</a>
-          <a class="nav-item nav-link" th:href="@{/promotions}">Promotions</a>
-          <a class="nav-item nav-link" th:href="@{/routes}">Routs</a>
-          <a class="nav-item nav-link" th:href="@{/buses}">Buses</a>
+          <a class="nav-item nav-link" th:href="@{/admin/bookings}">Bookings</a>
+          <a class="nav-item nav-link" th:href="@{/admin/trips}">Trips</a>
+          <a class="nav-item nav-link" th:href="@{/admin/routes}">Routes</a>
+          <a class="nav-item nav-link" th:href="@{/admin/towns}">Towns</a>
+          <a class="nav-item nav-link" th:href="@{/admin/buses}">Buses</a>
+          <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>
+        </nav>
+      </div>
+
+      <div sec:authorize="hasRole('DRIVER')">
+        <nav class="navbar navbar-dark bg-dark fixed-top pb-0 pt-0">
+          <a class="h1 fw-bold navbar-brand ml-1" href="#">
+            <img src="https://t4.ftcdn.net/jpg/03/01/82/47/360_F_301824765_o5VJVEp69miDvPJV5SPGSSGn8idWFbMu.jpg" style="width: 10%; height: 10%" class="d-inline-block align-center mt-0 mb-0" alt="">
+            GoBus
+          </a>
+          <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
+          <a class="nav-item nav-link" th:href="@{/driver/trips}">My Trips</a>
           <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>
         </nav>
       </div>
@@ -38,10 +49,12 @@
             <img src="https://t4.ftcdn.net/jpg/03/01/82/47/360_F_301824765_o5VJVEp69miDvPJV5SPGSSGn8idWFbMu.jpg" width="10%" height="10%" class="d-inline-block align-center" alt="">
             GoBus
           </a>
-          <a class="nav-item nav-link" th:href="@{/client/profile}">Profile</a>
-          <a class="nav-item nav-link" th:href="@{/client/tickets}">Tickets</a>
-          <a class="nav-item nav-link" th:href="@{/client/promotions}">Promotions</a>
-          <a class="nav-item nav-link" th:href="@{/client/orders}">Orders</a>
+          <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
+          <a class="nav-item nav-link" th:href="@{/client/booking}">My Bookings</a>
+          <a class="nav-item nav-link" th:href="@{/open/tickets}">Search</a>
+          <a class="nav-item nav-link" th:href="@{/open/routes}">Routes</a>
+          <a class="nav-item nav-link" th:href="@{/open/towns}">Towns</a>
+          <a class="nav-item nav-link" th:href="@{/open/booking/search}">Check Booking</a>
           <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>
         </nav>
       </div>

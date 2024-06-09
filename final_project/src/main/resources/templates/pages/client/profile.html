@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/client_layout}">
+      layout:decorate="~{layout_new}">
 <head>
     <meta charset="utf-8">
     <link href="/css/client_details.css" rel="stylesheet">
@@ -14,9 +14,9 @@
 </head>
 <body>
 
-<div layout:fragment="client_content">
+<div layout:fragment="content">
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row gutters">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
@@ -75,15 +75,6 @@
                             <div class="col-sm-9 text-secondary">
                                 <p class="mb-2" id="birthDate"
                                    th:text="${client.getBirthDate() == null} ? 'non specified' : ${#calendars.format(client.getBirthDate(),'dd MMMM yyyy')}"></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Order count</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <p th:text="${client.getOrders().size()}">
                             </div>
                         </div>
                         <hr>

@@ -88,15 +88,12 @@ public class ClientFacadeImpl implements ClientFacade {
 
     @Override
     public void updateProfile(ClientProfileRequestDto dto, Long id) {
-        Client client = new Client();
-        client.setId(id);
-        client.setFirstName(dto.getFirstName());
-        client.setLastName(dto.getLastName());
-        client.setEmail(dto.getEmail());
-        client.setBirthDate(dto.getBirthDate());
-        client.setPhoneNumber(dto.getPhoneNumber());
-        client.setSex(dto.getSex());
-        clientService.updateProfileData(client);
+        Client existing = clientService.findById(id);
+        existing.setFirstName(dto.getFirstName());
+        existing.setLastName(dto.getLastName());
+        existing.setBirthDate(dto.getBirthDate());
+        existing.setPhoneNumber(dto.getPhoneNumber());
+        clientService.updateProfileData(existing);
     }
 
     @Override

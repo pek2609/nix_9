@@ -26,7 +26,7 @@ public class ClientResponseDto extends DtoResponse {
         this.email = client.getEmail();
         this.sex = client.getSex();
         this.fullName = client.getFullName();
-        this.orderCount = client.getOrders().size();
+        this.orderCount = 0;
     }
 
 

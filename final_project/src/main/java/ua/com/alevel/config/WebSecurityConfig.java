@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ua.com.alevel.exception.CustomAccessDeniedHandler;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -34,11 +35,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/client/**").access("hasRole('CLIENT')")
-                .antMatchers("/clients/**", "/buses/**", "/promotions/**", "/trips/**", "/orders/**").access("hasRole('ADMIN')")
+                .antMatchers("/open/**").not().hasAnyRole("ADMIN", "DRIVER")
+                .antMatchers("/profile/**").hasAnyRole("CLIENT", "DRIVER")
+                .antMatchers("/passengers").hasRole("DRIVER")
+                .antMatchers("/client/**").hasRole("CLIENT")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/login").permitAll()
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/open/tickets");
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/open/tickets")
+                .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
     }
 
     @Override

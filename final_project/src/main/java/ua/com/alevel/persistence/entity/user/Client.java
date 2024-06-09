@@ -5,7 +5,15 @@ import ua.com.alevel.persistence.listener.FullNameGenerationListener;
 import ua.com.alevel.persistence.type.Role;
 import ua.com.alevel.persistence.type.Sex;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
 
@@ -29,9 +37,6 @@ public class Client extends User {
 
     @Enumerated(EnumType.STRING)
     private Sex sex;
-
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Order> orders;
 
     @Transient
     private String fullName;
@@ -87,13 +92,5 @@ public class Client extends User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 }

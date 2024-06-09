@@ -151,11 +151,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private void checkExistByEmailAndPhone(String email, String phone, Long id) {
-        if (personalRepository.existsByEmail(email)) {
+        if (personalRepository.existsClientByEmailAndIdNot(email, id)) {
             loggerService.commit(LoggerLevel.ERROR, "client exist with email , id = " + id);
             throw new AlreadyExistEntity("client with this email is exist");
         }
-        if (personalRepository.existsByPhoneNumber(phone)) {
+        if (personalRepository.existsClientByPhoneNumberAndIdNot(phone, id)) {
             loggerService.commit(LoggerLevel.ERROR, "client exist with phone , id = " + id);
             throw new AlreadyExistEntity("user with such phoneNumber is already exist");
         }
