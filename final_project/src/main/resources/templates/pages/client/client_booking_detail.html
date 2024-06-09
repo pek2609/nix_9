@@ -11,15 +11,13 @@
     <div class="container bg-white mt-3 px-5 py-5">
         <!-- Trip Confirmation Card -->
         <div class="card mb-3">
-            <div class="card-header">Booking Confirmation</div>
+            <div class="card-header">Booking Detail</div>
             <div class="card-body">
-                <h5 class="card-title pb-2">Review and Confirm Your Booking</h5>
-                <!-- Trip Details -->
-                    <p><strong>Departure:</strong> <span th:text="${trip.departureTown.name}"></span>, <span
-                        th:text="${trip.getDepartureDateTimeFormatted()}"></span></p>
-                <p><strong>Arrival:</strong> <span th:text="${trip.arrivalTown.name}"></span>, <span
-                        th:text="${trip.getArrivalDateTimeFormatted()}"></span></p>
-                <p><strong>Bus:</strong> <span th:text="${trip.bus.name}"></span></p>
+                <p><strong>Departure:</strong> <span th:text="${booking.trip.route.departureTown.name}"></span>, <span
+                        th:text="${#temporals.format(booking.trip.departure, 'dd.MM.yyyy HH:mm')}"></span></p>
+                <p><strong>Arrival:</strong> <span th:text="${booking.trip.route.arrivalTown.name}"></span>, <span
+                        th:text="${#temporals.format(booking.trip.arrival, 'dd.MM.yyyy HH:mm')}"></span></p>
+                <p><strong>Bus:</strong> <span th:text="${booking.trip.bus.name}"></span></p>
                 <hr>
                 <p><strong>Total Price:</strong> <span th:text="${booking.totalPrice}"></span> UAH</p>
                 <p><strong>Adults:</strong> <span th:text="${booking.adults}"></span></p>
@@ -37,12 +35,9 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="d-flex justify-content-center gap-2">
-            <form th:action="@{'/open/booking/confirm/' + ${bookingId}}" method="post">
-                <button type="submit" class="btn btn-dark">Confirm</button>
-            </form>
-            <form th:action="@{'/open/booking/cancel/' + ${bookingId}}" method="post">
-                <button type="submit" class="btn btn-danger">Cancel</button>
+        <div th:if="${showCancel}" class="d-flex justify-content-center gap-2">
+            <form th:action="@{'/open/booking/cancel/' + ${booking.id}}" method="post">
+                <button type="submit" class="btn btn-danger">Cancel Booking</button>
             </form>
         </div>
     </div>

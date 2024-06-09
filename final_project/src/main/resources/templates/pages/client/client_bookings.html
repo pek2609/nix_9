@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_new}">
+<head>
+    <title>My Bookings</title>
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+        .uuid{
+            font-weight: bold;
+            color: #ff333e;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <h1>My Bookings</h1>
+        <!-- Search and Filter Form -->
+        <form th:action="@{/client/booking}" method="get">
+            <div class="form-group">
+                <label for="uuid">UUID:</label>
+                <input type="text" id="uuid" th:value="${uuid}" name="uuid" class="form-control"
+                       placeholder="Enter UUID">
+            </div>
+            <div class="form-group">
+                <label for="dateFrom">From:</label>
+                <input type="date" id="dateFrom" th:value="${from}" name="dateFrom" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="dateTo">To:</label>
+                <input type="date" id="dateTo" th:value="${to}" name="dateTo" class="form-control">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="showHistory" th:value="${fetchHistory}" name="showHistory"
+                       class="form-check-input">
+                <label for="showHistory">History</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Bookings Display -->
+        <div class="mt-4" th:each="booking : ${page.content}">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"
+                        th:text="${booking.trip.route.departureTown.name} + ' - ' + ${booking.trip.route.arrivalTown.name}">
+                        Trip Route</h5>
+                    <h6 th:text="${booking.uuid}" class="uuid pb-2"></h6>
+                    <p><strong>Departure Date:</strong> <span
+                            th:text="${#temporals.format(booking.trip.departure, 'dd.MM.yyyy HH:mm')}">Departure Time</span>
+                    </p>
+                    <p><strong>Total Price:</strong> <span th:text="${booking.totalPrice}">Price</span> UAH</p>
+                    <p><strong>Passengers:</strong> <span
+                            th:text="${booking.adults} + ' adults ' + ${booking.children} + ' children'">Number of Passengers</span></p>
+                    <!-- Detail Button -->
+                    <a th:href="@{'/client/booking/' + ${booking.id}}" class="btn btn-info">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Bookings Found Message -->
+        <div th:if="${page.isEmpty()}">
+            <div class="alert alert-info">No bookings found.</div>
+        </div>
+
+        <div th:if="${not page.isEmpty()}">
+            <!-- Pagination controls -->
+            <a class="white-underline-link" th:if="${page.hasPrevious()}"
+               th:href="@{/client/booking(page=${page.number - 1}, size=${page.size}, uuid=${uuid}, from=${from}, to=${to}, fetchHistory=${fetchHistory})}">Previous</a>
+
+            <!-- Display current range and total -->
+            <span class="color-white" th:text="'Showing page ' + (${page.number + 1}) + ' of ' + ${page.totalPages}">Showing pages</span>
+
+            <a class="white-underline-link" th:if="${page.hasNext()}"
+               th:href="@{/client/booking(page=${page.number + 1}, size=${page.size}, uuid=${uuid}, from=${from}, to=${to}, fetchHistory=${fetchHistory})}">Next</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

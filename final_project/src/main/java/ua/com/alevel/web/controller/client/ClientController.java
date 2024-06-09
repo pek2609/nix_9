@@ -147,7 +147,7 @@ public class ClientController extends BaseController {
         model.addAttribute("pageData", response);
         model.addAttribute("allowCreate", false);
         model.addAttribute("cardHeader", "My Orders");
-        return "pages/client/orders_all";
+        return "bookings_all";
     }
 
     @PostMapping("/orders/all")

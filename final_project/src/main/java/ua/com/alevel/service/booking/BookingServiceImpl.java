@@ -1,10 +1,14 @@
 package ua.com.alevel.service.booking;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alevel.exception.EntityNotFoundException;
+import ua.com.alevel.exception.CustomBadRequestException;
+import ua.com.alevel.filter.BookingFilter;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.BookingStatus;
 import ua.com.alevel.persistence.entity.Passenger;
@@ -14,10 +18,12 @@ import ua.com.alevel.service.client.ClientService;
 import ua.com.alevel.service.mail.EmailParameters;
 import ua.com.alevel.service.mail.EmailService;
 import ua.com.alevel.service.trip.v2.TripServiceV2;
+import ua.com.alevel.spec.BookingSpec;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.web.dto.BookingRequestDto;
 
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -79,6 +85,10 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     @Override
     public Booking cancelBooking(Booking booking) {
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isAfter(booking.getTrip().getDeparture())) {
+            throw new CustomBadRequestException("cannot cancel booking after trip departure");
+        }
         booking.setStatus(BookingStatus.CANCELED);
 
         bookingRepository.save(booking);
@@ -97,6 +107,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking searchBooking(String uuid, String email) {
         return bookingRepository.getByUuidAndEmail(uuid, email);
+    }
+
+    @Override
+    public Page<Booking> findAllByFilter(BookingFilter bookingFilter, Pageable pageable) {
+        return bookingRepository.findAll(filterToSpec(bookingFilter), pageable);
     }
 
     @Async
@@ -158,5 +173,15 @@ public class BookingServiceImpl implements BookingService {
                 .build();
 
         emailService.sendNotification(parameters);
+    }
+
+
+    private Specification<Booking> filterToSpec(BookingFilter filter) {
+        return Specification.where(BookingSpec.userIdEquals(filter.getClientId()))
+                .and(BookingSpec.statusEquals(BookingStatus.CONFIRMED))
+                .and(BookingSpec.hasUUIDLike(filter.getUuid()))
+                .and(BookingSpec.departureAfter(filter.getFrom()))
+                .and(BookingSpec.departureBefore(filter.getTo()))
+                .and(BookingSpec.excludeHistory(filter.isFetchHistory()));
     }
 }
