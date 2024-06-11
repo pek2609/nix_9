@@ -1,9 +1,12 @@
 package ua.com.alevel.persistence.entity;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
+@EqualsAndHashCode
 public abstract class BaseEntity {
 
     public BaseEntity(Long id, Date created, Date updated) {

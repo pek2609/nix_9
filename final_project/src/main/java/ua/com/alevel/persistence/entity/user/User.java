@@ -1,5 +1,6 @@
 package ua.com.alevel.persistence.entity.user;
 
+import lombok.EqualsAndHashCode;
 import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.type.Role;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true)

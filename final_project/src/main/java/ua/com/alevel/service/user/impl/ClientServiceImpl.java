@@ -1,4 +1,4 @@
-package ua.com.alevel.service.client.impl;
+package ua.com.alevel.service.user.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +15,7 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.persistence.repository.user.ClientRepository;
 import ua.com.alevel.persistence.type.Role;
-import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.service.user.ClientService;
 import ua.com.alevel.util.Messages;
 import ua.com.alevel.util.SecurityUtil;
 

@@ -14,7 +14,7 @@ import ua.com.alevel.persistence.entity.BookingStatus;
 import ua.com.alevel.persistence.entity.Passenger;
 import ua.com.alevel.persistence.entity.TripV2;
 import ua.com.alevel.persistence.repository.BookingRepository;
-import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.service.user.ClientService;
 import ua.com.alevel.service.mail.EmailParameters;
 import ua.com.alevel.service.mail.EmailService;
 import ua.com.alevel.service.trip.v2.TripServiceV2;
@@ -179,9 +179,7 @@ public class BookingServiceImpl implements BookingService {
     private Specification<Booking> filterToSpec(BookingFilter filter) {
         return Specification.where(BookingSpec.userIdEquals(filter.getClientId()))
                 .and(BookingSpec.statusEquals(BookingStatus.CONFIRMED))
-                .and(BookingSpec.hasUUIDLike(filter.getUuid()))
-                .and(BookingSpec.departureAfter(filter.getFrom()))
-                .and(BookingSpec.departureBefore(filter.getTo()))
-                .and(BookingSpec.excludeHistory(filter.isFetchHistory()));
+                .and(BookingSpec.hasUUIDLike(filter.getUuid()));
+//                .and(BookingSpec.excludeHistory(filter.isFetchHistory()));
     }
 }

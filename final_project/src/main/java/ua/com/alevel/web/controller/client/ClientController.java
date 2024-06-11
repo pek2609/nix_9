@@ -1,12 +1,19 @@
 package ua.com.alevel.web.controller.client;
 
+import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.config.security.SecurityService;
@@ -17,7 +24,7 @@ import ua.com.alevel.facade.trip.TripFacade;
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.persistence.type.Sex;
 import ua.com.alevel.persistence.type.Town;
-import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.service.user.ClientService;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.controller.BaseController;
@@ -38,8 +45,10 @@ import java.util.Map;
 @Validated
 @Controller
 @RequestMapping("/client")
+@AllArgsConstructor
 public class ClientController extends BaseController {
 
+    @Qualifier("v2")
     private final TripFacade tripFacade;
     private final OrderFacade orderFacade;
     private final PromotionFacade promotionFacade;
@@ -47,15 +56,6 @@ public class ClientController extends BaseController {
 
     private final ClientService clientService;
     private final SecurityService securityService;
-
-    public ClientController(TripFacade tripFacade, OrderFacade orderFacade, PromotionFacade promotionFacade, ClientFacade clientFacade, ClientService clientService, SecurityService securityService) {
-        this.tripFacade = tripFacade;
-        this.orderFacade = orderFacade;
-        this.promotionFacade = promotionFacade;
-        this.clientFacade = clientFacade;
-        this.clientService = clientService;
-        this.securityService = securityService;
-    }
 
 
     @GetMapping("/profile")
@@ -107,7 +107,7 @@ public class ClientController extends BaseController {
         orderRequestDto.setPhoneNumber(orderRequestDto.getClient().getPhoneNumber());
         orderRequestDto.setName(orderRequestDto.getClient().getFirstName());
         orderRequestDto.setSurname(orderRequestDto.getClient().getLastName());
-        orderRequestDto.setCheck(PriceAndDateUtil.countPrice(adults, children, trip.getPrice(), trip.getPromotion()));
+        orderRequestDto.setCheck(PriceAndDateUtil.countPrice(adults, children, trip.getPrice(), null));
         orderRequestDto.setTrip(tripId);
         model.addAttribute("order", orderRequestDto);
         model.addAttribute("trip", trip);

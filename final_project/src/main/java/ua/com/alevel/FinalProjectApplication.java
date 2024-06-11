@@ -11,8 +11,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ua.com.alevel.persistence.entity.user.Admin;
+import ua.com.alevel.persistence.entity.user.Driver;
 import ua.com.alevel.persistence.repository.user.AdminRepository;
 import ua.com.alevel.persistence.repository.user.ClientRepository;
+import ua.com.alevel.persistence.repository.user.DriverRepository;
 
 @SpringBootApplication(exclude = {
         DataSourceAutoConfiguration.class,
@@ -24,6 +26,7 @@ public class FinalProjectApplication {
 
     private final AdminRepository adminUserRepository;
     private final ClientRepository clientRepository;
+    private final DriverRepository driverRepository;
     private final BCryptPasswordEncoder encoder;
 
     public static void main(String[] args) {
@@ -36,7 +39,13 @@ public class FinalProjectApplication {
 //        admin.setEmail("admin@gmail.com");
 //        admin.setPassword(encoder.encode("rootroot"));
 //        adminUserRepository.save(admin);
-
+//
+//        Driver driver = new Driver();
+//        driver.setFirstName("Alex");
+//        driver.setLastName("Adams");
+//        driver.setEmail("driver@gmail.com");
+//        driver.setPassword(encoder.encode("driver"));
+//        driverRepository.save(driver);
 //        Client client = new Client();
 //        client.setEmail("pekaruk.ilyaa@gmail.com");
 //        client.setPassword(encoder.encode("123456789"));

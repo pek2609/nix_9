@@ -18,14 +18,14 @@
                     <h4>New Route</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{/trips/create}" th:object="${trip}" method="post"
+                    <form action="#" th:action="@{/admin/trips/create}" th:object="${trip}" method="post"
                           class="needs-validation">
                         <div class="form-group" style="margin-top: 10px">
                             <label for="route">Select route</label>
                             <select class="form-control" id="route" th:field="*{route}">
                                 <option th:each="route : ${routes}"
                                         th:value="${route.id}"
-                                        th:text="${route.getDepartureTown()}+'-' + ${route.getArrivalTown()}">
+                                        th:text="${route.getDepartureTown().getName()} +'-' + ${route.getArrivalTown().getName()}">
                                 </option>
                             </select>
                         </div>
@@ -39,19 +39,9 @@
                             </select>
                         </div>
                         <div class="form-group" style="margin-top: 10px">
-                            <label for="promo">Select promo</label>
-                            <select class="form-control" id="promo" th:field="*{promotion}">
-                                <option th:value="${null}">No promo</option>
-                                <option th:each="promo : ${promotions}"
-                                        th:value="${promo}"
-                                        th:text="${promo.getName()}">
-                                </option>
-
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-top: 10px">
                             <label for="start" class="col-1 col-form-label">Departure</label>
-                            <input type="datetime-local" class="form-control" id="start" th:field="*{departure}" required/>
+                            <input type="datetime-local" class="form-control" id="start" th:field="*{departure}"
+                                   required/>
                         </div>
                         <div class="form-group" style="margin-top: 10px">
                             <label for="end" class="col-1 col-form-label">Arrival</label>

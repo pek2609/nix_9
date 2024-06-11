@@ -1,6 +1,8 @@
 package ua.com.alevel.web.controller.admin;
 
+import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -11,7 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.order.OrderFacade;
 import ua.com.alevel.facade.trip.TripFacade;
-import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.service.user.ClientService;
 import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.controller.BaseController;
@@ -27,17 +29,14 @@ import java.util.Map;
 @Validated
 @Controller
 @RequestMapping("/orders")
+@AllArgsConstructor
 public class OrderController extends BaseController {
 
     private final OrderFacade orderFacade;
     private final ClientService clientService;
-    private final TripFacade tripFacade;
 
-    public OrderController(OrderFacade orderFacade, ClientService clientService, TripFacade tripFacade) {
-        this.orderFacade = orderFacade;
-        this.clientService = clientService;
-        this.tripFacade = tripFacade;
-    }
+    @Qualifier("v2")
+    private final TripFacade tripFacade;
 
     @GetMapping
     public String findAll(Model model, WebRequest webRequest) {
@@ -72,7 +71,7 @@ public class OrderController extends BaseController {
     @PostMapping("/update/{id}")
     public String updateOrder(@PathVariable @ValidId Long id, @Valid @ModelAttribute("order") OrderRequestDto dto, BindingResult bindingResult) {
         TripResponseDto trip = tripFacade.findById(dto.getTrip());
-        dto.setCheck(PriceAndDateUtil.countPrice(dto.getAdults(), dto.getChildren(), trip.getPrice(), trip.getPromotion()));
+        dto.setCheck(PriceAndDateUtil.countPrice(dto.getAdults(), dto.getChildren(), trip.getPrice(), null));
         orderFacade.update(dto, id);
         return "redirect:/orders/details/" + id;
     }

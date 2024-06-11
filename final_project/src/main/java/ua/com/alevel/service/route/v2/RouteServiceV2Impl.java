@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.entity.RouteV2;
 import ua.com.alevel.persistence.repository.RouteRepository;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class RouteServiceV2Impl implements RouteServiceV2 {
@@ -23,5 +25,10 @@ public class RouteServiceV2Impl implements RouteServiceV2 {
         }
 
         return page;
+    }
+
+    @Override
+    public List<RouteV2> findAll() {
+        return routeRepository.findAll();
     }
 }

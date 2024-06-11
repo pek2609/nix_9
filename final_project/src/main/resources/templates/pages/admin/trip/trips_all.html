@@ -7,22 +7,26 @@
     <meta charset="utf-8">
     <title>groups</title>
 </head>
-<body style="padding-top: 50px">
+<body>
     <div layout:fragment="data_table_content">
         <tr th:each="trip,iter : ${pageData.getItems()}">
             <td th:text="${iter.count}"></td>
-            <td th:text="${trip.getBus().getName()}"></td>
-            <td th:text="${trip.getRoute().getDepartureTown()} + '-' + ${trip.getRoute().getArrivalTown()}"></td>
-            <td th:text="${#calendars.format(trip.getDeparture(), 'dd MMMM yyyy hh:mm a')}"></td>
-            <td th:text="${#calendars.format(trip.getArrival(),'dd MMMM yyyy hh:mm a')}"></td>
-            <td th:text="${trip.getPrice()}"></td>
-            <td th:text="${trip.getOrderCount()}"></td>
+            <td th:text="${trip.bus.name}"></td>
+            <td th:text="${trip.route.departureTown.name} + '-' + ${trip.route.arrivalTown.name}"></td>
+            <td th:text="${#temporals.format(trip.departure, 'dd MMMM yyyy hh:mm')}"></td>
+            <td th:text="${#temporals.format(trip.arrival,'dd MMMM yyyy hh:mm')}"></td>
+            <td th:text="${trip.getStatus()}"></td>
+            <td th:text="${trip.price}"></td>
+            <td th:text="${trip.usedSeats} + '/' + ${trip.bus.seats}"></td>
             <td>
-                <a th:href="@{'/trips/details/' + ${trip.getId()}}" type="button"
+                <a th:href="@{'/admin/trips/details/' + ${trip.id}}" type="button"
                    class="btn btn-primary">details</a>
             </td>
             <td>
-                <a th:href="@{'/trips/delete/' + ${trip.getId()}}" type="button" class="btn btn-danger">delete</a>
+                <a th:href="@{'/admin/trips/statistics/' + ${trip.id}}" type="button" class="btn btn-dark">statistics</a>
+            </td>
+            <td>
+                <a th:href="@{'/admin/trips/delete/' + ${trip.id}}" type="button" class="btn btn-danger">delete</a>
             </td>
         </tr>
     </div>

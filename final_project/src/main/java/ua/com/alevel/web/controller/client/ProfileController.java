@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.alevel.facade.client.ClientFacade;
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.persistence.type.Sex;
-import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.service.user.ClientService;
 import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.dto.client.ClientProfileRequestDto;
 import ua.com.alevel.web.dto.client.ClientResponseDto;

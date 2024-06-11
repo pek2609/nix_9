@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bus_details.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+    <title>Details Bus</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="container">
+        <div class="row">
+            <div class="project-info-box mt-0">
+                <h5 th:text="${trip.getRoute().getDepartureTown().getName()} +'-' + ${trip.getRoute().getArrivalTown().getName()} + ' ' + ${trip.getPrice()}"></h5>
+            </div>
+            <div class="project-info-box">
+                <b>Created:</b>
+                <p th:text="${#calendars.format(trip.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Updated:</b>
+                <p th:text="${#calendars.format(trip.getUpdated(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Bus name:</b>
+                <p th:text="${trip.getBus().getName()}"></p>
+                <b>Departure:</b>
+                <p th:text="${#temporals.format(trip.getDeparture(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Arrival:</b>
+                <p th:text="${#temporals.format(trip.getArrival(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Drivers:</b><p th:text="${trip.driversJoinName}"></p>
+
+                <form action="#" th:action="@{'/admin/trips/assign/' + ${trip.getId()}}"
+                      method="post" enctype="multipart/form-data">
+                    <div class="form-group" style="margin-top: 10px">
+                        <label for="drivers">Select Drivers</label>
+                        <select class="form-control" id="drivers" name="drivers" th:value="${drivers}" multiple="multiple">
+                            <option th:each="driver : ${allDrivers}"
+                                    th:value="${driver.id}"
+                                    th:text="${driver.getFullName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                </form>
+            </div><!-- / project-info-box -->
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

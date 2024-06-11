@@ -1,107 +1,52 @@
 package ua.com.alevel.web.dto.trip;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.collections4.CollectionUtils;
 import ua.com.alevel.persistence.entity.Bus;
 import ua.com.alevel.persistence.entity.Promotion;
 import ua.com.alevel.persistence.entity.Route;
+import ua.com.alevel.persistence.entity.RouteV2;
 import ua.com.alevel.persistence.entity.Trip;
+import ua.com.alevel.persistence.entity.TripStatus;
+import ua.com.alevel.persistence.entity.TripV2;
+import ua.com.alevel.persistence.entity.user.Driver;
 import ua.com.alevel.web.dto.DtoResponse;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+
+@Getter
+@Setter
 public class TripResponseDto extends DtoResponse {
 
     private Bus bus;
-    private Route route;
-    private Date departure;
-    private Date arrival;
+    private RouteV2 route;
+    private LocalDateTime departure;
+    private LocalDateTime arrival;
     private Double price;
-    private Promotion promotion;
-    private Integer orderCount;
-    private Double finalPrice;
-    private Integer leftSeats;
+    private TripStatus status;
+    private int usedSeats;
+    private Set<Driver> drivers;
 
-    public TripResponseDto(Trip trip) {
-        super(trip.getId(), trip.getCreated(), trip.getUpdated(), trip.getVisible());
+    public TripResponseDto(TripV2 trip) {
+        super(trip.getId(), trip.getCreated(), trip.getUpdated(), true);
         this.bus = trip.getBus();
         this.route = trip.getRoute();
-        this.promotion = trip.getPromotion();
         this.departure = trip.getDeparture();
         this.arrival = trip.getArrival();
-        this.arrival = trip.getArrival();
-        this.orderCount = trip.getOrders().size();
         this.price = trip.getPrice();
-        this.leftSeats = trip.getLeftSeats();
+        this.usedSeats = trip.getUsedSeats();
+        this.status = trip.getTripStatus();
     }
 
-    public Integer getLeftSeats() {
-        return leftSeats;
-    }
-
-    public void setLeftSeats(Integer leftSeats) {
-        this.leftSeats = leftSeats;
-    }
-
-    public Bus getBus() {
-        return bus;
-    }
-
-    public void setBus(Bus bus) {
-        this.bus = bus;
-    }
-
-    public Route getRoute() {
-        return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
-
-    public Date getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(Date departure) {
-        this.departure = departure;
-    }
-
-    public Date getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(Date arrival) {
-        this.arrival = arrival;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Promotion getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
-    }
-
-    public Integer getOrderCount() {
-        return orderCount;
-    }
-
-    public void setOrderCount(Integer orderCount) {
-        this.orderCount = orderCount;
-    }
-
-    public Double getFinalPrice() {
-        return finalPrice;
-    }
-
-    public void setFinalPrice(Double finalPrice) {
-        this.finalPrice = finalPrice;
+    public String getDriversJoinName() {
+        if (CollectionUtils.isEmpty(drivers)) {
+            return "-";
+        }
+        return drivers.stream().map(Driver::getFullName).collect(Collectors.joining(", "));
     }
 }

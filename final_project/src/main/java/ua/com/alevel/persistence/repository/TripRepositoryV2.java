@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface TripRepositoryV2 extends BaseRepository<TripV2> {
 
-    @Query("select t from Trip t")
+    @Query("select t from TripV2 t")
     Page<TripV2> findAll(Pageable pageable);
     @Query(value = "select t from TripV2 t where t.bus.id=:id")
     Page<TripV2> findByBusId(@Param("id") Long busId, Pageable pageable);

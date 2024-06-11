@@ -16,7 +16,7 @@ import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.BookingStatus;
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.service.booking.BookingService;
-import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.service.user.ClientService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,7 +37,8 @@ public class ClientBookingController {
 
         Client currentClient = clientService.getCurrentClient();
 
-        BookingFilter filter = BookingFilter.builder().clientId(currentClient.getId())
+        BookingFilter filter = BookingFilter.builder()
+                .clientId(currentClient.getId())
                 .uuid(uuid)
                 .from(from)
                 .to(to)

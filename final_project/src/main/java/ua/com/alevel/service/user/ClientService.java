@@ -1,4 +1,4 @@
-package ua.com.alevel.service.client;
+package ua.com.alevel.service.user;
 
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.service.BaseService;

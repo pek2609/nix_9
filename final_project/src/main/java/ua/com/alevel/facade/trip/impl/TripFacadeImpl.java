@@ -6,6 +6,7 @@ import ua.com.alevel.facade.trip.TripFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Trip;
+import ua.com.alevel.persistence.entity.user.Driver;
 import ua.com.alevel.service.bus.BusService;
 import ua.com.alevel.service.promotion.PromotionService;
 import ua.com.alevel.service.route.RouteService;
@@ -20,7 +21,9 @@ import ua.com.alevel.web.dto.trip.TripRequestDto;
 import ua.com.alevel.web.dto.trip.TripResponseDto;
 import ua.com.alevel.web.dto.trip.TripSearchRequest;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,7 +61,7 @@ public class TripFacadeImpl implements TripFacade {
 
     @Override
     public TripResponseDto findById(Long id) {
-        return new TripResponseDto(tripService.findById(id));
+        return null;
     }
 
     @Override
@@ -74,6 +77,11 @@ public class TripFacadeImpl implements TripFacade {
         pageData.setItemsSize(all.getItemsSize());
         pageData.initPaginationState(pageData.getCurrentPage());
         return pageData;
+    }
+
+    @Override
+    public void patchDrivers(Long tripId, Set<Long> drivers) {
+
     }
 
     @Override
@@ -123,33 +131,35 @@ public class TripFacadeImpl implements TripFacade {
 
     @Override
     public List<TripResponseDto> findAllBySearch(TripSearchRequest tripSearchRequest) {
-        return tripService.findAllBySearch(tripSearchRequest).stream()
-                .map(TripResponseDto::new)
-                .peek(tripResponseDto -> tripResponseDto.setFinalPrice(
-                        PriceAndDateUtil.countPrice(
-                                tripSearchRequest.getAdults(),
-                                tripSearchRequest.getChildren(),
-                                tripResponseDto.getPrice(),
-                                tripResponseDto.getPromotion()))).collect(Collectors.toList());
+        return Collections.EMPTY_LIST;
+//        return tripService.findAllBySearch(tripSearchRequest).stream()
+//                .map(TripResponseDto::new)
+//                .peek(tripResponseDto -> tripResponseDto.setFinalPrice(
+//                        PriceAndDateUtil.countPrice(
+//                                tripSearchRequest.getAdults(),
+//                                tripSearchRequest.getChildren(),
+//                                tripResponseDto.getPrice(),
+//                                tripResponseDto.getPromotion()))).collect(Collectors.toList());
     }
 
     private List<TripResponseDto> mapItemsToDto(DataTableResponse<Trip> all) {
-        return all.getItems()
-                .stream()
-                .map(TripResponseDto::new)
-                .collect(Collectors.toList());
+        return Collections.EMPTY_LIST;
+//        return all.getItems()
+//                .stream()
+//                .map(TripResponseDto::new)
+//                .collect(Collectors.toList());
     }
 
     private Trip getTripFromDto(TripRequestDto tripRequestDto) {
         Trip trip = new Trip();
-        trip.setBus(busService.findById(tripRequestDto.getBus().getId()));
-        if (tripRequestDto.getPromotion() != null) {
-            trip.setPromotion(promotionService.findById(tripRequestDto.getPromotion().getId()));
-        }
-//        trip.setRoute(routeService.findById(tripRequestDto.getRoute().getId()));
-        trip.setDeparture(tripRequestDto.getDeparture());
-        trip.setArrival(tripRequestDto.getArrival());
-        trip.setPrice(tripRequestDto.getPrice());
+//        trip.setBus(busService.findById(tripRequestDto.getBus().getId()));
+//        if (tripRequestDto.getPromotion() != null) {
+//            trip.setPromotion(promotionService.findById(tripRequestDto.getPromotion().getId()));
+//        }
+////        trip.setRoute(routeService.findById(tripRequestDto.getRoute().getId()));
+//        trip.setDeparture(tripRequestDto.getDeparture());
+//        trip.setArrival(tripRequestDto.getArrival());
+//        trip.setPrice(tripRequestDto.getPrice());
         return trip;
     }
 

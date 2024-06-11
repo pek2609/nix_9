@@ -1,6 +1,7 @@
 package ua.com.alevel.web.controller.open;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +45,8 @@ public class OpenController {
 
     private final LoggerService loggerService;
     private final PromotionFacade promotionFacade;
+
+    @Qualifier("v2")
     private final TripFacade tripFacade;
     private final OrderFacade orderFacade;
     private final SecurityService securityService;
@@ -59,7 +62,7 @@ public class OpenController {
 
     @PostMapping("/tickets")
     public String ticketsRedirect(Model model, @Valid @ModelAttribute("search") TripSearchRequest tripSearchRequest, BindingResult bindingResult) {
-//        List<TripResponseDto> all = tripFacade.findAllBySearch(tripSearchRequest);
+        List<TripResponseDto> all = tripFacade.findAllBySearch(tripSearchRequest);
         List<SearchTripResult> results = tripServiceV2.searchTrips(tripSearchRequest);
         model.addAttribute("results", results);
         model.addAttribute("towns", townRepository.findAll());
@@ -96,7 +99,7 @@ public class OpenController {
         orderRequestDto.setAdults(adults);
         orderRequestDto.setChildren(children);
         orderRequestDto.setTrip(trip.getId());
-        orderRequestDto.setCheck(PriceAndDateUtil.countPrice(adults, children, trip.getPrice(), trip.getPromotion()));
+        orderRequestDto.setCheck(PriceAndDateUtil.countPrice(adults, children, trip.getPrice(), null));
         model.addAttribute("order", orderRequestDto);
         model.addAttribute("trip", trip);
         return "pages/open/order_new";

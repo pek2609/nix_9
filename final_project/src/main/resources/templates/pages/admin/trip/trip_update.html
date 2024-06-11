@@ -18,13 +18,14 @@
                     <h4>Update bus</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{'/trips/update/' + ${trip.getId()}}" th:object="${trip}"
+                    <form action="#" th:action="@{'/admin//trips/update/' + ${trip.getId()}}" th:object="${trip}"
                           method="post" enctype="multipart/form-data">
+                        <input type="hidden" th:field="*{usedSeats}">
                         <div class="form-group" style="margin-top: 10px">
                             <label for="bus">Select bus</label>
                             <select class="form-control" id="bus" th:field="*{bus.id}">
                                 <option th:each="bus : ${buses}"
-                                        th:value="${bus.getId()}"
+                                        th:value="${bus.id}"
                                         th:text="${bus.getName()}+'(' + ${bus.getSeats()}+' seats)'">
                                 </option>
                             </select>
@@ -36,18 +37,6 @@
                                         th:value="${route.id}"
                                         th:text="${route.getDepartureTown()}+ '-' + ${route.getArrivalTown()}">
                                 </option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" style="margin-top: 10px">
-                            <label for="promo">Select promo</label>
-                            <select class="form-control" id="promo" th:field="*{promotion}">
-                                <option th:value="${null}">No promo</option>
-                                <option th:each="promo : ${promotions}"
-                                        th:value="${promo.id}"
-                                        th:text="${promo.getName()}">
-                                </option>
-
                             </select>
                         </div>
                         <div class="form-group" style="margin-top: 10px">

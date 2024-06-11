@@ -8,7 +8,7 @@ import ua.com.alevel.exception.AlreadyExistEntity;
 import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.entity.user.Client;
-import ua.com.alevel.service.client.ClientService;
+import ua.com.alevel.service.user.ClientService;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

@@ -15,27 +15,30 @@
     <div class="container">
         <div class="row">
                 <div class="project-info-box mt-0">
-                    <h5 th:text="${trip.getRoute().getDepartureTown()} +'-' + ${trip.getRoute().getArrivalTown()} + ' ' + ${trip.getPrice()}"></h5>
+                    <h5 th:text="${trip.getRoute().getDepartureTown().getName()} +'-' + ${trip.getRoute().getArrivalTown().getName()} + ' ' + ${trip.getPrice()}"></h5>
                 </div>
                 <div class="project-info-box">
                     <b>Created:</b><p th:text="${#calendars.format(trip.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
                     <b>Updated:</b><p th:text="${#calendars.format(trip.getUpdated(),'dd MMMM yyyy hh:mm a')}"></p>
                     <b>Bus name:</b><p th:text="${trip.getBus().getName()}"></p>
-                    <b>Bus seats:</b><p th:text="${trip.getBus().getSeats()}"></p>
-                    <b>Promotion name:</b><p th:text="${trip.getPromotion()} == null ? '-' : ${trip.getPromotion().getName()}"></p>
-                    <b>Promotion percent:</b><p th:text="${trip.getPromotion()} == null ? '-' : ${trip.getPromotion().getPercent()}"></p>
-                    <b>Departure:</b><p th:text="${#calendars.format(trip.getDeparture(),'dd MMMM yyyy hh:mm a')}"></p>
-                    <b>Arrival:</b><p th:text="${#calendars.format(trip.getArrival(),'dd MMMM yyyy hh:mm a')}"></p>
+                    <b>Departure:</b><p th:text="${#temporals.format(trip.getDeparture(),'dd MMMM yyyy hh:mm a')}"></p>
+                    <b>Arrival:</b><p th:text="${#temporals.format(trip.getArrival(),'dd MMMM yyyy hh:mm a')}"></p>
+                    <b>Status:</b><p th:text="${trip.getStatus()}"></p>
                     <b>Price:</b><p th:text="${trip.getPrice()}"></p>
-                    <b>Order Count:</b><p th:text="${trip.getOrderCount()}"></p>
+                    <b>Used Seats:</b><p th:text="${trip.usedSeats} + '/' + ${trip.getBus().getSeats()}"></p>
+                    <b>Drivers:</b><p th:text="${trip.driversJoinName}"></p>
                     <div class="btn-toolbar mb-0">
                         <div class="item">
-                            <a th:href="@{'/trips/update/' + ${trip.getId()}}" type="button"
+                            <a th:href="@{'/admin/trips/update/' + ${trip.getId()}}" type="button"
                                     class="btn btn-dark mr-3">Update trip</a>
                         </div>
+                        <div class="item">
+                            <a th:href="@{'/admin/trips/assign/' + ${trip.getId()}}" type="button"
+                               class="btn btn-dark mr-3">Assign Drivers</a>
+                        </div>
                         <div class="item" style="margin-left: 3px">
-                            <a th:href="@{'/orders/all/trip/' + ${trip.getId()}}" type="button"
-                                    class="btn btn-dark mr-3">Show bookings</a>
+                            <a th:href="@{'/admin/trips/statistics/' + ${trip.getId()}}" type="button"
+                                    class="btn btn-dark mr-3">Show statistics</a>
                         </div>
                     </div>
                 </div><!-- / project-info-box -->
