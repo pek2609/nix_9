@@ -17,6 +17,6 @@ public class DifferentTownsValidator implements ConstraintValidator<DifferentTow
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
         RouteRequestDto route = (RouteRequestDto) o;
-        return !route.getDepartureTown().name().equals(route.getArrivalTown().name());
+        return !route.getDepartureTownId().equals(route.getArrivalTownId());
     }
 }

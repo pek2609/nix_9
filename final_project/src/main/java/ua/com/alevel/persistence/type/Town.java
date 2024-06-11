@@ -1,5 +1,6 @@
 package ua.com.alevel.persistence.type;
 
+@Deprecated
 public enum Town {
 
     KHARKIV,

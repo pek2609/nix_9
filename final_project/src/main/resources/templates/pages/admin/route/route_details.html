@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/admin_layout}">
+      layout:decorate="~{layout_new}">
 <head>
     <meta charset="utf-8">
     <link href="/css/bus_details.css" rel="stylesheet">
@@ -10,34 +10,39 @@
 </head>
 <body>
 
-<div layout:fragment="admin_content">
+<div layout:fragment="content">
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
+            <div class="col-md-5">
                 <div class="project-info-box mt-0">
-                    <h5 th:text="${route.getRoute()}"></h5>
+                    <h5 th:text="${route.departureTown.name} + ' ' + ${route.arrivalTown.name}"></h5>
                 </div>
 
                 <div class="project-info-box">
                     <b>Created:</b><p th:text="${#calendars.format(route.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
                     <b>Updated:</b><p th:text="${#calendars.format(route.getUpdated(),'dd MMMM yyyy hh:mm a')}"></p>
-                    <b>Departure Town:</b><p th:text="${route.getDepartureTown()}"></p>
-                    <b>Arrival Town:</b><p th:text="${route.getArrivalTown()}"></p>
-                    <b>Trip Count:</b><p th:text="${route.getTripCount()}"></p>
+                    <b>Description:</b><p th:text="${route.description}"></p>
+                    <b>Departure Town:</b><p th:text="${route.getDepartureTown().name}"></p>
+                    <b>Arrival Town:</b><p th:text="${route.getArrivalTown().name}"></p>
                     <div class="btn-toolbar mb-0">
                         <div class="item">
-                            <a th:href="@{'/routes/update/' + ${route.getId()}}" type="button"
-                                    class="btn btn-dark mr-3">Update route</a>
+                            <a th:href="@{'/admin/routes/update/' + ${route.getId()}}" type="button"
+                               class="btn btn-dark mr-3">Update route</a>
                         </div>
                         <div class="item" style="margin-left: 3px">
                             <a th:href="@{'/trips/all/route/' + ${route.getId()}}" type="button"
-                                    class="btn btn-dark mr-3">Show trips</a>
+                               class="btn btn-dark mr-3">Show trips</a>
                         </div>
                     </div>
                 </div><!-- / project-info-box -->
+            </div><!-- / column -->
+
+            <div class="col-md-7">
+                <img th:src="${route.imagePath}" height="500px" alt="project-image" class="project-image rounded">
+            </div><!-- / column -->
         </div>
     </div>
-
 </div>
 </div>
 </body>

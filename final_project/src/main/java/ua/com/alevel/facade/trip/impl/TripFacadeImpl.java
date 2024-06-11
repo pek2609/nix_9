@@ -146,7 +146,7 @@ public class TripFacadeImpl implements TripFacade {
         if (tripRequestDto.getPromotion() != null) {
             trip.setPromotion(promotionService.findById(tripRequestDto.getPromotion().getId()));
         }
-        trip.setRoute(routeService.findById(tripRequestDto.getRoute().getId()));
+//        trip.setRoute(routeService.findById(tripRequestDto.getRoute().getId()));
         trip.setDeparture(tripRequestDto.getDeparture());
         trip.setArrival(tripRequestDto.getArrival());
         trip.setPrice(tripRequestDto.getPrice());

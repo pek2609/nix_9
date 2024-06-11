@@ -5,6 +5,7 @@ import ua.com.alevel.persistence.type.Town;
 import javax.persistence.*;
 import java.util.List;
 
+@Deprecated
 @Entity
 @Table(name = "routes", uniqueConstraints = {@UniqueConstraint(columnNames = {"departure_town", "arrival_town"})})
 public class Route extends BaseEntity {

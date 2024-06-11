@@ -7,6 +7,8 @@ import ua.com.alevel.facade.route.RouteFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Route;
+import ua.com.alevel.persistence.entity.RouteV2;
+import ua.com.alevel.persistence.entity.Town;
 import ua.com.alevel.service.route.RouteService;
 import ua.com.alevel.util.FacadeUtil;
 import ua.com.alevel.util.WebRequestUtil;
@@ -30,19 +32,13 @@ public class RouteFacadeImpl implements RouteFacade {
 
     @Override
     public void create(RouteRequestDto routeRequestDto) {
-        Route route = getRouteFromDto(routeRequestDto);
-        if (routeService.existsByDepartureTownAndArrivalTown(routeRequestDto.getDepartureTown(), routeRequestDto.getArrivalTown())) {
-            throw new AlreadyExistEntity("this root is already exist");
-        }
+        RouteV2 route = getRouteFromDto(routeRequestDto);
         routeService.create(route);
     }
 
     @Override
     public void update(RouteRequestDto routeRequestDto, Long id) {
-        Route route = getRouteFromDto(routeRequestDto);
-        if (routeService.existsByDepartureTownAndArrivalTown(routeRequestDto.getDepartureTown(), routeRequestDto.getArrivalTown())) {
-            throw new AlreadyExistEntity("this root is already exist");
-        }
+        RouteV2 route = getRouteFromDto(routeRequestDto);
         route.setId(id);
         routeService.update(route);
     }
@@ -63,7 +59,8 @@ public class RouteFacadeImpl implements RouteFacade {
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
 
-        DataTableResponse<Route> all = routeService.findAll(dataTableRequest);
+        DataTableResponse<RouteV2> all = routeService.findAll(dataTableRequest);
+
         List<RouteResponseDto> buses = all.getItems()
                 .stream()
                 .map(RouteResponseDto::new)
@@ -80,10 +77,14 @@ public class RouteFacadeImpl implements RouteFacade {
         return routeService.findAll().stream().map(RouteResponseDto::new).toList();
     }
 
-    private Route getRouteFromDto(RouteRequestDto routeRequestDto) {
-        Route route = new Route();
-        route.setArrivalTown(routeRequestDto.getArrivalTown());
-        route.setDepartureTown(routeRequestDto.getDepartureTown());
+    private RouteV2 getRouteFromDto(RouteRequestDto routeRequestDto) {
+        RouteV2 route = new RouteV2();
+        Town departureTown = new Town(routeRequestDto.getDepartureTownId());
+        Town arrivalTown = new Town(routeRequestDto.getArrivalTownId());
+        route.setDepartureTown(departureTown);
+        route.setArrivalTown(arrivalTown);
+        route.setDescription(routeRequestDto.getDescription());
+        route.setImagePath(routeRequestDto.getImagePath());
         return route;
     }
 }

@@ -22,6 +22,10 @@ import javax.persistence.Table;
 @Data
 public class Town extends BaseEntity {
 
+    public Town(Long id) {
+        this.setId(id);
+    }
+
     @Column(name = "name", nullable = false)
     private String name;
 

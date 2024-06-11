@@ -7,19 +7,21 @@
     <meta charset="utf-8">
     <title>groups</title>
 </head>
-<body style="padding-top: 50px">
+<body>
     <div layout:fragment="data_table_content">
         <tr th:each="route,iter : ${pageData.getItems()}">
             <td th:text="${iter.count}"></td>
-            <td th:text="${route.getDepartureTown()}"></td>
-            <td th:text="${route.getArrivalTown()}"></td>
-            <td th:text="${route.getTripCount()}"></td>
             <td>
-                <a th:href="@{'/routes/details/' + ${route.getId()}}" type="button"
+                <img th:src="@{${route.imagePath}}"  width="70" height="50" alt="route_img"/>
+            </td>
+            <td th:text="${route.departureTown.name}"></td>
+            <td th:text="${route.arrivalTown.name}"></td>
+            <td>
+                <a th:href="@{'/admin/routes/details/' + ${route.getId()}}" type="button"
                    class="btn btn-primary">details</a>
             </td>
             <td>
-                <a th:href="@{'/routes/delete/' + ${route.getId()}}" type="button" class="btn btn-danger">delete</a>
+                <a th:href="@{'/admin/routes/delete/' + ${route.getId()}}" type="button" class="btn btn-danger">delete</a>
             </td>
         </tr>
     </div>

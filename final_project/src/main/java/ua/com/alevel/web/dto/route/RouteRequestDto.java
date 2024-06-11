@@ -1,34 +1,30 @@
 package ua.com.alevel.web.dto.route;
 
-import ua.com.alevel.persistence.type.Town;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ua.com.alevel.util.Messages;
 import ua.com.alevel.validated.annotation.DifferentTowns;
 import ua.com.alevel.web.dto.DtoRequest;
 
 import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
 @DifferentTowns
+@AllArgsConstructor
+@NoArgsConstructor
 public class RouteRequestDto extends DtoRequest {
 
     @NotNull(message = Messages.NOT_NULL)
-    private Town departureTown;
+    private Long departureTownId;
 
     @NotNull(message = Messages.NOT_NULL)
-    private Town arrivalTown;
+    private Long arrivalTownId;
 
-    public Town getDepartureTown() {
-        return departureTown;
-    }
+    @NotNull(message = Messages.NOT_NULL)
+    private String description;
 
-    public void setDepartureTown(Town departureTown) {
-        this.departureTown = departureTown;
-    }
-
-    public Town getArrivalTown() {
-        return arrivalTown;
-    }
-
-    public void setArrivalTown(Town arrivalTown) {
-        this.arrivalTown = arrivalTown;
-    }
+    private String imagePath;
 }

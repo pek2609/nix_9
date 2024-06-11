@@ -73,12 +73,13 @@ public class PromotionFacadeImpl implements PromotionFacade {
         return pageData;
     }
 
+    @Deprecated
     @Override
     public List<PromotionResponseDto> findAll() {
         List<PromotionResponseDto> all = new ArrayList<>();
         for (Promotion promotion : promotionService.findAll()) {
             PromotionResponseDto promotionResponseDto = new PromotionResponseDto(promotion);
-            promotionResponseDto.setRoutes(routeService.findAllByTripsGroupsByRoute(promotion.getTrips()));
+//            promotionResponseDto.setRoutes(routeService.findAllByTripsGroupsByRoute(promotion.getTrips()));
             all.add(promotionResponseDto);
         }
         return all;
