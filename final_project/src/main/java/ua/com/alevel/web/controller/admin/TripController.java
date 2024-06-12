@@ -21,12 +21,14 @@ import ua.com.alevel.persistence.entity.user.Driver;
 import ua.com.alevel.service.bus.BusService;
 import ua.com.alevel.service.promotion.PromotionService;
 import ua.com.alevel.service.route.v2.RouteServiceV2;
+import ua.com.alevel.service.trip.v2.TripServiceV2;
 import ua.com.alevel.service.user.DriverService;
 import ua.com.alevel.validated.annotation.ValidId;
 import ua.com.alevel.web.controller.BaseController;
 import ua.com.alevel.web.dto.datatable.PageData;
 import ua.com.alevel.web.dto.trip.TripRequestDto;
 import ua.com.alevel.web.dto.trip.TripResponseDto;
+import ua.com.alevel.web.dto.trip.TripStatisticsDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,6 +43,7 @@ public class TripController extends BaseController {
 
     @Qualifier("v2")
     private final TripFacade tripFacade;
+    private final TripServiceV2 tripServiceV2;
     private final BusService busService;
     private final RouteServiceV2 routeService;
     private final PromotionService promotionService;
@@ -74,6 +77,13 @@ public class TripController extends BaseController {
         TripResponseDto dto = tripFacade.findById(id);
         model.addAttribute("trip", dto);
         return "pages/admin/trip/trip_details";
+    }
+
+    @GetMapping("/statistics/{id}")
+    public String getTripStatistics(@PathVariable @ValidId Long id, Model model) {
+        TripStatisticsDto tripStatistics = tripServiceV2.getTripStatistics(id);
+        model.addAttribute("tripStatistics", tripStatistics);
+        return "pages/admin/trip/trip_statistics";
     }
 
     @GetMapping("/new")

@@ -2,6 +2,8 @@ package ua.com.alevel.util;
 
 import ua.com.alevel.persistence.entity.Promotion;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +18,10 @@ public final class PriceAndDateUtil {
     private static final String EMPTY_PLACEHOLDER = "-";
 
     private PriceAndDateUtil() {
+    }
+
+    public static double roundDouble(double value, int scale) {
+        return new BigDecimal(value).setScale(scale, RoundingMode.HALF_UP).doubleValue();
     }
 
     public static String formatLocalDateTime(LocalDateTime localDateTime) {

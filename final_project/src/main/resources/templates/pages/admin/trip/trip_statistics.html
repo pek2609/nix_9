@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_new}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bus_details.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+    <title>Details Bus</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Trip Statistics</h1>
+
+        <!-- Block for Trip Information -->
+        <div class="card mb-3">
+            <div class="card-header">Trip Information</div>
+            <div class="card-body">
+                <p>Route: <span
+                        th:text="${tripStatistics.tripResponseDto.route.departureTown.name} + ' to ' + ${tripStatistics.tripResponseDto.route.arrivalTown.name}"></span>
+                </p>
+                <p>Departure Date: <span th:text="${#temporals.format(tripStatistics.tripResponseDto.getDeparture(),'dd MMMM yyyy hh:mm a')}"></span></p>
+                <p>Arrival Date: <span th:text="${#temporals.format(tripStatistics.tripResponseDto.getArrival(), 'dd MMMM yyyy hh:mm a')}"></span></p>
+                <p>Status: <span th:text="${tripStatistics.tripResponseDto.getStatus()}"></span></p>
+                <p>Used Seats: <span th:text="${tripStatistics.tripResponseDto.usedSeats} + '/' + ${tripStatistics.tripResponseDto.bus.seats}"></span></p>
+            </div>
+        </div>
+
+        <!-- Block for Booking Statistics -->
+        <div class="card mb-3">
+            <div class="card-header">Booking Statistics</div>
+            <div class="card-body">
+                <p>Total Bookings: <span th:text="${tripStatistics.bookingCount}"></span></p>
+                <p>Confirmed Bookings: <span
+                        th:text="${tripStatistics.confirmedBookingCount} + ' (' + ${tripStatistics.confirmedBookingPercent} + '%)'"></span></p>
+                <p>New Bookings: <span th:text="${tripStatistics.newBookingCount} + ' (' + ${tripStatistics.newBookingPercent} + '%)'"></span></p>
+                <p>Canceled Bookings: <span
+                        th:text="${tripStatistics.canceledBookingCount} + ' (' + ${tripStatistics.canceledBookingPercent} + '%)'"></span></p>
+            </div>
+        </div>
+
+        <!-- Block for Passenger Statistics -->
+        <div class="card mb-3">
+            <div class="card-header">Passenger Statistics</div>
+            <div class="card-body">
+                <p>Total Passengers: <span th:text="${tripStatistics.passengersCount}"></span></p>
+                <p>Adults: <span th:text="${tripStatistics.adultsCount} + ' (' + ${tripStatistics.adultsPercent} + '%)'"></span></p>
+                <p>Children: <span th:text="${tripStatistics.childrenCount} + ' (' + ${tripStatistics.childrenPercent} + '%)'"></span></p>
+                <p>Present: <span th:text="${tripStatistics.presentCount} + ' (' + ${tripStatistics.presentPercent} + '%)'"></span></p>
+                <p>Not Present: <span th:text="${tripStatistics.nonPresentCount} + ' (' + ${tripStatistics.nonPresentPercent}  + '%)'"></span></p>
+                <p>Not Marked: <span th:text="${tripStatistics.nonMarkedPresentCount} + ' (' + ${tripStatistics.nonMarkedPresentPercent} + '%)'"></span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Block for Passenger List -->
+        <div class="card">
+            <div class="card-header">Passenger List</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li th:each="passenger : ${tripStatistics.passengerList}" class="list-group-item">
+                        <span th:text="${passenger.fullName}"></span>
+                        <span> - </span>
+                        <span class="fw-bold" th:text="${passenger.booking.uuid}"></span>
+                        <span th:if="${passenger.present == null}">Not Marked</span>
+                        <span th:if="${passenger.present == true}">Present</span>
+                        <span th:if="${passenger.present == false}">Not Present</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2">
+        <div class="row">
+            <div class="btn-toolbar mb-0">
+                <div class="item" style="margin-left: 3px">
+                    <a th:href="@{'/admin/trips/details/' + ${tripStatistics.getTripResponseDto().getId()}}"
+                       type="button"
+                       class="btn btn-danger mr-3">Back to Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
