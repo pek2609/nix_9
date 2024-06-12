@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bus_details.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+          integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+    <title>Details booking</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="container">
+        <div class="row">
+            <div class="project-info-box mt-0">
+                <h5 th:text="'Booking №'+ ${booking.getUuid()}"></h5>
+            </div>
+            <div class="project-info-box">
+                <b>Created:</b>
+                <p th:text="${#calendars.format(booking.getCreated(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Updated:</b>
+                <p th:text="${#calendars.format(booking.getUpdated(),'dd MMMM yyyy hh:mm a')}"></p>
+                <b>Status:</b>
+                <p th:text="${booking.getStatus()}"></p>
+                <b>Trip:</b>
+                <p><a th:text="${booking.getTrip().getTripShortInfo()}"
+                      th:href="@{'/admin/trips/details/'+${booking.getTrip().getId()}}"></a></p>
+                <b>Email:</b>
+                <p th:text="${booking.getEmail()}"></p>
+                <b>Phone Number:</b>
+                <p th:text="${booking.getPhoneNumber()}"></p>
+                <b>Adults:</b>
+                <p th:text="${booking.getAdults()}"></p>
+                <b>Children:</b>
+                <p th:text="${booking.getChildren()}"></p>
+                <b>Total Price:</b>
+                <p th:text="${booking.getTotalPrice()} + 'UAH'"></p>
+                <b>Passengers:</b>
+                <p th:text="${booking.getPassengersInfo()}"></p>
+            </div><!-- / project-info-box -->
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

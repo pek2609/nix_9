@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.exception.CustomBadRequestException;
 import ua.com.alevel.filter.BookingFilter;
+import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.BookingStatus;
 import ua.com.alevel.persistence.entity.Passenger;
@@ -38,6 +41,12 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final TripServiceV2 tripServiceV2;
     private final EmailService emailService;
+    private final CrudRepositoryHelper<Booking, BookingRepository> crudRepositoryHelper;
+
+    @Override
+    public DataTableResponse<Booking> findAll(DataTableRequest dataTableRequest) {
+        return crudRepositoryHelper.findAll(bookingRepository, dataTableRequest);
+    }
 
     @Transactional
     @Override

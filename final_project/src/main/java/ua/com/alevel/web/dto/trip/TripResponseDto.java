@@ -4,17 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.collections4.CollectionUtils;
 import ua.com.alevel.persistence.entity.Bus;
-import ua.com.alevel.persistence.entity.Promotion;
-import ua.com.alevel.persistence.entity.Route;
 import ua.com.alevel.persistence.entity.RouteV2;
-import ua.com.alevel.persistence.entity.Trip;
 import ua.com.alevel.persistence.entity.TripStatus;
 import ua.com.alevel.persistence.entity.TripV2;
 import ua.com.alevel.persistence.entity.user.Driver;
+import ua.com.alevel.util.PriceAndDateUtil;
 import ua.com.alevel.web.dto.DtoResponse;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,5 +45,10 @@ public class TripResponseDto extends DtoResponse {
             return "-";
         }
         return drivers.stream().map(Driver::getFullName).collect(Collectors.joining(", "));
+    }
+
+    public String getTripShortInfo() {
+        String routeName = this.getRoute().getDepartureTown().getName() + " " + this.getRoute().getArrivalTown().getName();
+        return routeName + " " + PriceAndDateUtil.formatLocalDateTime(this.getDeparture());
     }
 }

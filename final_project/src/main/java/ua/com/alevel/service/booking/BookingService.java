@@ -3,6 +3,8 @@ package ua.com.alevel.service.booking;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ua.com.alevel.filter.BookingFilter;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.RouteV2;
 import ua.com.alevel.persistence.entity.user.Client;
@@ -13,6 +15,7 @@ import java.util.Optional;
 
 public interface BookingService {
 
+    DataTableResponse<Booking> findAll(DataTableRequest dataTableRequest);
     Booking createBooking(BookingRequestDto bookingRequestDto);
     Booking confirmBooking(Booking booking);
     Booking cancelBooking(Booking booking);

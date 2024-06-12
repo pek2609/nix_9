@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>Bookings</title>
+</head>
+<body>
+    <div layout:fragment="data_table_content">
+        <tr th:each="booking,iter : ${pageData.getItems()}">
+            <td th:text="${iter.count}"></td>
+            <td th:text="${booking.uuid}"></td>
+            <td th:text="${booking.status}"></td>
+            <td th:text="${booking.getEmail()}"></td>
+            <td th:text="${booking.getPhoneNumber()}"></td>
+            <td ><a th:text="${booking.getTrip().getTripShortInfo()}" th:href="@{'/admin/trips/details/'+${booking.getTrip().getId()}}"></a></td>
+            <td th:text="${booking.getAdults()} + ' adults, ' + ${booking.getChildren()} + ' children'"></td>
+            <td th:text="${booking.getTotalPrice()} + 'UAH'"></td>
+            <td>
+                <a th:href="@{'/admin/bookings/details/' + ${booking.getId()}}" type="button"
+                   class="btn btn-primary">details</a>
+            </td>
+        </tr>
+    </div>
+</body>
+</html>
