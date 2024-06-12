@@ -8,9 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.entity.Trip;
 import ua.com.alevel.persistence.entity.TripV2;
+import ua.com.alevel.persistence.entity.user.Driver;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public interface TripRepositoryV2 extends BaseRepository<TripV2> {
 
@@ -27,6 +29,8 @@ public interface TripRepositoryV2 extends BaseRepository<TripV2> {
             "at.id=:arrivalTownId and " +
             "DATE(t.departure) =:departure and (b.seats - t.usedSeats) >= :needSeats")
     List<TripV2> findBySearch(Long departureTownId, Long arrivalTownId, Date departure, int needSeats);
+
+    List<TripV2> getTripV2ByDriversContains(Driver driver);
 
 
     @Modifying

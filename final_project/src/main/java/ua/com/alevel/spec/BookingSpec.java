@@ -1,5 +1,6 @@
 package ua.com.alevel.spec;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.BookingStatus;
@@ -13,6 +14,10 @@ public class BookingSpec {
     public static Specification<Booking> userIdEquals(Long clientId) {
         return (root, query, criteriaBuilder) -> clientId == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("user").get("id"), clientId);
     }
+
+    public static Specification<Booking> tripIdEquals(Long tripId) {
+        return (root, query, criteriaBuilder) -> tripId == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("trip").get("id"), tripId);
+    }
     public static Specification<Booking> statusEquals(BookingStatus bookingStatus) {
         return (root, query, criteriaBuilder) -> bookingStatus == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("status"), bookingStatus);
     }
@@ -21,6 +26,12 @@ public class BookingSpec {
         return (root, query, criteriaBuilder) ->
                 uuid == null ? criteriaBuilder.conjunction() :
                         criteriaBuilder.like(root.get("uuid"), "%" + uuid + "%");
+    }
+
+    public static Specification<Booking> hasPhoneLike(String phone) {
+        return (root, query, criteriaBuilder) ->
+                StringUtils.isBlank(phone) ? criteriaBuilder.conjunction() :
+                        criteriaBuilder.like(root.get("phoneNumber"), "%" + phone + "%");
     }
 
     public static Specification<Booking> departureAfter(LocalDate from) {

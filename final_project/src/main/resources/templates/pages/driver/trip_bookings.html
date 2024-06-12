@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_new}">
+<head>
+    <meta charset="utf-8">
+    <title>groups</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-3">
+        <h1 class="mb-4">Bookings for the Trip</h1>
+
+        <!-- Search Form -->
+        <form th:action="${#httpServletRequest.requestURI}" method="get" class="mb-4">
+            <div class="form-group">
+                <input type="text" class="form-control" name="searchPhone" th:value="${searchPhone}" placeholder="Search by phone number" aria-label="Search">
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </div>
+        </form>
+
+        <!-- No Bookings Found Message -->
+        <div th:if="${tripBookings.isEmpty()}">
+            <div class="alert alert-info">No Bookings found yet.</div>
+        </div>
+
+        <div th:each="booking : ${tripBookings}" class="card mb-3">
+            <div class="card-header">
+                <h2 class="h5">Booking Details</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Email: <span th:text="${booking.email}"></span></p>
+                        <p>Phone: <span th:text="${booking.phoneNumber}"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Passengers: <span th:text="${booking.adults} +' adults, ' + ${booking.children} + ' children'"></span></p>
+                        <p>Total Price: <span th:text="${booking.totalPrice} + ' UAH'"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <h3 class="h6">Passenger List</h3>
+                <ul class="list-group list-group-flush">
+                    <li th:each="passenger : ${booking.passengers}" class="list-group-item py-1 d-flex justify-content-between align-items-center">
+                        <span th:text="${passenger.firstName} + ' ' + ${passenger.lastName}"></span>
+                        <div th:if="${showPresenceCheckBox}" class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" th:id="'switch' + ${passenger.id}" th:checked="${passenger.present}">
+                            <label class="custom-control-label" th:for="'switch' + ${passenger.id}">Present</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -18,4 +18,5 @@ public class BookingFilter {
     private boolean fetchHistory;
     private Long clientId;
     private BookingStatus status;
+    private String phone;
 }

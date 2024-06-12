@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_new}">
+<head>
+    <meta charset="utf-8">
+    <title>groups</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <h1>Assigned to Me Trips</h1>
+        <!-- No Bookings Found Message -->
+        <div th:if="${driverTrips.isEmpty()}">
+            <div class="alert alert-info">No trips found.</div>
+        </div>
+        <!-- Bookings Display -->
+        <div class="mt-4" th:each="trip : ${driverTrips}">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"
+                        th:text="${trip.route.departureTown.name} + ' - ' + ${trip.route.arrivalTown.name}">
+                        Trip Route</h5>
+                    <p><strong>Departure:</strong> <span
+                            th:text="${#temporals.format(trip.departure, 'dd.MM.yyyy HH:mm')}">Departure Time</span>
+                    </p>
+                    <p><strong>Arrival:</strong> <span
+                            th:text="${#temporals.format(trip.arrival, 'dd.MM.yyyy HH:mm')}">Arrival Time</span>
+                    </p>
+                    <p><strong>Bus:</strong> <span
+                            th:text="${trip.getBus().getName()}">Bus</span>
+                    </p>
+                    <p><strong>Status:</strong> <span
+                            th:text="${trip.getTripStatus()}">Bus</span>
+                    </p>
+                    <p><strong>Used Seats:</strong> <span
+                            th:text="${trip.getUsedSeats() + '/' + trip.getBus().getSeats()}">Used Seats</span>
+                    </p>
+                    <!-- Detail Button -->
+                    <a th:href="@{'/driver/trips/' + ${trip.id} + '/bookings'}" class="btn btn-info">View Bookings</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

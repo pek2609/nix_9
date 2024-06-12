@@ -47,6 +47,9 @@ public class AuthController extends BaseController {
             if (SecurityUtil.hasRole(Role.ROLE_CLIENT.name())) {
                 return "redirect:/open/tickets";
             }
+            if (SecurityUtil.hasRole(Role.ROLE_DRIVER.name())) {
+                return "redirect:/driver/trips";
+            }
         }
         if (error != null) {
             showError(model, "Your email and password is invalid.");

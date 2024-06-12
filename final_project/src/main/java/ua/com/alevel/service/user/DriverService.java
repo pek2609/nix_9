@@ -8,4 +8,6 @@ import java.util.List;
 public interface DriverService {
 
     List<Driver> getAvailableDrivers(LocalDateTime departure, LocalDateTime arrival);
+
+    Driver getCurrentDriver();
 }

@@ -8,6 +8,7 @@ import ua.com.alevel.persistence.entity.RouteV2;
 import ua.com.alevel.persistence.entity.user.Client;
 import ua.com.alevel.web.dto.BookingRequestDto;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BookingService {
@@ -22,6 +23,7 @@ public interface BookingService {
 
     Page<Booking> findAllByFilter(BookingFilter bookingFilter, Pageable pageable);
 
+    List<Booking> getBookingsByTrip(Long tripId, String searchPhone);
 
     void sendBookingConfirmedNotification(Booking booking);
 

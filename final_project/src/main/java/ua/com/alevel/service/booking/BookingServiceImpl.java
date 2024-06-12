@@ -24,6 +24,7 @@ import ua.com.alevel.web.dto.BookingRequestDto;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -112,6 +113,16 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Page<Booking> findAllByFilter(BookingFilter bookingFilter, Pageable pageable) {
         return bookingRepository.findAll(filterToSpec(bookingFilter), pageable);
+    }
+
+    @Override
+    public List<Booking> getBookingsByTrip(Long tripId, String searchPhone) {
+        if (tripId == null) {
+            return Collections.emptyList();
+        }
+        Specification<Booking> where = Specification.where(BookingSpec.tripIdEquals(tripId))
+                        .and(BookingSpec.hasPhoneLike(searchPhone));
+        return bookingRepository.findAll(where);
     }
 
     @Async

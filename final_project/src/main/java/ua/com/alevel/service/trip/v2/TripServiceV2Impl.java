@@ -3,16 +3,17 @@ package ua.com.alevel.service.trip.v2;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alevel.logger.LoggerLevel;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.TripStatus;
 import ua.com.alevel.persistence.entity.TripV2;
+import ua.com.alevel.persistence.entity.user.Driver;
 import ua.com.alevel.persistence.repository.TripRepositoryV2;
 import ua.com.alevel.web.dto.trip.TripSearchRequest;
 
 import java.sql.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,16 @@ public class TripServiceV2Impl implements TripServiceV2 {
     @Override
     public SearchTripResult prepareTripSearchResult(Long tripId, Integer adults, Integer children) {
         return SearchTripResult.from(findById(tripId), adults, children);
+    }
+
+    @Override
+    public List<TripV2> getDriverTrips(Driver driver) {
+        if (driver == null) {
+            return Collections.emptyList();
+        }
+        return tripRepository.getTripV2ByDriversContains(driver).stream()
+                .filter(tripV2 -> tripV2.getTripStatus() != TripStatus.COMPLETED)
+                .collect(Collectors.toList());
     }
 
     @Transactional
